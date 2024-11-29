@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+
+  }
+  
+  body {
+    font-family: "Arial", sans-serif;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.242); 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo img {
+    height: 40px;
+  }
+  
+  .nav-tabs {
+    display: flex;
+    margin-left: 20px;
+  }
+  
+  .tab_link {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+ 
+  
+  .nav-tabs a {
+  position: relative;
+  color: black;
+  
+  }
+  .nav-tabs a::before {
+     content :'';
+     position: absolute;
+     top: 100%;
+     width: 0%;
+     left: 0;
+     height: 2px;
+     background: #4EB7AC;
+      transition: .3s; 
+  
+  }
+  
+  .nav-tabs  a:hover::before {
+     
+      width: 100%;
+   
+   
+   
+       }  
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+  }
+  .header-center {
+      display: flex;
+      align-items: center;
+    }
+    .LOGIN {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #333;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-weight: bold;
+
+      }
+     
+  
+      .SIGNUP {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #333;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-weight: bold;
+        background-color: white;
+
+      }
+      .SIGNUP:hover {
+       
+        background-color: #4EB7AC;
+
+      }
+      .LOGIN:hover {
+    
+        background-color: #4EB7AC;
+      }
+     
+  
+     
+      .tab img {
+        height: 35px;
+        width: 35px;
+        object-fit: cover;
+      }
