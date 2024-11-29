@@ -1,5 +1,5 @@
 import React from "react";
-import "./Home_Nav_Bar.css";
+import "../Style/Home_Nav_Bar.css";
 
 const Header = () => {
   return (
