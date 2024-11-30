@@ -1,11 +1,12 @@
 import Header from "./Components/Home_Nav_Bar";
+import Footer from "./Components/Footer.jsx";
+import './App.css';
+import Destination from "./Components/Destinations/Destinations.jsx";
+import Home from "./Components/Home/Home.jsx";
+
 
 export default function App() {
   return (
-    <h1 className="text-3xl font-bold  text-primary text-center mt-20 underline">
-      WELCOME TO VOYAJA CODE 
-      <Header/>
-     
-    </h1>
+      <Home/>     
   )
 }
