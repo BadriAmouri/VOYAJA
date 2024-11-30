@@ -1,0 +1,60 @@
+/* Custom DatePicker Styles */
+.react-datepicker {
+  border: 1px solid #4EB7AC;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.react-datepicker__header {
+  background-color: #ffffff;
+  color: #fff;
+  border-bottom: 1px solid #4EB7AC;
+  
+}
+
+.react-datepicker__day {
+  color: #000;
+ 
+}
+
+.react-datepicker__day:hover {
+  background-color: #63cbc1;
+  border-radius: 50%;
+  color: #fff;
+}
+
+.react-datepicker__day--selected {
+  background-color: #4EB7AC;
+  color: white;
+  border-radius: 50%;
+}
+
+.react-datepicker__current-month {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #000;
+}
+.react-datepicker__navigation {
+    margin-top: 6px;
+
+}
+.react-datepicker__navigation--previous {
+    border-right-color: #63cbc1; /* Change color of left arrow */
+  }
+  
+  .react-datepicker__navigation--next {
+    border-left-color: #63cbc1; /* Change color of right arrow */
+  }
+
+  .react-datepicker-wrapper {
+    display: block; /* Override inline styles from DatePicker */
+    width: 100%;    /* Match the width of the parent container */
+  }
+  
+.react-datepicker__input-container input {
+    width: 100%; /* Ensure the input spans the full width */
+}
+.custom-align {
+    position: relative;
+    left: -19px; /* Adjust as needed */
+  }
