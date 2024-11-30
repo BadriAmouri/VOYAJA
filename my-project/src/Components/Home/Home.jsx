@@ -28,7 +28,6 @@ const Home = () => {
         <BestDestinations/>
         <TrendingSection/>
         <Reviews/>
-        <Footer/>
         </div></>
     )
 }

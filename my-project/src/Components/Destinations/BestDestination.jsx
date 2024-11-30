@@ -1,5 +1,6 @@
 import React from 'react';
 import DestinationCard from './Destinations.jsx';
+import '../../Style/Destinations.css';
 
 import dest1 from '../../assets/HomePics/dest1.jpg';
 import dest2 from '../../assets/HomePics/dest2.jpg';

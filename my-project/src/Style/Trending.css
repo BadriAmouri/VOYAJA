@@ -1,7 +1,9 @@
+/* Trending Card Styles */
 .trending-card {
-    width: 370px;
-    height: 370px;
-    padding: 0px;
+    max-width: 370px;
+    width: 100%;
+    aspect-ratio: 1;
+    padding: 0;
     gap: 16px;
     border-radius: 16px;
     opacity: 1;
@@ -9,10 +11,10 @@
     flex-direction: column;
     align-items: center;
     background-color: black;
-    box-shadow: 0 4px 6px #00000033;
-    margin: 10px;
-    position: relative; 
-    overflow: hidden; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin: 10px auto;
+    position: relative;
+    overflow: hidden;
 }
 
 .trentrencard-image {
@@ -21,26 +23,27 @@
     object-fit: cover;
     border-radius: 16px;
     z-index: 1;
-    filter: brightness(90%); /* Slightly dims the image */
+    filter: brightness(90%);
 }
 
 .trencard-content {
     position: absolute;
-    bottom: 0; 
+    bottom: 0;
     width: 100%;
     padding: 16px;
     z-index: 2;
     color: white;
     display: flex;
-    flex-direction: column; 
-    justify-content: flex-start; 
-    align-items: center; 
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     text-align: center;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
 }
 
 .trenlocation {
     margin: 0;
-    font-family: Montserrat;
+    font-family: Montserrat, sans-serif;
     font-size: 16px;
     font-weight: 600;
     line-height: 19.5px;
@@ -50,7 +53,7 @@
 .trendescription {
     font-size: 12px;
     color: #ddd;
-    margin: 8px 0; 
+    margin: 8px 0;
 }
 
 .btn {
@@ -59,15 +62,15 @@
     background-color: #4eb7ac;
     color: black;
     font-size: 14px;
-    font-weight: 450; 
+    font-weight: 450;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 8px; 
-    margin-top: auto; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: auto;
 }
 
 .btn:hover {
@@ -75,4 +78,51 @@
     background-color: white;
     border: 2px solid #4eb7ac;
     text-decoration: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .best-destinations {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .best-destinations {
+        grid-template-columns: 1fr; /* 1 column on mobile */
+    }
+
+    .trending-card {
+        max-width: 100%;
+        border-radius: 12px;
+    }
+
+    .trencard-content {
+        padding: 12px;
+    }
+
+    .trenlocation {
+        font-size: 14px;
+    }
+
+    .trendescription {
+        font-size: 10px;
+    }
+
+    .btn {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .trending-card {
+        max-width: 100%;
+        aspect-ratio: 1; 
+    }
+
+    .btn {
+        font-size: 11px;
+        padding: 6px 12px;
+    }
 }

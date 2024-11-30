@@ -1,50 +1,104 @@
 .Review-card {
-    background-color: #fff;
-    border-radius: 16px;
-    padding: 20px;
-    display: flex;
-    width: 300px;
-    height: 200px;
-    margin: 10px;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-    /* Multiple box shadows */
-    box-shadow: 
-      8px 8px 0px rgba(78, 183, 172, 0.6), /* Shadow for bottom-right (already existing) */
-      -8px -8px 10px rgba(0, 0, 0, 0.1);  /* Shadow for top-left in a different color */
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  width: 300px;
+  height: 200px;
+  margin: 10px;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+
+ 
+  box-shadow: 
+    8px 8px 0px rgba(78, 183, 172, 0.6), /* Shadow for bottom-right */
+    -8px -8px 10px rgba(0, 0, 0, 0.1);  /* Shadow for top-left */
+  
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add hover effects */
+}
+
+.Review-card:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+  box-shadow: 
+    12px 12px 0px rgba(78, 183, 172, 0.8), /* Shadow for bottom-right */
+    -12px -12px 15px rgba(0, 0, 0, 0.2); /* Shadow for top-left */
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tilte {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.rating {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  color: #FFD700;
+}
+
+.user-name {
+  font-size: 12px;
+  color: #888;
+  margin-top: 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .Review-card {
+    width: 100%; /* Make it take full width */
+    height: auto; /* Adjust height for smaller screens */
+    padding: 15px;
+    margin: 5px;
   }
-  
-  
-  .card-content {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+
+  .tilte {
+    font-size: 16px; /* Reduce title font size */
   }
-  
-  .location {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-  }
-  
+
   .description {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 15px;
+    font-size: 13px; /* Adjust description size */
   }
-  
+
   .rating {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    color: #FFD700;  
+    gap: 3px; /* Reduce spacing between stars */
   }
-  
+
   .user-name {
-    font-size: 12px;
-    color: #888;
-    margin-top: 10px;
+    font-size: 11px; /* Adjust user name size */
   }
-  
+}
+
+@media (max-width: 480px) {
+  .Review-card {
+    width: 90%; /* Reduce width for very small screens */
+    padding: 10px;
+  }
+
+  .tilte {
+    font-size: 14px; /* Further reduce title font size */
+  }
+
+  .description {
+    font-size: 12px; /* Adjust description size */
+  }
+
+  .user-name {
+    font-size: 10px; /* Adjust user name size */
+  }
+}
