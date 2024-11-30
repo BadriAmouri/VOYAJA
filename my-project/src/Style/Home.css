@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+html, body, #root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.Home {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+/* Background image container */
+.imgBg {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.image {
+    width: 98%;
+    height: 90vh; /* Image height */
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+/* Text container for the headline */
+.sectionText {
+    position: absolute;
+    top: 25%; /* Adjust to ensure the text is not hidden */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    z-index: 10;
+    width: 100%;
+    padding: 0 20px; /* Add padding for better readability */
+}
+
+.sectionText h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 80px;
+    font-weight: 700;
+    line-height: 101.04px;
+    text-align: center;
+    font-weight: lighter;
+    margin: 0;
+}
+
+.sectionText h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 101.04px;
+    text-align: center;
+    font-weight: lighter;
+    margin: 10px 0;
+}
+
+.sectionText p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 101.04px;
+    text-align: center;
+    font-weight: lighter;
+    margin: 10px 0;
+}
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .sectionText h1 {
+        font-size: 70px;
+    }
+
+    .sectionText h2 {
+        font-size: 30px;
+    }
+
+    .sectionText p {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 991px) {
+    .sectionText h1 {
+        font-size: 60px;
+    }
+
+    .sectionText h2 {
+        font-size: 28px;
+    }
+
+    .sectionText p {
+        font-size: 16px;
+    }
+
+    .PopularPlaces .images img {
+        width: 25%;
+    }
+}
+
+@media (max-width: 767px) {
+    .Home {
+        width: 100%;
+        height: auto;
+        overflow-x: hidden;
+    }
+
+    .imgBg {
+        height: auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .image {
+        width: 100%;
+        height: 60vh; 
+        margin-left: 0px;
+        margin-right: 0px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .sectionText {
+        top: 2%; 
+        left: 5%;
+        right: 5%;
+        transform: translateX(0); 
+        padding: 0 10px;
+    }
+
+    .sectionText h1 {
+        font-size: 45px;
+        z-index: 1000;
+        margin-bottom: 0px;
+        margin-top: -50px;
+    }
+
+    .sectionText h2 {
+        font-size: 24px;
+        z-index: 1000;
+        margin-top: -70px;
+    }
+
+    .sectionText p {
+        font-size: 14px;
+        z-index: 1000;
+        margin-top: -50px;
+    }
+    .Popular.m-5 {
+      margin-top: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+  .Home {
+    width: 100%;
+    height: auto; 
+}
+
+.imgBg {
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.image {
+    width: 100%;
+    height: 60vh; 
+    margin-left: 0px;
+    margin-right: 0px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.sectionText {
+    top: 2%; 
+    left: 5%;
+    right: 5%;
+    transform: translateX(0); 
+    padding: 0 10px;
+}
+
+.sectionText h1 {
+    font-size: 45px;
+    z-index: 1000;
+    margin-bottom: 0px;
+    margin-top: -50px;
+}
+
+.sectionText h2 {
+    font-size: 24px;
+    z-index: 1000;
+    margin-top: -70px;
+}
+
+.sectionText p {
+    font-size: 14px;
+    z-index: 1000;
+    margin-top: -50px;
+}
+}
