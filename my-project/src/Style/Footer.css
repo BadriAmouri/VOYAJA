@@ -5,7 +5,8 @@
     padding: 40px 20px ;
     color: #333;
     width: 100%;
-    
+    position : relative; 
+    bottom: 0%;
   }
   
   .footer-container {
