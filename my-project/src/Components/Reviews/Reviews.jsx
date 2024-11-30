@@ -1,5 +1,6 @@
 import React from 'react';
 import ReviewCard from './ReviewCard.jsx';
+import '../../Style/Reviews.css'; // Import the CSS file
 
 const Reviews = () => {
   const reviews = [
@@ -9,35 +10,31 @@ const Reviews = () => {
   ];
 
   return (
-    <>
-      <div className="best w-[80%] mb-8 ml-20 mr-20"> {/* Margin Bottom */}
-        <div className="Popular m-5 ml-0 flex items-center justify-between w-full">
-          <div>
-            <h1 className="font-montserrat text-2xl font-semibold leading-[39px] text-left underline-offset-[3px] decoration-none mb-4">
-              Reviews
-            </h1>
-            <p className="font-montserrat text-base font-normal leading-[19.5px] text-left underline-offset-[3px] decoration-none mb-6">
-              See what people think about us
-            </p>
-          </div>
-          <button className="bg-teal-500 text-black py-2 px-4 rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 mt-4">
-            See More
-          </button>
+    <div className="best">
+      <div className="reviewsSec">
+        <div>
+          <h1>Reviews</h1>
+          <p>See what people think about us</p>
         </div>
-        <div className="best-destinations grid grid-cols-3 gap-3 w-full p-4 mx-auto">
-          {reviews.map((review, index) => (
-            <ReviewCard
-              key={index}
-              title={review.title}
-              description={review.description}
-              rating={review.rating}
-              userName={review.userName}
-            />
-          ))}
-        </div>
+        {/* Include "See More" text within a span */}
+        <button className="seebtn">
+          <span>See More</span>
+        </button>
       </div>
-    </>
+
+      <div className="reviews">
+        {reviews.map((review, index) => (
+          <ReviewCard
+            key={index}
+            title={review.title}
+            description={review.description}
+            rating={review.rating}
+            userName={review.userName}
+          />
+        ))}
+      </div>
+    </div>
   );
-}
+};
 
 export default Reviews;

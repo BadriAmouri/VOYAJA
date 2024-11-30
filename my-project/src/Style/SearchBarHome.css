@@ -1,68 +1,192 @@
 .search-bar-container {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-    justify-content: flex-start; /* Align elements from the top */
-    background-color: rgba(255, 255, 255, 1); /* Slight background behind search bar */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px;
-    width: 80%; /* Adjust the width based on design */
-    max-width: 100%; /* Maximum width for the search bar */
-    margin-top: -50px; /* Position it above the hero image a little */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    margin-left: auto;
-    margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+  padding: 20px;
+  width: 80%;
+  max-width: 100%;
+  margin-top: -100px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  margin-left: auto;
+  margin-right: auto;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.search-bar-container.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.search-bar-container.hide {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Decoration for the header of the search bar */
+.deco {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: black;
+  font-size: 16px;
+  margin-bottom: 30px;
+  margin-right: auto;
+  margin-top: -5px;
+}
+
+.deco svg {
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.deco span {
+  font-size: 14px;
+  font-weight: lighter;
+  text-decoration: none;
+}
+
+/* Styling for input fields */
+.input-group {
+  width: 48%;
+  text-align: center;
+  position: relative;
+}
+
+.input-fields {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Labels for the input fields */
+.search-label {
+  position: absolute;
+  top: -12px;
+  font-size: 14px;
+  font-weight: lighter;
+  color: black;
+  text-decoration: none;
+  margin-left: 15px;
+  padding: 1px;
+  background-color: white;
+}
+
+/* Styling for the search input */
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  background-color: #ffffff;
+  transition: background-color 0.3s ease;
+  margin-bottom: 15px;
+}
+
+/* Search button styling */
+.search-button {
+  padding: 12px 20px;
+  border: none;
+  background-color: #4eb7ac;
+  color: black;
+  font-size: 15px;
+  font-weight: lighter;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  margin-top: auto;
+  margin-left: auto;
+}
+
+.search-button:hover {
+  color: #4eb7ac;
+  background-color: white;
+  border: 2px solid #4eb7ac;
+  text-decoration: none;
+}
+.search-bar-toggle-btn {
+  display: none;  /* Hidden on larger screens */
+  padding: 12px 20px;
+  background-color: #4eb7ac;
+  color: black;
+  font-size: 14px;
+  font-weight: lighter;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  margin-top: -100px;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+}
+/* For smaller screens (Phones) */
+@media (max-width: 767px) {
+  .search-bar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: 999;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
   }
+
+    /* Show the toggle button only on small screens */
+    .search-bar-toggle-btn {
+      display: flex;  /* Make it visible only on small screens */
+    }
   
-  .deco {
+    /* Search bar is hidden by default */
+    .search-bar-container {
+      visibility: hidden;
+      opacity: 0;
+    }
+  
+    /* Show search bar when toggled */
+    .search-bar-container.show {
+      visibility: visible;
+      opacity: 1;
+      margin-left: 50px;
+      margin-top: 50px;
+    } 
+
+  /* Search button styling in mobile view */
+  .search-button {
+    position: relative;
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
-    align-items: center; /* Vertically center the icon and text */
-    color: black;
-    font-size: 16px;
-    margin-bottom: 30px; 
-    margin-right: auto;
-    margin-top:-5px;
-  }
-  
-  .deco svg {
-    font-size: 16px;
-    margin-right: 8px; 
-  }
-  
-  .deco span {
-    font-size: 14px;
-    font-weight: lighter;
-    text-decoration: none;
-  }
-  
-  .input-group {
-    width: 48%;
-    text-align: center; 
-    position: relative;
-  }
-  
-  .input-fields {
-    display: flex;
-    flex-direction: row; 
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
   }
-  
+
+  /* Stack the inputs vertically on mobile */
+  .input-fields {
+    flex-direction: column;
+  }
+
+  .input-group {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
   .search-label {
-    position: absolute;
-    top: -12px;
     font-size: 14px;
     font-weight: lighter;
-    color: black;
-    text-decoration: none;
-    margin-left: 15px;
-    padding: 1px;
-    background-color: white;
   }
-  
+
   .search-input {
     width: 100%;
     padding: 10px;
@@ -72,27 +196,37 @@
     outline: none;
     background-color: #ffffff;
     transition: background-color 0.3s ease;
-    margin-bottom: 15px;
   }
-  
+
   .search-button {
-    padding: 12px 20px;
-    border: none;
-    background-color: #4eb7ac; 
+    width: 100%;
+    padding: 15px;
+    background-color: #4eb7ac;
     color: black;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: lighter;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.5s ease;
-    margin-top: auto; 
-    margin-left: auto;
+    margin-top: 15px;
   }
-  
+
   .search-button:hover {
     color: #4eb7ac;
     background-color: white;
     border: 2px solid #4eb7ac;
     text-decoration: none;
   }
-  
+}
+@media (min-width: 768px) {
+  /* Hide the button completely on larger screens */
+  .search-bar-toggle-btn {
+    display: none;
+  }
+
+  /* Display the search bar by default on larger screens */
+  .search-bar-container {
+    visibility: visible;
+    opacity: 1;
+    margin-top: -100px;  /* Adjust the position for larger screens */
+  }
+}
