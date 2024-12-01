@@ -9,8 +9,8 @@ import Profile from "./Components/Profile/Profile.jsx";
 
 export default function App() {
   return (
-    <Profile/>
-      //<Home/> 
-      //<BookingPage/> 
+
+      <BookingPage/> 
+
   )
 }
