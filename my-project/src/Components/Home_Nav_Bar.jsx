@@ -3,7 +3,7 @@ import "../Style/Home_Nav_Bar.css";
 
 const Header = () => {
   return (
-    <header className="header">
+    <div className="header">
       <div className="header-left">
         
         <nav className="nav-tabs tab">
@@ -24,7 +24,7 @@ const Header = () => {
           <a href="/" className="SIGNUP">Sign up </a >
         </div>
       </div>
-    </header>
+    </div>
   );
 };
 

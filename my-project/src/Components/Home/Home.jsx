@@ -24,10 +24,12 @@ const Home = () => {
             <h1>LIVE & TRAVEL</h1>
             <p>Special offers to suit your plan</p>
         </div>
+        <Header/>
         <SearchBar/>
         <BestDestinations/>
         <TrendingSection/>
         <Reviews/>
+        <Footer/>
         </div></>
     )
 }

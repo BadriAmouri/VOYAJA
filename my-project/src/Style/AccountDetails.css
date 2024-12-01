@@ -1,0 +1,81 @@
+.account-details {
+  max-width: 80%;
+  margin: 20px auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.AccountContainer {
+  margin-bottom: 30px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.AccountTitle {
+  color: black;
+  font-size: 24px;
+  margin-left: 10rem;
+  margin-top: 3rem;
+}
+
+.recored {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.detailLabel {
+  color: #333;
+  margin-right: auto;
+}
+
+.detailValue {
+  color: black;
+}
+
+.change-btn, .action-btn {
+  background-color: white;
+  color: black;
+  font-size: 12px;
+  border: 1px solid #4eb7ac;
+  padding: 0px 10px;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  padding: 12px;
+  width: auto;
+}
+
+.change-btn svg, .action-btn svg {
+  font-size: 20px; /* Adjust size of icon */
+}
+
+/* Media Query for small screens */
+@media (max-width: 600px) {
+  .change-btn span, .action-btn span {
+    display: none; /* Hide text */
+  }
+
+  .change-btn svg, .action-btn svg {
+    font-size: 20px;
+    border-radius: 50%;
+  }
+}
+@media (max-width: 480px){
+  .AccountTitle{
+    margin-top: 10px;
+  }
+  .change-btn , .action-btn  {
+    font-size: 20px;
+    border-radius: 50%;
+  }
+}
