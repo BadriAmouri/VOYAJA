@@ -26,7 +26,7 @@ const BookingForm = ({ formData, formErrors, handleInputChange, handleBlur }) =>
             placeholder="Surname"
             value={formData.surname}
             onChange={handleInputChange}
-            onBlur={handleBlur} 
+            onBlur={handleBlur} // Trigger validation on blur
             className="form-input"
           />
           {formErrors.surname && <p className="error-message">{formErrors.surname}</p>}
@@ -39,7 +39,7 @@ const BookingForm = ({ formData, formErrors, handleInputChange, handleBlur }) =>
             placeholder="Phone Number"
             value={formData.phoneNumber}
             onChange={handleInputChange}
-            onBlur={handleBlur}
+            onBlur={handleBlur} // Trigger validation on blur
             className="form-input"
           />
           {formErrors.phoneNumber && <p className="error-message">{formErrors.phoneNumber}</p>}
@@ -52,7 +52,7 @@ const BookingForm = ({ formData, formErrors, handleInputChange, handleBlur }) =>
             placeholder="Number of Persons"
             value={formData.numberOfPersons}
             onChange={handleInputChange}
-            onBlur={handleBlur} 
+            onBlur={handleBlur} // Trigger validation on blur
             min="1"
             className="form-input"
           />
@@ -64,4 +64,3 @@ const BookingForm = ({ formData, formErrors, handleInputChange, handleBlur }) =>
 };
 
 export default BookingForm;
-//

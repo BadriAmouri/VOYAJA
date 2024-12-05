@@ -35,4 +35,3 @@ const FlightDetails = () => {
 };
 
 export default FlightDetails;
-//
