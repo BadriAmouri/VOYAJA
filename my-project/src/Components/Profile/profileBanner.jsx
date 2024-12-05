@@ -1,5 +1,4 @@
 import React from 'react';
-
 import '../../Style/ProfileBanner.css';
 
 import image1 from '../../assets/Profile/bg.jpg';
