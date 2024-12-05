@@ -4,7 +4,7 @@ import AgencyProfile from './Page/AgencyProfile';
 export default function App() {
   return (
   <div className="App">
-    <AgencyProfile />
+    <SearchPage />
   </div>
 
   )
