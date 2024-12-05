@@ -14,12 +14,12 @@ export default function OfferCard({ offer }) {
         {/* Top Section: Rating, Reviews, and Price */}
         <div className="top-section flex justify-between items-center">
           <div className="flex items-center space-x-2">
-            <div className="rating border-2 border-[#4EB7AC] text-black px-2 py-1 rounded-lg">
+            <div className="bofferrating border-2 border-[#4EB7AC] text-black px-2 py-1 rounded-lg">
               {offer.rating} ★
             </div>
             <span className="text-sm text-gray-600">({offer.reviews} reviews)</span>
           </div>
-          <div className="price text-xl font-semibold text-right">
+          <div className="bofferprice text-xl font-semibold text-right">
             ${offer.price}
           </div>
         </div>
