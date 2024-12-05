@@ -206,7 +206,7 @@ export default function SearchPage() {
           <div className="sortingbtn mb-4 custom-align">
             <SortOptions sortOption={sortOption} setSortOption={setSortOption} />
           </div>
-          <div className='offers'>
+          <div className='boffers'>
           <OfferList offers={currentOffers} />
           </div>
           {/* Pagination Controls */}
