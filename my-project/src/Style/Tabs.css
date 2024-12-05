@@ -1,41 +1,33 @@
-  /*tabs.css*/
-  .tabProfile {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    display: flex;
-    height: 80px;
-    border-radius: 16px;
-    justify-content: space-around;
-    align-items: center; 
-    padding: 0px;
-    background-color: white; 
-    border-bottom: 1px solid #fff; 
-  }
-  .tabP {
-    width: 90%;
-    cursor: pointer;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 10px;
-    text-align: center;
-    position: relative; /* Required for positioning the ::after element */
-  }
-  
-  .tabP.active {
-    color: black;
-  }
-  
-  .tabP.active::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    z-index: 2;
-    transform: translateX(-50%); 
-    width: 60%; /* Specify the width of the bottom border */
-    height: 2px; 
-    background-color: #4eb7ac; /* Color of the border */
-  }
-  /*  */
+.tabs-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  background-color: white;
+  padding: 10px 0;
+  width: 300px;
+  height: auto; 
+  margin: 0 auto;
+  box-sizing: border-box; 
+}
+
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, font-weight 0.3s ease;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  margin: 0 5px;
+}
+
+.tab:hover {
+  background-color: #e0e0e0;
+}
+
+.tab.active {
+  font-weight: bold;
+  background-color: #ddd;
+  border-color: #ccc;
+}
