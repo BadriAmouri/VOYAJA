@@ -3,6 +3,7 @@ import Header from '../NavBar';
 import ProfileBanner from '../Profile/profileBanner';
 import AccountDetails from '../Profile/AccountDetails';
 import Tab from '../Profile/Tab';
+import HistoryView from './HistoryView';
 
 const Profile = () => {
 
@@ -13,6 +14,7 @@ const Profile = () => {
       <ProfileBanner />
       <Tab/>
       <AccountDetails/>
+      <HistoryView/>
     </div>
   );
 };

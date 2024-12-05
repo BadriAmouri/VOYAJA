@@ -25,3 +25,4 @@ const Tabs = ({ tabs, onTabChange }) => {
 };
 
 export default Tabs;
+// 
