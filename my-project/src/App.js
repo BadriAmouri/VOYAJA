@@ -10,7 +10,7 @@ import Profile from "./Components/Profile/Profile.jsx";
 export default function App() {
   return (
 
-      <BookingPage/> 
+      <Profile/> 
 
   )
 }

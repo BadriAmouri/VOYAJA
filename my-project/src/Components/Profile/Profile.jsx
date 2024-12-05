@@ -1,20 +1,29 @@
 import React, { useState } from 'react';
-import Header from '../NavBar';
 import ProfileBanner from '../Profile/profileBanner';
-import AccountDetails from '../Profile/AccountDetails';
 import Tab from '../Profile/Tab';
-import HistoryView from './HistoryView';
+import AccountDetails from '../Profile/AccountDetails';
+import HistoryView from '../Profile/HistoryView';
 
 const Profile = () => {
+  const [activeTab, setActiveTab] = useState(0);
 
-
+  const renderContent = () => {
+    if (activeTab === 0) {
+      return <AccountDetails />;
+    }
+    if (activeTab === 1) {
+      return <HistoryView />;
+    }
+    return null;
+  };
 
   return (
     <div>
       <ProfileBanner />
-      <Tab/>
-      <AccountDetails/>
-      <HistoryView/>
+      <Tab onTabChange={setActiveTab} />
+      <div className="tab-content">
+        {renderContent()}
+      </div>
     </div>
   );
 };

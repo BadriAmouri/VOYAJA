@@ -6,23 +6,22 @@ const Tabs = ({ tabs, onTabChange }) => {
 
   const handleTabClick = (index) => {
     setActiveTab(index);
-    onTabChange(index);
+    onTabChange(index); 
   };
 
   return (
-    <>
+    <div className="tabs-container">
       {tabs.map((tab, index) => (
         <div
           key={index}
-          className={`tabP ${activeTab === index ? 'active' : ''}`}
+          className={`tab ${activeTab === index ? 'active' : ''}`}
           onClick={() => handleTabClick(index)}
         >
           {tab}
         </div>
       ))}
-      </>
+    </div>
   );
 };
 
 export default Tabs;
-// 

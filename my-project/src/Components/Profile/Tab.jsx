@@ -1,20 +1,15 @@
 import React from "react";
 import Tabs from "./Tabs"; // Import the Tabs component
-import "../../Style/ProfileTabs.css"; 
+import "../../Style/Tabs.css";
 
-const Tab = () => {
+const Tab = ({ onTabChange }) => {
   const tabs = ["Account", "History"];
-
-  const handleTabChange = (index) => {
-    console.log("Active tab index:", index); // Handle tab change logic here if needed
-  };
 
   return (
     <div className="profile-tabs-container">
-      <Tabs tabs={tabs} onTabChange={handleTabChange} />
+      <Tabs tabs={tabs} onTabChange={onTabChange} />
     </div>
   );
 };
 
 export default Tab;
-// 
