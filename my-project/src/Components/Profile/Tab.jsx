@@ -1,6 +1,6 @@
 import React from "react";
 import Tabs from "./Tabs"; // Import the Tabs component
-import "../../Style/Tabs.css";
+import "../../Style/ProfileTabs.css";
 
 const Tab = ({ onTabChange }) => {
   const tabs = ["Account", "History"];

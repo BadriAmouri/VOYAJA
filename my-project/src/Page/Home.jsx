@@ -1,12 +1,12 @@
 import React from 'react'
-import '../../Style/Home.css'
-import heroSection from '../../assets/HomePics/heroSection.jpg';
-import SearchBar from '../SearchBarHome';
-import BestDestinations from '../Destinations/BestDestination';
-import TrendingSection from '../Trendings/TrendingSection';
-import Reviews from '../Reviews/Reviews';
-import Footer from '../Footer';
-import Header from '../Home_Nav_Bar';
+import '../Style/Home.css';
+import heroSection from '../assets/HomePics/heroSection.jpg';
+import SearchBarH from '../Components/SearchBarHome';
+import BestDestinations from '../Components/Destinations/BestDestination';
+import TrendingSection from '../Components/Trendings/TrendingSection';
+import Reviews from '../Components/Reviews/Reviews';
+import Footer from '../Components/Footer';
+import Header from '../Components/Home_Nav_Bar';
 
 const Home = () => {
     return (
@@ -25,7 +25,7 @@ const Home = () => {
             <p>Special offers to suit your plan</p>
         </div>
         <Header/>
-        <SearchBar/>
+        <SearchBarH/>
         <BestDestinations/>
         <TrendingSection/>
         <Reviews/>

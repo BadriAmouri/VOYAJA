@@ -7,7 +7,7 @@ const DestinationCard = ({ image, location, description }) => {
         <img src={image} alt={location} className="card-image" />
         <div className="card-content">
           <h3 className="location">{location}</h3>
-          <p className="description">{description}</p>
+          <p className="descriptionDest">{description}</p>
         </div>
       </div>
     );
