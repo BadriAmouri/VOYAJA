@@ -1,76 +1,63 @@
-import React, { useState } from 'react';
+import React from 'react';
+import '../../Style/booking.css';
 
-const BookingForm = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    surname: '',
-    phoneNumber: '',
-    numberOfPersons: 1,
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Booking Data:', formData);
-  };
-
+const BookingForm = ({ formData, formErrors, handleInputChange, handleBlur }) => {
   return (
     <div className="booking-form">
-      <h3>Login or Sign up to book</h3>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
+      <h3_booking>Login or Sign up to book</h3_booking>
+      <form>
+        <div className="form-group_booking">
           <input
             type="text"
             name="name"
             placeholder="Name"
             value={formData.name}
-            onChange={handleChange}
-            required
-            className="form-input"
+            onChange={handleInputChange}
+            onBlur={handleBlur} // Trigger validation on blur
+            className="form-input_booking"
           />
+          {formErrors.name && <p className="error-message">{formErrors.name}</p>}
         </div>
-        <div className="form-group">
+
+        <div className="form-group_booking">
           <input
             type="text"
             name="surname"
             placeholder="Surname"
             value={formData.surname}
-            onChange={handleChange}
-            required
-            className="form-input"
+            onChange={handleInputChange}
+            onBlur={handleBlur} // Trigger validation on blur
+            className="form-input_booking"
           />
+          {formErrors.surname && <p className="error-message">{formErrors.surname}</p>}
         </div>
-        <div className="form-group">
+
+        <div className="form-group_booking">
           <input
             type="tel"
             name="phoneNumber"
             placeholder="Phone Number"
             value={formData.phoneNumber}
-            onChange={handleChange}
-            required
-            className="form-input"
+            onChange={handleInputChange}
+            onBlur={handleBlur} // Trigger validation on blur
+            className="form-input_booking"
           />
+          {formErrors.phoneNumber && <p className="error-message">{formErrors.phoneNumber}</p>}
         </div>
-        <div className="form-group">
+
+        <div className="form-group_booking">
           <input
             type="number"
             name="numberOfPersons"
             placeholder="Number of Persons"
             value={formData.numberOfPersons}
-            onChange={handleChange}
+            onChange={handleInputChange}
+            onBlur={handleBlur} // Trigger validation on blur
             min="1"
-            required
-            className="form-input"
+            className="form-input_booking"
           />
+          {formErrors.numberOfPersons && <p className="error-message">{formErrors.numberOfPersons}</p>}
         </div>
-        <button type="submit" className="submit-btn">Continue</button>
       </form>
     </div>
   );
