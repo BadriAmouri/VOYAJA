@@ -50,9 +50,12 @@
 }
 
 /* Description Text Styles */
-.description {
-  font-size: 12px;
+.descriptionDest {
+  font-size: 16px;
   color: #000;
+}
+p.descriptionDest {
+  margin-right: auto;
 }
 
 /* Responsive Styles */
