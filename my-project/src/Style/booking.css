@@ -285,6 +285,14 @@ body {
 .h3_booking {
   margin-top: 0;
 }
+.airline-images {
+  display: flex;
+  gap: 50px; /* Space between images */
+}
+.airline-image {
+  width: 300px; /* Adjust size as needed */
+  height: auto;
+}
 
 .modal-overlay {
   position: fixed;
