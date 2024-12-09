@@ -3,7 +3,7 @@ import OfferCard from './OfferCard';
 
 export default function OfferList({ offers }) {
   return (
-    <div className="offer-list space-y-4"> {/* Added spacing between cards */}
+    <div className="boffer-list space-y-4"> {/* Added spacing between cards */}
       {offers.map((offer, index) => (
         <OfferCard key={index} offer={offer} />
       ))}

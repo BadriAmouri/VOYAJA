@@ -17,7 +17,7 @@ html, body, #root {
     position: relative;
 }
 
-/* Background image container */
+
 .imgBg {
     position: relative;
     width: 100%;
@@ -37,7 +37,7 @@ html, body, #root {
 /* Text container for the headline */
 .sectionText {
     position: absolute;
-    top: 25%; /* Adjust to ensure the text is not hidden */
+    top: 5%; 
     left: 50%;
     transform: translateX(-50%);
     text-align: center;

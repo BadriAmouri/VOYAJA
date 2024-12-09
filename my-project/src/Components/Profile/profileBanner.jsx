@@ -11,8 +11,8 @@ const ProfileBanner = () => {
     <div className="profile-banner">
       <div className="banner">
         <img src={image1} className='bg'/>
-        <button className="upload-btn"><IoIosCloudUpload />
-        <span>Upload New Cover</span></button>
+       
+        
         <div className="profile-photo">
         <img src={image2} alt="Profile" />
       </div>
@@ -26,3 +26,4 @@ const ProfileBanner = () => {
 };
 
 export default ProfileBanner;
+// 
