@@ -15,6 +15,7 @@ import Login2 from "./Page/Login_agency.jsx";
 import SignUp from "./Page/SignUpUser.jsx";
 import SignUp_Agence from "./Page/SignUpAgency1.jsx";
 import SignUp_Agence2 from "./Page/SignUpAgency2.jsx";
+import OfferDetailsPage from "./Page/OfferDetailsPage";
 import SetPassword from "./Page/SetPassword.jsx";
 import ForgotPassword from "./Page/ForgotPassword.jsx";
 import VerifyPasswordCode from "./Page/VerifyPasswordCode.jsx";
@@ -26,7 +27,9 @@ function App() {
   return (
     <div className="App">
  <Routes>
-          <Route path="/" element={<Login/>} />
+          <Route path="/" element={<Home/>}/>
+          <Route path="/Dashboard" element={<Dashboard_Agency/>} />
+          <Route path="/offerDetails" element={<OfferDetailsPage/>}/>
           <Route path="/profile" element={<Profile />} />
           <Route path="/booking" element={<BookingPage />} />
           <Route path="/search" element={<SearchPage />} />
@@ -38,7 +41,7 @@ function App() {
           <Route path="/ForgotPassword" element={<ForgotPassword />} /> */
           <Route path="/VerifyPasswordCode" element={<VerifyPasswordCode />} /> */
           
-          //Add more routes as needed
+         
         </Routes>
             </div>
   );

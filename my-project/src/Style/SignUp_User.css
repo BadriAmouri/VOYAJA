@@ -1,23 +1,13 @@
 /* Global Reset */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Actor&family=Poppins:wght@400;500;700&display=swap');
-* {
-    margin: 0;
-    padding: 50 px;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-    background: white;
 
-  }
-  
-  body {
+  /* Container */
+  .login-container {
     font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
     color: #333;
-  }
-  
-  /* Container */
-  .login-container {
+    background: white;
     display: flex;
     height: 100%;
   }

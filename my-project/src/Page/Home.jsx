@@ -6,7 +6,7 @@ import BestDestinations from '../Components/Destinations/BestDestination';
 import TrendingSection from '../Components/Trendings/TrendingSection';
 import Reviews from '../Components/Reviews/Reviews';
 import Footer from '../Components/Footer';
-import Header from '../Components/Home_Nav_Bar';
+import HeaderHome from '../Components/Home_Nav_Bar';
 
 const Home = () => {
     return (
@@ -24,7 +24,7 @@ const Home = () => {
             <h1>LIVE & TRAVEL</h1>
             <p>Special offers to suit your plan</p>
         </div>
-        <Header/>
+        <HeaderHome/>
         <SearchBarH/>
         <BestDestinations/>
         <TrendingSection/>

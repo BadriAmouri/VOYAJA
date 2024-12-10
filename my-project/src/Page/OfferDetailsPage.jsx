@@ -8,7 +8,7 @@ import seoulTower from "../assets/offerPics/seoul-tower.jpg";
 import seoulPalace from "../assets/offerPics/palace.jpg";
 import springSeoul from "../assets/offerPics/spring-seoul-korea.jpg";
 import travelLogo from "../assets/offerPics/travel-agency-logo.jpg";
-
+import { Link } from "react-router-dom";
 const OfferDetailsPage = () => {
   const offerHeaderData = {
     title: "Trip to South Korea",

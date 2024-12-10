@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaRegHeart } from 'react-icons/fa'; // Correct import for outlined heart icon
+import { Link } from 'react-router-dom';
 
 export default function OfferCard({ offer }) {
   return (
@@ -51,9 +52,11 @@ export default function OfferCard({ offer }) {
           </button>
 
           {/* View Details Button */}
+          
           <button className="bview-details flex-1 bg-[#4EB7AC] text-white p-2 rounded-lg">
-            View Details
+          <Link to='/offerDetails'>View Details</Link>
           </button>
+          
         </div>
       </div>
     </div>

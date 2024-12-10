@@ -1,23 +1,12 @@
 /* Global Reset */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Actor&family=Poppins:wght@400;500;700&display=swap');
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-    background: white;
-
-  }
-  
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
-  }
   
   /* Container */
   .login-container {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
     display: flex;
     height: 100%;
   }

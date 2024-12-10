@@ -4,15 +4,20 @@ import { IoAirplane } from "react-icons/io5";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import "../Style/custom-datepicker.css";
+import { useNavigate } from 'react-router-dom';
 
 const SearchBarH = () => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+  const navigate = useNavigate();
 
   const handleSearchBarToggle = () => {
     setShowSearchBar((prev) => !prev);
   };
-
+  const handleSearchRequest = () =>{
+    // check if all the data are in 
+    navigate('/search')
+  }
   return (
     <>
       {/* Button to trigger the search bar, visible only on small screens */}
@@ -56,7 +61,9 @@ const SearchBarH = () => {
           </div>
 
         </div>
-        <button className="search-button">Search</button>
+        <button 
+        onClick={handleSearchRequest}
+        className="search-button">Search</button>
       </div>
     </>
   );
