@@ -6,7 +6,8 @@ import BookingForm from './bookingForm';
 import Footer from '../Footer';
 import '../../Style/booking.css';
 
-
+// 
+// 
 const BookingPage = () => {
   const [passportFile, setPassportFile] = useState(null);
   const [formData, setFormData] = useState({

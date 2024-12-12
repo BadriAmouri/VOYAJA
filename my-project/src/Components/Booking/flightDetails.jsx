@@ -79,7 +79,8 @@ const FlightDetails = () => {
   if (!flightDetails) {
     return <p>No flight details available.</p>;
   }
-
+// 
+// 
   const {
     offer_name,
     min_price,

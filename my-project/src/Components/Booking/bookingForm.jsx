@@ -31,7 +31,7 @@ const BookingForm = ({ formData, formErrors, handleInputChange, handleBlur }) =>
           />
           {formErrors.surname && <p className="error-message">{formErrors.surname}</p>}
         </div>
-
+{/*  */}
         <div className="form-group_booking">
           <input
             type="tel"
