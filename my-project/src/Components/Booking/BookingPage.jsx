@@ -6,7 +6,9 @@ import BookingForm from './bookingForm';
 import Footer from '../Footer';
 import '../../Style/booking.css';
 
-
+// 
+// 
+// 
 const BookingPage = () => {
   const [passportFile, setPassportFile] = useState(null);
   const [formData, setFormData] = useState({
@@ -15,6 +17,8 @@ const BookingPage = () => {
     phoneNumber: '',
     numberOfPersons: 1,
   });
+  const [totalPrice, setTotalPrice] = useState(0); // State to store total pric
+  const [selectedOptionIds, setSelectedOptionIds] = useState([]); // State for selected option IDs
   const [showModal, setShowModal] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [modalType, setModalType] = useState('');
@@ -99,25 +103,84 @@ const BookingPage = () => {
     return errors;
   };
 
-  const handleSubmit = (event) => {
+   
+  // HANDLE SUBMIT
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     const formValidationErrors = validateForm();
     setFormErrors(formValidationErrors);
-
-    if (Object.keys(formValidationErrors).length > 0) {
+  
+    if (Object.keys(formValidationErrors).length > 3) {
       setModalType('error');
-    } else {
-      setModalType('waiting');
+       setShowModal(true);
+      return;
     }
-    setShowModal(true);
+    if (!passportFile) {
+      console.error('Passport file is missing.');
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        passportFile: 'Passport file is required.',
+      }));
+      setModalType('error');
+      setShowModal(true);
+      return;
+    }
+    //passport uploaded in the cloud
+    const simulatedPassportURL = "https://some-cloud-url.com/" + passportFile.name;
+  
+    // Prepare JSON payload
+    const payload = {
+      customer_name: formData.name,
+      customer_surname: formData.surname,
+      customer_phone: formData.phoneNumber,
+      options_selected: selectedOptionIds,
+      total_price: totalPrice,
+      status: false,
+      customer_id: 1,
+      offer_id: 12,
+      reciept_url: "receipt_url",
+      passports_urls: [simulatedPassportURL], // Simulating cloud upload
+      
+    };
+  
+    console.log("Payload:", payload); // Log the payload for debugging
+  
+    try {
+     
+  
+      const response = await fetch('http://localhost:5000/api/booking/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Response not OK:', errorText);
+        throw new Error('Failed to submit booking');
+      }
+  
+      const result = await response.json();
+      console.log('Booking created successfully:', result);
+      setModalType('waiting');
+      setShowModal(true);
+    } catch (error) {
+      console.error('Error submitting booking:', error);
+      setModalType('error');
+    }
   };
-
+  
   const closeModal = () => {
     setShowModal(false);
-  };
+   };
+
+
 
   return (
+    
     <div className="booking-page">
       <Header />
       <main>
@@ -137,7 +200,8 @@ const BookingPage = () => {
           </div>
           <div className="second-column_booking">
             <div className="price-breakdown-container">
-              <PriceBreakdown />
+            <PriceBreakdown setTotalPrice={setTotalPrice}
+            setSelectedOptionIds={setSelectedOptionIds} />
             </div>
             <form onSubmit={handleSubmit} className="file-upload-form_booking">
               <label className="upload-box_passport">
@@ -171,7 +235,7 @@ const BookingPage = () => {
               </>
             ) : (
               <>
-                <h2>Form Errors</h2>
+               
                 {Object.entries(formErrors).map(([field, errorMessage], index) => (
                   <p key={index} className="error">{errorMessage}</p>
                 ))}

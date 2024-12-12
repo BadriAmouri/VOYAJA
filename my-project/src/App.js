@@ -7,6 +7,10 @@ import Footer from "./Components/Footer.jsx";
 import './App.css';
 import Destination from "./Components/Destinations/Destinations.jsx";
 import BookingPage from "./Components/Booking/BookingPage.jsx";
+
+import Profile from "./Components/Profile/Profile.jsx";
+import ConfirmationPage from "./Components/Confirmation/confirmationPage.jsx"
+
 import Profile from "./Page/Profile.jsx";
 import SearchBar from "./Components/SearchBarHome.jsx";
 import SearchPage from "./Page/SearchPage.jsx";
@@ -25,7 +29,16 @@ import { ProductsProvider } from "./contexts/ProductsContext";
 function App() {
   
 
-  return (
+
+//   return (
+// <<<<<<< Booking_confirmation
+//   <div className="App">
+//     <BookingPage/>
+//     {/* <Profile/> */}
+//   </div>
+//   )
+// }
+//
     <ProductsProvider>
     <div className="App">
  <Routes>
@@ -51,3 +64,4 @@ function App() {
 }
 
 export default App;
+
