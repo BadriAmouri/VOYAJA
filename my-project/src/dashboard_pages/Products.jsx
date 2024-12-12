@@ -4,8 +4,67 @@ import React, { useEffect, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import Table from "../Components/Table";
-import { productsColumns } from "../data/products";
 import { useProducts } from "../contexts/ProductsContext";
+
+const productsColumns = [
+  {
+    accessorKey: "offer_name", //access nested data with dot notation
+    header: "offer_name",
+  },
+  {
+    accessorKey: "starting_date", //access nested data with dot notation
+    header: "starting_date",
+  },
+  
+  {
+    accessorKey: "image", //edit it to be images
+    header: "Image",
+    size: 100,
+    Cell: ({ cell }) => (
+      <div>
+        <img src={cell.getValue()} alt="" width={60} />
+      </div>
+    ),
+  },
+  {
+    accessorKey: "offer_depart", //access nested data with dot notation
+    header: "offer_depart",
+  },
+  {
+    accessorKey: "offer_dest", //access nested data with dot notation
+    header: "offer_dest",
+  },
+  {
+    accessorKey: "duration", //access nested data with dot notation
+    header: "duration",
+  },
+  {
+    accessorKey: "min_price",
+    header: "min_price",
+    Cell: ({ cell }) => <span>${cell.getValue()}</span>,
+  },
+  {
+    accessorKey: "instock",
+    header: "Status",
+    //or in the component override callbacks like this
+    Cell: ({ cell, row }) => (
+      <div>
+        {row.original.instock && (
+          <span style={{ color: "#388b84", textTransform: "capitalize" }}>
+            On Market
+          </span>
+        )}
+        {!row.original.instock && (
+          <span style={{ color: "#fd4332", textTransform: "capitalize" }}>
+            Stopped
+          </span>
+        )}
+      </div>
+    ),
+  },
+];
+
+
 
 const Products = () => {
   const { updatedProducts, setUpdatedProducts } = useProducts();

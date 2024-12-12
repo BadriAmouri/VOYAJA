@@ -21,7 +21,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/agency/4", { method: "GET" });
+        const response = await fetch("/api/agency/1", { method: "GET" });
 
         if (!response.ok) {
           const errorBody = await response.text();
