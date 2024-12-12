@@ -1,87 +1,66 @@
+// SingleProduct.jsx
 import { Box, Chip, Grid, Paper, Rating, Typography } from "@mui/material";
 import React from "react";
 import { useParams } from "react-router-dom";
-import { products } from "../data/products";
+import { useProducts } from "../contexts/ProductsContext";
 
 const SingleProduct = () => {
-  // get the id from the route link
   const { id } = useParams();
-  const product = products.find((product) => product.id === parseInt(id));
+  const { updatedProducts } = useProducts();
 
-  const {  image, Offer_place, instock, Destination_City, Depart_City, Number_Of_Days ,price } =
-    product;
+  // Find the product by id
+  const product = updatedProducts.find((product) => product.id === parseInt(id));
+
+  if (!product) {
+    return <Typography>Product not found</Typography>;
+  }
+
+  const {
+    image,
+    offer_name,
+    starting_date,
+    offer_depart,
+    offer_dest,
+    duration,
+    instock,
+    min_price,
+  } = product;
 
   return (
     <Box sx={{ pt: "80px", pb: "20px" }}>
       <Typography variant="h4">Offer Details</Typography>
-      <Paper
-        sx={{
-          boxShadow: "none !important",
-          borderRadius: "12px",
-          borderStyle: "solid",
-          borderWidth: "1px",
-          borderColor: "divider",
-          p: "20px",
-        }}
-      >
+      <Paper sx={{ p: "20px", borderRadius: "12px", boxShadow: "none" }}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={4}>
-            <img
-              src={image}
-              alt={Offer_place}
-              style={{ width: "100%", height: "100%", objectFit: "contain" }}
-            />
+            <img src={image} alt={offer_name} style={{ width: "100%", objectFit: "contain" }} />
           </Grid>
-          
           <Grid item xs={12} md={6} lg={8}>
-            <Typography variant="h4">{Offer_place}</Typography>
+            <Typography variant="h4">{offer_name}</Typography>
             <Typography variant="h5">
-              <span
-                style={{
-                  opacity: 0.7,
-                  textDecoration: "line-through",
-                  fontSize: "13px",
-                }}
-              >
+              <span style={{ textDecoration: "line-through", fontSize: "13px", opacity: 0.7 }}>
                 $1829
               </span>{" "}
-              ${price}
+              ${min_price}
             </Typography>
             <Box sx={{ display: "flex", alignItems: "center", gap: 4, my: 2 }}>
               <Typography variant="subtitle2">284 customer reviews</Typography>
-              <Rating
-                value={Number((Math.random() * 5).toFixed(2))}
-                precision={0.5}
-                readOnly
-              />
+              <Rating value={Math.random() * 5} precision={0.5} readOnly />
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 4, my: 2 }}>
-              <Typography variant="subtitle2">Departure City :</Typography>
-              <Typography variant="subtitle2">{Depart_City}</Typography>
-
-              
+              <Typography variant="subtitle2">Departure City:</Typography>
+              <Typography variant="subtitle2">{offer_depart}</Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 4, my: 2 }}>
-              <Typography variant="subtitle2">Arrival City :</Typography>
-              <Typography variant="subtitle2">{Destination_City}</Typography>
-
-              
+              <Typography variant="subtitle2">Arrival City:</Typography>
+              <Typography variant="subtitle2">{offer_dest}</Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 4, my: 2 }}>
-              <Typography variant="subtitle2">Number Of Days :</Typography>
-              <Typography variant="subtitle2">{Number_Of_Days}</Typography>
-
-              
+              <Typography variant="subtitle2">Number of Days:</Typography>
+              <Typography variant="subtitle2">{duration}</Typography>
             </Box>
-            <Typography variant="subtitle2">Options</Typography>
-            <Typography variant="subtitle2">Regulations</Typography>
-
             <Box sx={{ display: "flex", alignItems: "center", gap: 4, my: 2 }}>
-              <Typography variant="subtitle2">Availability</Typography>
-              <Chip
-                label={instock ? "In stock" : "Out Of Stock"}
-                color={instock ? "success" : "error"}
-              />
+              <Typography variant="subtitle2">Availability:</Typography>
+              <Chip label={instock ? "In stock" : "Out Of Stock"} color={instock ? "success" : "error"} />
             </Box>
           </Grid>
         </Grid>

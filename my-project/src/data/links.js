@@ -15,7 +15,7 @@ export const links = [
   {
     name: "Dashboard",
     icon: <FiHome />,
-    url: "/",
+    url: "/Dashboard",
   },
   {
     name: "Offers",
@@ -23,11 +23,11 @@ export const links = [
     subLinks: [
       {
         name: "All Offers",
-        url: "/products",
+        url: "/Dashboard/products",
       },
       {
         name: "Add Offer",
-        url: "/products/add",
+        url: "/Dashboard/products/add",
       },
       
     ],
@@ -57,11 +57,11 @@ export const links = [
   {
     name: "Settings",
     icon: <FiSettings />,
-    url: "/settings",
+    url: "/Dashboard/settings",
   },
   {
     name: "Inbox",
     icon: <FiMail />,
-    url: "/inbox",
+    url: "/Dashboard/inbox",
   },
 ];

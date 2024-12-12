@@ -1,6 +1,6 @@
 import { Box, Paper, Tab, Tabs, Typography } from "@mui/material";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import Notifications from "../Components/settings/Notifications";
 import Password from "../Components/settings/Password";
 import Profile from "../Components/settings/Profile";

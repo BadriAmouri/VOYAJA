@@ -5,8 +5,8 @@ import React from "react";
 const Password = () => {
   return (
     <Box>
-      <Typography variant="subtitle1">Password Reset</Typography>
-      <Typography variant="subtitle2" sx={{ opacity: 0.8, pb: 2 }}>
+      <Typography variant="subtitle1" className="text-white">Password Reset</Typography>
+      <Typography variant="subtitle2" className="text-white" sx={{ opacity: 0.8, pb: 2 }}>
         Update your password here
       </Typography>
       <Divider />
