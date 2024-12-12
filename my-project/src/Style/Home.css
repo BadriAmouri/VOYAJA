@@ -1,12 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-html, body, #root {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-}
+
+
 
 .Home {
+    background-color : white ;
     margin: 0;
     padding: 0;
     display: flex;
@@ -17,7 +15,7 @@ html, body, #root {
     position: relative;
 }
 
-/* Background image container */
+
 .imgBg {
     position: relative;
     width: 100%;
@@ -37,7 +35,7 @@ html, body, #root {
 /* Text container for the headline */
 .sectionText {
     position: absolute;
-    top: 25%; /* Adjust to ensure the text is not hidden */
+    top: 5%; 
     left: 50%;
     transform: translateX(-50%);
     text-align: center;

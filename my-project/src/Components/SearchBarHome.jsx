@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 import '../Style/SearchBarHome.css';
 import { IoAirplane } from "react-icons/io5";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import "../Style/custom-datepicker.css";
+import { useNavigate } from 'react-router-dom';
 
-const SearchBar = () => {
+const SearchBarH = () => {
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const navigate = useNavigate();
 
   const handleSearchBarToggle = () => {
     setShowSearchBar((prev) => !prev);
   };
-
+  const handleSearchRequest = () =>{
+    // check if all the data are in 
+    navigate('/search')
+  }
   return (
     <>
       {/* Button to trigger the search bar, visible only on small screens */}
@@ -36,23 +45,28 @@ const SearchBar = () => {
               placeholder="Enter place"
             />
           </div>
-          {/* Label and input for Date */}
+          {/* Label and DatePicker for Date */}
           <div className="input-group">
-            <label htmlFor="date-input" className="search-label">
+            <label htmlFor="date-input" className="search-label-date">
               Depart - Return
             </label>
-            <input
-              type="text"
-              id="date-input"
+            <DatePicker
+              selected={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
               className="search-input"
-              placeholder="Enter date"
+              placeholderText="Select date"
+              dateFormat="yyyy-MM-dd"
+              popperPlacement="bottom"
             />
           </div>
+
         </div>
-        <button className="search-button">Search</button>
+        <button 
+        onClick={handleSearchRequest}
+        className="search-button">Search</button>
       </div>
     </>
   );
 };
 
-export default SearchBar;
+export default SearchBarH;

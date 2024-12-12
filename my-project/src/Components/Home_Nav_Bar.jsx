@@ -1,7 +1,8 @@
 import React from "react";
 import "../Style/Home_Nav_Bar.css";
+import { Link } from "react-router-dom";
 
-const Header = () => {
+const HeaderHome = () => {
   return (
     <div className="header">
       <div className="header-left">
@@ -18,14 +19,18 @@ const Header = () => {
         </a></div>
       <div className="header-right">
         <div className="  Login">
+          <Link to='/Login'>
           <a href="/" className="LOGIN">Login</a >
+          </Link>
         </div>
         <div className=" SignUp">
+          <Link to='/SignUp'>
           <a href="/" className="SIGNUP">Sign up </a >
+          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default Header;
+export default HeaderHome;

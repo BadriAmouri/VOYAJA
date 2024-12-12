@@ -1,5 +1,28 @@
 /*ProfileTabs.css*/
 .profile-tabs-container {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  display: flex;
+  height: 80px;
+  border-radius: 16px;
+  justify-content: space-around;
+  align-items: center; 
+  padding: 0px;
+  background-color: white; 
+  border-bottom: 1px solid #fff; 
+  position: relative;
+}
+.tabs-container {
+  display:flex;
+  flex-direction:row;
+  width:100%;
+  justify-content:space-between;
+  align-items:center;
+  padding: 20px;
+}
+    .tabProfile {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -12,8 +35,34 @@
     padding: 0px;
     background-color: white; 
     border-bottom: 1px solid #fff; 
-    position: relative;
-}
+  }
+  .tabP {
+    width: 90%;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    text-align: center;
+    position: relative; /* Required for positioning the ::after element */
+  }
+  
+  .tabP.active {
+    color: black;
+  }
+  
+  .tabP.active::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    z-index: 2;
+    transform: translateX(-50%); 
+    width: 60%; /* Specify the width of the bottom border */
+    height: 2px; 
+    background-color: #4eb7ac; /* Color of the border */
+  }
+ 
+
 /* For medium screens, such as tablets */
 @media (max-width: 768px) {
     .profile-tabs-container {
@@ -54,4 +103,4 @@
       width: 70%; /* Reduce width of bottom border */
     }
   }
-  /*  */
+  
