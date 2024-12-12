@@ -1,25 +1,59 @@
-import React from 'react';
+
+
+// export default HistoryView;
+import React, { useEffect, useState } from 'react';
 import '../../Style/HistoryView.css';
 
 const HistoryView = () => {
-  const travelHistory = [
-    { date: '2023-01-10', destination: 'New York City', Agency: 'emarates' },
-    { date: '2023-03-15', destination: 'Paris', Agency: 'emarates' },
-    { date: '2023-07-22', destination: 'Tokyo', Agency: 'emarates' },
-    { date: '2023-11-05', destination: 'Turkey', Agency: 'emarates' },
-  ];
+  const [travelHistory, setTravelHistory] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  
+  const userId = "1"; 
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/booking/getHistory/${userId}`);
+
+        if (!response.ok) {
+          throw new Error(`Error fetching history: ${response.statusText}`);
+        }
+        const data = await response.json();
+        setTravelHistory(data);
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHistory();
+  }, [userId]);
+
+  if (loading) {
+    return <div className="history-container">Loading travel history...</div>;
+  }
+
+  if (error) {
+    return <div className="history-container">Error: {error}</div>;
+  }
 
   return (
     <div className="history-container">
       <h2>Travel History</h2>
       <ul className="history-list">
-        {travelHistory.map((entry, index) => (
-          <li key={index} className="history-item">
-            <span className="history-date">{entry.date}</span>
-            <span className="history-destination">{entry.destination}</span>
-            <span className="history-Agency">{entry.Agency}</span>
-          </li>
-        ))}
+      {travelHistory.map((entry, index) => (
+  <li key={index} className="history-item">
+    <span className="history-offer">{entry.offer_name}</span>
+    <span className="history-destination">{entry.offer_dest}</span>
+    <span className="history-date">{new Date(entry.starting_date).toLocaleDateString()}</span>
+    <span className="history-price">${entry.total_price}</span>
+  </li>
+))}
+
       </ul>
     </div>
   );

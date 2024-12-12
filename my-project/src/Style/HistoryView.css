@@ -26,7 +26,10 @@
   
   .history-date,
   .history-destination,
-  .history-purpose {
+  .history-purpose ,
+  .history-price,
+  .history-offer
+  {
     color: black;
     font-size: 14px;
     flex: 1;
