@@ -9,7 +9,7 @@ const HistoryView = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 // 
-  
+  // 
   const userId = "1"; 
 
   useEffect(() => {

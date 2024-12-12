@@ -81,6 +81,7 @@ const FlightDetails = () => {
   }
 // 
 // 
+// 
   const {
     offer_name,
     min_price,
