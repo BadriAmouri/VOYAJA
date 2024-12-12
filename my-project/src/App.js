@@ -20,15 +20,17 @@ import SetPassword from "./Page/SetPassword.jsx";
 import ForgotPassword from "./Page/ForgotPassword.jsx";
 import VerifyPasswordCode from "./Page/VerifyPasswordCode.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ProductsProvider } from "./contexts/ProductsContext";
 
 function App() {
   
 
   return (
+    <ProductsProvider>
     <div className="App">
  <Routes>
           <Route path="/" element={<Home/>}/>
-          <Route path="/Dashboard" element={<Dashboard_Agency/>} />
+          <Route path="/Dashboard/*" element={<Dashboard_Agency/>} />
           <Route path="/offerDetails" element={<OfferDetailsPage/>}/>
           <Route path="/profile" element={<Profile />} />
           <Route path="/booking" element={<BookingPage />} />
@@ -44,6 +46,7 @@ function App() {
          
         </Routes>
             </div>
+            </ProductsProvider>
   );
 }
 

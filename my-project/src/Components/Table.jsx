@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState , useEffect } from "react";
 import MaterialReactTable from "material-react-table";
 import { Button, IconButton, Tooltip } from "@mui/material";
 import { FiEye, FiTrash } from "react-icons/fi";
@@ -26,6 +26,11 @@ export const Table = ({
   const columns = useMemo(() => fields, []);
 
   const [tableData, setTableData] = useState(() => data);
+
+  useEffect(() => {
+    // Sync table data with the prop data whenever it changes
+    setTableData(data);
+  }, [data]);
 
   const handleDeleteRow = useCallback(
     (row) => {
@@ -60,7 +65,7 @@ export const Table = ({
           </Tooltip>
           {showPreview && routeLink && (
             <Tooltip arrow placement="right" title="View">
-              <Link to={`/${routeLink}/${row.id}`}>
+              <Link to={`/Dashboard/${routeLink}/${row.id}`}>
                 <IconButton>
                   <FiEye />
                 </IconButton>
@@ -69,7 +74,7 @@ export const Table = ({
           )}
           { seeOrders && ( 
            <Tooltip arrow placement="right" title="See Orders">
-           <Link to={`/orders`}>
+           <Link to={`/Dashboard/orders`}>
             <IconButton color="yellow" >
             <GiMedallist />
             </IconButton>
