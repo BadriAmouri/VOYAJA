@@ -1,133 +1,111 @@
-import React, { useState } from 'react';
-import Navbar from '../Components/bnavBar'; // Import the Navbar component
+import React, { useState, useEffect, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 import Footer from '../Components/Footer';
-import Filters from '../Components/Filters';
-import SortOptions from '../Components/SortOptions';
-import Pagination from '../Components/Pagination';
-import AgencyCard from '../Components/AgencyCard';
-import AboutUsCard from '../Components/AboutUsCard';
+import Filters from '../Components/search/Filters';
+import SortOptions from '../Components/search/SortOptions';
+import Pagination from '../Components/search/Pagination';
+import AgencyCard from '../Components/search/AgencyCard';
+import AboutUsCard from '../Components/search/AboutUsCard';
+import Stats from '../Components/search/StatsCard';
+import Agencyofferlist from '../Components/search/Agencyofferlist';
 import "../Style/custom-datepicker.css";
 import "../Style/agencyProfileStyle.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { FaTimes } from 'react-icons/fa';
-import { HiAdjustments } from 'react-icons/hi'; // Importing the desired icon
-import Agencyofferlist from '../Components/Agencyofferlist';
-import Stats from '../Components/StatsCard';
+import { HiAdjustments } from 'react-icons/hi';
+import NavigationBar from '../Components/NavigationBar/navigationBar';
 
 export default function AgencyProfile() {
-  const data = [
-    {
-      id: 1,
-      image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-      logo: 'https://via.placeholder.com/50',
-      agency: 'Travel Agency 1',
-      title: 'Luxury Beach Vacation',
-      price: 2500,
-      duration: 7,
-      rating: 4.5,
-      departureDate: '2024-12-15',
-      reviews: 120,
-    },
-    {
-        id: 2,
-        image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-        logo: 'https://via.placeholder.com/50',  
-        agency: 'Travel Agency 1',
-        title: 'Mountain Adventure',
-        price: 1800,
-        duration: 5,
-        rating: 4.0,
-        departureDate: '2024-12-20',
-        reviews: 120,
-      },
-      {
-        id: 3,
-        image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-        logo: 'https://via.placeholder.com/50',   // Placeholder image for the agency logo
-        agency: 'Travel Agency 1',
-        title: 'City Escape Weekend',
-        price: 1200,
-        duration: 3,
-        rating: 3.5,
-        departureDate: '2024-12-10',
-        reviews: 120,
-      },
-      {
-          id: 4,
-          image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-          logo: 'https://via.placeholder.com/50',   // Placeholder image for the agency logo
-          agency: 'Travel Agency 1',
-          title: 'City Escape Weekend',
-          price: 1200,
-          duration: 3,
-          rating: 3.5,
-          departureDate: '2024-12-10',
-          reviews: 120,
-        },
-        {
-            id: 4,
-            image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-            logo: 'https://via.placeholder.com/50',   // Placeholder image for the agency logo
-            agency: 'Travel Agency 1',
-            title: 'City Escape Weekend',
-            price: 1200,
-            duration: 3,
-            rating: 3.5,
-            departureDate: '2024-12-10',
-            reviews: 120,
-          },
-          {
-            id: 4,
-            image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-            logo: 'https://via.placeholder.com/50',   // Placeholder image for the agency logo
-            agency: 'Travel Agency 1',
-            title: 'City Escape Weekend',
-            price: 1200,
-            duration: 3,
-            rating: 3.5,
-            departureDate: '2024-12-10',
-            reviews: 120,
-          },
-  ];
-
-  const agencyInfo = {
-    logo: 'https://via.placeholder.com/150', // Placeholder logo
-    name: 'Dream Travel Agency',
-    location: '123 Main Street, Paris, France',
-    email: 'info@dreamtravel.com',
-    phone: '+33 1 23 45 67 89',
-    Description : "Dream Travel Agency specializes in crafting unforgettable travel experiences. With a focus on customer satisfaction, we offer a wide range of tours and vacation packages tailored to meet your unique needs and preferences.",
-    socialMedia: [
-        { icon: faFacebook, link: "https://facebook.com" },
-        { icon: faTwitter, link: "https://twitter.com" },
-        { icon: faInstagram, link: "https://instagram.com" },
-    ],
-    statsValues : {
-        tripsOrganized: "350+",
-        happyCustomers: "1,200+",
-        experience: "15 Years",
-   },
-  };
-
-  const [filters, setFilters] = useState({ price: 50, duration: 1, rating: 0 });
-  const [sortOption, setSortOption] = useState(data);
-  const [offers, setOffers] = useState(data); // Dummy offers for testing
+  const { agencyId } = useParams();
+  
+  const [filters, setFilters] = useState({ price: 1200, duration: 60, rating: 1 });
+  const [sortOption, setSortOption] = useState("");
+  const [offers, setOffers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [showFilters, setShowFilters] = useState(false); // State for filter visibility
-  const itemsPerPage = 4; // Number of offers to show per page
-
-  // Pagination logic remains unchanged
-  const totalItems = offers.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-  const indexOfLastOffer = currentPage * itemsPerPage;
-  const indexOfFirstOffer = indexOfLastOffer - itemsPerPage;
-  const currentOffers = offers.slice(indexOfFirstOffer, indexOfLastOffer);
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+  const [showFilters, setShowFilters] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
+  const [agencyInfo, setAgencyInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [statsValues, setStatsValues] = useState({
+    tripsOrganized: "",
+    happyCustomers: "",
+    experience: ""
+  });
+  const itemsPerPage = 4;
+  const calculateTotalReviews = (offers) => {
+    if (!Array.isArray(offers)) {
+      console.error("Invalid offers data:", offers);
+      return 0;
+    }
+    
+    return offers.reduce((sum, offer) => {
+      const reviews = parseInt(offer.review_count, 10); // Ensure it's a number
+      return sum + (isNaN(reviews) ? 0 : reviews); // Add only valid numbers
+    }, 0);
   };
+  
+
+  useEffect(() => {
+    const fetchAgencyData = async () => {
+      try {
+        const response = await fetch(`/api/agency/${agencyId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch agency data');
+        }
+        const data = await response.json();
+
+ 
+  
+        // Populate state with fetched data
+        setAgencyInfo(data);
+        setOffers(data.offers || []);
+                  // Calculate total reviews from all offers
+                  const totalReviews = calculateTotalReviews(data.offers)
+        setTotalPages(Math.ceil((data.offers?.length || 0) / itemsPerPage)); // Calculate total pages
+        setStatsValues({
+          tripsOrganized: data.offers?.length || 0,
+          happyCustomers: totalReviews,
+          experience: data.experience || "N/A",
+        });
+      } catch (error) {
+        console.error("Error fetching agency data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchAgencyData();
+  }, [agencyId]);
+
+  const getFilteredOffers = useMemo(() => {
+    return offers.filter((offer) => {
+      return (
+        offer.min_price <= filters.price && // Price filter
+        offer.duration <= filters.duration && // Duration filter
+        offer.average_rating >= filters.rating // Rating filter
+      );
+    });
+  }, [offers, filters]);
+
+  const getSortedOffers = useMemo(() => {
+    let filteredOffers = getFilteredOffers; // First apply filters 
+    
+    if (sortOption === "Cheapest") {
+      filteredOffers.sort((a, b) => a.min_price - b.min_price); // Sort by price (ascending)
+    } else if (sortOption === "Best") {
+      filteredOffers.sort((a, b) => b.average_rating - a.average_rating); // Sort by rating (descending)
+    } else if (sortOption === "Quickest") {
+      filteredOffers.sort((a, b) => a.duration - b.duration); // Sort by duration (ascending)
+    }
+    setTotalPages(Math.ceil(filteredOffers?.length / itemsPerPage));
+    return filteredOffers;
+  }, [getFilteredOffers, sortOption]);
+
+  const paginatedOffers = getSortedOffers.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleNext = () => {
     if (currentPage < totalPages) {
@@ -141,60 +119,59 @@ export default function AgencyProfile() {
     }
   };
 
+  if (loading) {
+    return <div className="loading">Loading data...</div>;
+  }
+
   return (
     <div className="agencyProfile-page">
-      {/* Navbar at the top */}
-      <Navbar />
+      <NavigationBar />
 
-      {/* Agency Card */}
-      <div className="agencycard-box mx-auto mt-4 ml-10">
-        <AgencyCard {...agencyInfo} />
-      </div>
+      {agencyInfo && (
+        <div className="agencycard-box mx-auto mt-4 ml-10">
+          <AgencyCard agency={agencyInfo} />
+        </div>
+      )}
 
       <button
         className="agencyfilter-button"
         onClick={() => setShowFilters(!showFilters)}
       >
-        <HiAdjustments size={20} color="#4EB7AC" /> {/* Use React Icon here */}
+        <HiAdjustments size={20} color="#4EB7AC" />
       </button>
 
-      {/* Main Content */}
-       <div className="agencyprofile-content flex mt-6">
-        {/* Filters on the far left */}
+      <div className="agencyprofile-content flex mt-6">
         <div>
-        <div className={`Agencyfilters ${showFilters ? 'visible' : ''}`}>
-          <button
-            className="close-button"
-            onClick={() => setShowFilters(!showFilters)}
-          >
-            <FaTimes />
-          </button>
-          <Filters filters={filters} setFilters={setFilters} />
-        </div>
-         <div className='agency-bio'> 
-        {/* About Us Card */}
-        <div className="mt-6">
-            <AboutUsCard description={agencyInfo["Description"]} />
-        </div>
- 
-        <div className="stats-section mx-auto mt-6">
-        <Stats values={agencyInfo.statsValues} />
-        </div> 
-        
-         </div>
- 
+          <div className={`Agencyfilters ${showFilters ? 'visible' : ''}`}>
+            <button
+              className="close-button"
+              onClick={() => setShowFilters(!showFilters)}
+            >
+              <FaTimes />
+            </button>
+            <Filters filters={filters} setFilters={setFilters} />
+          </div>
+          <div className="agency-bio">
+            {agencyInfo && (
+              <>
+                <div className="mt-6">
+                  <AboutUsCard description={agencyInfo.agency_description} />
+                </div>
+                <div className="stats-section mx-auto mt-6">
+                  <Stats values={statsValues} />
+                </div>
+              </>
+            )}
+          </div>
         </div>
 
-        {/* Right section: Sorting Buttons + Offer List */}
         <div className="agencyofferbtn flex-1 pl-6">
-          {/* Added padding to the left */}
           <div className="agencysortingbtn mb-4 custom-align">
             <SortOptions sortOption={sortOption} setSortOption={setSortOption} />
           </div>
           <div className="agencyoffers">
-            <Agencyofferlist offers={currentOffers} itemsPerPage={itemsPerPage} />
+            <Agencyofferlist offers={paginatedOffers} itemsPerPage={itemsPerPage} agency_name={agencyInfo.agency_name} agency_logo={agencyInfo.logo} />
           </div>
-          {/* Pagination Controls */}
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
@@ -204,8 +181,8 @@ export default function AgencyProfile() {
           />
         </div>
       </div>
+      
       <div className="agencysearch-page mt-6">
-        {/* Added padding-bottom to move footer down */}
         <Footer />
       </div>
     </div>

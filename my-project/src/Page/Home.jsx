@@ -7,6 +7,7 @@ import TrendingSection from '../Components/Trendings/TrendingSection';
 import Reviews from '../Components/Reviews/Reviews';
 import Footer from '../Components/Footer';
 import HeaderHome from '../Components/Home_Nav_Bar';
+import NavigationBar from '../Components/NavigationBar/navigationBar';
 
 const Home = () => {
     return (
@@ -24,7 +25,7 @@ const Home = () => {
             <h1>LIVE & TRAVEL</h1>
             <p>Special offers to suit your plan</p>
         </div>
-        <HeaderHome/>
+        <NavigationBar isHome={true}/>
         <SearchBarH/>
         <BestDestinations/>
         <TrendingSection/>

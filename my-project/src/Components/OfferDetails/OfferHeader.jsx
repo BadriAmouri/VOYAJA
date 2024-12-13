@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const OfferHeader = ({ title, destination, price, rating, numReviews }) => {
+const OfferHeader = ({
+  title,
+  destination,
+  price,
+  rating,
+  numReviews,
+  offerID,
+}) => {
   const [isFavourite, setisFavourite] = useState(false);
 
   const OnClickFavourite = () => {
@@ -50,7 +57,7 @@ const OfferHeader = ({ title, destination, price, rating, numReviews }) => {
               share
             </i>
           </button>
-          <Link to="/booking">
+          <Link to={`/booking/${offerID}`}>
             <button className="bg-primary py-2 px-8 rounded-md font-semibold text-xs">
               BOOK NOW
             </button>
