@@ -181,7 +181,7 @@
 import React, { useState, useEffect } from 'react';
 import planeImage from '../../assets/bookingPics/plane.png';
 
-const PriceBreakdown = ({ setTotalPrice, setSelectedOptionIds }) => {
+const PriceBreakdown = ({ setTotalPrice, setSelectedOptionIds ,offerName }) => {
   const [selectedItems, setSelectedItems] = useState([]); // Array of selected option objects
   const [options, setOptions] = useState([]); // All available options
   const [loading, setLoading] = useState(true);
@@ -236,11 +236,11 @@ const PriceBreakdown = ({ setTotalPrice, setSelectedOptionIds }) => {
     <div className="price-breakdown">
       <p className="flight_booking">
         <img src={planeImage} alt="plane Image" className="plane_booking" />
-        Economy
+        
         <br />
-        Emirates A380 Airbus
+        {offerName}
         <br />
-        reviews
+        
       </p>
       <hr />
 

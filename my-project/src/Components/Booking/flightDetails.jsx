@@ -43,7 +43,7 @@ import flightImage1 from '../../assets/bookingPics/airline1.png';
 import flightImage2 from '../../assets/bookingPics/airline2.png';
 import plane_icon from '../../assets/bookingPics/plane_icon.png';
 
-const FlightDetails = () => {
+const FlightDetails = ({setOfferName}) => {
   const { id } = 2 //useParams(); Dynamically fetch the 'id' from the URL
   const [flightDetails, setFlightDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -58,6 +58,7 @@ const FlightDetails = () => {
         }
         const data = await response.json();
         setFlightDetails(data.offer); // Set the response data
+        setOfferName(data.offer.offer_name);
       } catch (err) {
         setError(err.message); // Handle errors
       } finally {
@@ -88,6 +89,7 @@ const FlightDetails = () => {
     duration,
     starting_date,
     pictures_urls,
+    return_date,
   } = flightDetails;
 
   console.log (min_price);
@@ -123,7 +125,7 @@ const FlightDetails = () => {
       <p className="flight-timing">
       {new Date(starting_date).toDateString() || 'N/A'}
         <img src={plane_icon} alt="plane Icon" className="plane-icon" />
-        {new Date(starting_date).toDateString() || 'N/A'}
+        {new Date(return_date).toDateString() || 'N/A'}
       </p>
     </div>
   );
