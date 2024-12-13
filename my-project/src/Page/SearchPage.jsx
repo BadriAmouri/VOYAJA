@@ -1,188 +1,110 @@
-import React, { useState } from 'react';
-import Navbar from '../Components/bnavBar'; // Import the Navbar component
+import React, { useState,useEffect } from 'react';
 import Footer from '../Components/Footer';
-import SearchBar from '../Components/SearchBar';
-import Filters from '../Components/Filters';
-import SortOptions from '../Components/SortOptions';
-import OfferList from '../Components/OfferList';
-import Pagination from '../Components/Pagination';
+import SearchBar from '../Components/search/SearchBar';
+import Filters from '../Components/search/Filters';
+import SortOptions from '../Components/search/SortOptions';
+import OfferList from '../Components/search/OfferList';
+import Pagination from '../Components/search/Pagination';
 import "../Style/custom-datepicker.css";
 import "../Style/Searchpagestyle.css"; 
 import { FaTimes } from 'react-icons/fa';
 import { HiAdjustments } from 'react-icons/hi'; // Importing the desired icon
+import { useLocation } from "react-router-dom"; 
+import NavigationBar from '../Components/NavigationBar/navigationBar';
 
 export default function SearchPage() {
-  const data = [ {
-    id: 1,
-    image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-    logo: 'https://via.placeholder.com/50',  
-    agency: 'Travel Agency 1',
-    title: 'Luxury Beach Vacation',
-    price: 2500,
-    duration: 7,
-    rating: 4.5,
-    departureDate: '2024-12-15',
-    reviews: 120,
-  },
-  {
-    id: 2,
-    image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-    logo: 'https://via.placeholder.com/50',  
-    agency: 'Travel Agency 2',
-    title: 'Mountain Adventure',
-    price: 1800,
-    duration: 5,
-    rating: 4.0,
-    departureDate: '2024-12-20',
-    reviews: 120,
-  },
-  {
-    id: 3,
-    image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-    logo: 'https://via.placeholder.com/50',   // Placeholder image for the agency logo
-    agency: 'Travel Agency 3',
-    title: 'City Escape Weekend',
-    price: 1200,
-    duration: 3,
-    rating: 3.5,
-    departureDate: '2024-12-10',
-    reviews: 120,
-  },
-  {
-      id: 4,
-      image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-      logo: 'https://via.placeholder.com/50',   // Placeholder image for the agency logo
-      agency: 'Travel Agency 3',
-      title: 'City Escape Weekend',
-      price: 1200,
-      duration: 3,
-      rating: 3.5,
-      departureDate: '2024-12-10',
-      reviews: 120,
-    },
-    {
-      id: 5,
-      image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-      logo: 'https://via.placeholder.com/50',   // Placeholder image for the agency logo
-      agency: 'Travel Agency 3',
-      title: 'City Escape Weekend',
-      price: 1200,
-      duration: 3,
-      rating: 3.5,
-      departureDate: '2024-12-10',
-      reviews: 120,
-    },
-    {
-      id: 6,
-      image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-      logo: 'https://via.placeholder.com/50',   // Placeholder image for the agency logo
-      agency: 'Travel Agency 3',
-      title: 'City Escape Weekend',
-      price: 1200,
-      duration: 3,
-      rating: 3.5,
-      departureDate: '2024-12-10',
-      reviews: 120,
-    },
-    {
-      id: 7,
-      image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-      logo: 'https://via.placeholder.com/50',   // Placeholder image for the agency logo
-      agency: 'Travel Agency 3',
-      title: 'New york city light',
-      price: 1200,
-      duration: 3,
-      rating: 3.5,
-      departureDate: '2024-12-10',
-      reviews: 120,
-    },
-    {
-      id: 8,
-      image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-      logo: 'https://via.placeholder.com/50',   // Placeholder image for the agency logo
-      agency: 'Travel Agency 3',
-      title: 'Paris city of love',
-      price: 1200,
-      duration: 3,
-      rating: 3.5,
-      departureDate: '2024-12-10',
-      reviews: 120,
-    },
-    {
-      id: 9,
-      image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-      logo: 'https://via.placeholder.com/50',   // Placeholder image for the agency logo
-      agency: 'Travel Agency 3',
-      title: 'Let s get lost in Japan',
-      price: 1200,
-      duration: 3,
-      rating: 3.5,
-      departureDate: '2024-12-10',
-      reviews: 120,
-    },
-    {
-      id: 10,
-      image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-      logo: 'https://via.placeholder.com/50',   // Placeholder image for the agency logo
-      agency: 'Travel Agency 3',
-      title: 'Busan where you experience magic',
-      price: 1200,
-      duration: 3,
-      rating: 3.5,
-      departureDate: '2024-12-10',
-      reviews: 120,
-    },
-    {
-      id: 11,
-      image: 'https://via.placeholder.com/150', // Placeholder image for the trip
-      logo: 'https://via.placeholder.com/50',   // Placeholder image for the agency logo
-      agency: 'Travel Agency 3',
-      title: 'Dubai next destination',
-      price: 1200,
-      duration: 3,
-      rating: 3.5,
-      departureDate: '2024-12-10',
-      reviews: 120,
-    },];
-  const [filters, setFilters] = useState({ price: 50, duration: 1, rating: 0 });
-  const [sortOption, setSortOption] = useState(data);
-  const [offers, setOffers] = useState(data); // Dummy offers for testing
-  const [currentPage, setCurrentPage] = useState(1);
-  const [showFilters, setShowFilters] = useState(false); // State for filter visibility
-  const itemsPerPage = 5; // Number of offers to show per page
-    // Step 2: Calculate offers to show based on current page
-    const totalItems = offers.length;
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-  
-    const indexOfLastOffer = currentPage * itemsPerPage;
-    const indexOfFirstOffer = indexOfLastOffer - itemsPerPage;
-    const currentOffers = offers.slice(indexOfFirstOffer, indexOfLastOffer);
-  
-    // Step 3: Pagination controls
-    const handlePageChange = (pageNumber) => {
-      setCurrentPage(pageNumber);
-    };
-  
-    const handleNext = () => {
-      if (currentPage < totalPages) {
-        setCurrentPage(currentPage + 1);
-      }
-    };
-  
-    const handlePrevious = () => {
-      if (currentPage > 1) {
-        setCurrentPage(currentPage - 1);
-      }
-    };
+ 
+ 
+  const location = useLocation(); // Access the URL
+  const queryParams = new URLSearchParams(location.search); // Parse query params
+      const [filters, setFilters] = useState({
+          price: null,
+          rating: null,
+          duration:null, 
+      });
+      const [sort , setSort]=useState('');
+      const [page , setPage]=useState(1);
+      const [searchParams, setSearchParams] = useState({
+        destination: queryParams.get("destination") || "", // Initialize from query
+        departureDate: queryParams.get("departureDate") 
+        ? new Date(queryParams.get("departureDate")) // Convert to Date object if available
+        : null,
+      });
+      const limit=3;
+      const [offers, setOffers] = useState([]); // Offers data
+      const [showFilters, setShowFilters] = useState(false); // State for filter visibility
+      //const totalPages = Math.ceil(offers.totalItems /limit|| 1);
+      const [totalPages, setTotalPages] = useState(1);
 
+
+      // Fetch Offers
+      useEffect(() => {
+        console.log("Search Params changed:", searchParams);
+
+        const fetchOffers = async () => {
+          try {
+            
+            const queryParams = new URLSearchParams();
+
+            // Append individual filter values directly as query parameters
+            if (filters.price) queryParams.append('price', filters.price);
+            if (filters.rating) queryParams.append('rating', filters.rating);
+            if (filters.duration) queryParams.append('duration', filters.duration);
+      
+            // Append searchParams directly as individual parameters
+            if (searchParams.destination) queryParams.append('destination', searchParams.destination);
+            if (searchParams.departureDate) {
+              const formattedDate = new Date(searchParams.departureDate)
+                .toISOString()
+                .split('T')[0]; // Extract only the date part
+              queryParams.append('departureDate', formattedDate);
+            }
+            // Add sort, page, and limit
+            if (sort) queryParams.append('sort', sort);
+            queryParams.append('page', page);
+            queryParams.append('limit', limit);
+      
+            const url = `/api/offers/search?${queryParams}`;
+            const response = await fetch(`/api/offers/search?${queryParams}`);
+            console.log("URL is :", url);
+            const data = await response.json();
+            
+            setOffers(data.offers); // Update state with fetched data
+            setTotalPages(data.totalPages || 1);
+
+          } catch (error) {
+            console.error("Error fetching offers:", error);
+          }
+        };        
+        fetchOffers();
+      }, [filters,sort,page,searchParams,limit]); // Trigger fetch whenever filters change
+
+      // Handle Pagination
+      const handlePageChange = (pageNumber) => {
+        setPage( pageNumber );
+      };
+
+      const handleNext = () => {
+        if (page < totalPages) {
+          setPage( page+1 );
+        }
+      };
+
+      const handlePrevious = () => {
+        if (page > 1) {
+          setPage( page-1 );
+        }
+      };
+
+ 
   return (
     <div className="search-page">
       {/* Navbar at the top */}
-      <Navbar />
+      <NavigationBar />
 
       {/* Search Bar */}
       <div className="search-bar">
-      <SearchBar/>
+      <SearchBar searchParams={searchParams} setSearchParams={setSearchParams}/>
       </div>
       <button
         className="filter-button"
@@ -195,7 +117,7 @@ export default function SearchPage() {
       <div className="search-content flex mt-6">
         {/* Filters on the far left */}
         <div className={`filters ${showFilters ? "visible" : ""}`}>
-        <button class="close-button" onClick={() => setShowFilters(!showFilters)}>
+        <button className="close-button" onClick={() => setShowFilters(!showFilters)}>
         <FaTimes />
         </button>
           <Filters filters={filters} setFilters={setFilters} />
@@ -204,14 +126,14 @@ export default function SearchPage() {
         {/* Right section: Sorting Buttons + Offer List */}
         <div className="offerbtn flex-1 pl-6"> {/* Added padding to the left */}
           <div className="sortingbtn mb-4 custom-align">
-            <SortOptions sortOption={sortOption} setSortOption={setSortOption} />
+            <SortOptions sortOption={sort} setSortOption={setSort} />
           </div>
           <div className='boffers'>
-          <OfferList offers={currentOffers} />
+          <OfferList offers={offers || [] } />
           </div>
           {/* Pagination Controls */}
           <Pagination
-            currentPage={currentPage}
+            currentPage={page}
             totalPages={totalPages}
             onPageChange={handlePageChange}
             onNext={handleNext}

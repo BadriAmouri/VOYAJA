@@ -14,8 +14,8 @@ import dest9 from '../../assets/HomePics/dest9.jpg';
 
 const BestDestinations = () => {
   const destinations = [
-    { image: dest1, location: 'Istanbul ,Turkey', description: 'The City of Light' },
-    { image: dest2, location: 'Male , Maldives', description: 'The City of Light' },
+    { image: dest1, location: 'Greece ,Turkey', description: 'The City of Light' },
+    { image: dest2, location: 'Bali , Maldives', description: 'The City of Light' },
     { image: dest3, location: 'London , UK', description: 'The City of Light' },
     { image: dest4, location: 'Sydney , Australia', description: 'The City of Light' },
     { image: dest5, location: 'Paris , France', description: 'The City of Light' },
