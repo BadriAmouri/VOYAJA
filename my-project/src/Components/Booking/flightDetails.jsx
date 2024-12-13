@@ -1,40 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import flightImage1 from '../../assets/bookingPics/airline1.png'; // First image
-// import flightImage2 from '../../assets/bookingPics/airline2.png'; // Second image
-// import plane_icon from '../../assets/bookingPics/plane_icon.png';
-
-// const FlightDetails = () => {
-//   return (
-//     <div className="flight-details">
-//       <div className="flight-info">
-//         {/* <img src="https://via.placeholder.com/50" alt="Airline Logo" /> */}
-//         <div>
-//           <p className="info_airbus">
-//             Emirates A380 Airbus
-//             <span className="price_booking">$240</span>
-//           </p>
-
-//           <p className="time_airbus">
-//             Return Wed, Dec 8
-//             <span className="time_booking">2h 28m</span>
-//           </p>
-
-//           {/* Include both images side by side */}
-//           <div className="airline-images">
-//            {/* first for the logo */}
-//             <img src={flightImage1} alt="Airline Image 1" className="airline-image" />
-//             <img src={flightImage2} alt="Airline Image 2" className="airline-image" />
-//           </div>
-//         </div>
-//       </div>
-//       <p className="flight-timing">
-//         12:00 PM - Newark (EWR)
-//         <img src={plane_icon} alt="plane Icon" className="plane-icon" />
-//         12:00 PM - Newark (EWR)
-//       </p>
-//     </div>
-//   );
-// };
 
 // export default FlightDetails;
 import React, { useState, useEffect } from 'react';
@@ -42,7 +5,10 @@ import { useParams } from 'react-router-dom';
 import flightImage1 from '../../assets/bookingPics/airline1.png';
 import flightImage2 from '../../assets/bookingPics/airline2.png';
 import plane_icon from '../../assets/bookingPics/plane_icon.png';
-
+import seoulTower from "../../assets/offerPics/seoul-tower.jpg";
+import seoulPalace from "../../assets/offerPics/palace.jpg";
+import springSeoul from "../../assets/offerPics/spring-seoul-korea.jpg";
+import travelLogo from "../../assets/offerPics/travel-agency-logo.jpg";
 const FlightDetails = ({setOfferName}) => {
   const { offerid } = useParams();
   const { id } = 2 //useParams(); Dynamically fetch the 'id' from the URL
@@ -111,14 +77,14 @@ const FlightDetails = ({setOfferName}) => {
           {/* Display images from fetched data or placeholders */}
           <div className="airline-images">
             <img
-              src={pictures_urls?.[0] || flightImage1}
+              src={travelLogo}
               alt="Airline Image 1"
               className="airline-image"
             />
             <img
               src={flightImage2}
               alt="Airline Image 2"
-              className="airline-image"
+              className="airline-imageop"
             />
           </div>
         </div>

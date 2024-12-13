@@ -38,7 +38,7 @@ const AddProduct = () => {
     min_price: 0,
     included: ["Guided Hikes", "Equipment Rental"],
     history_offer: false,
-    agency_id: 1,
+    agency_id: 5,
   });
 
 

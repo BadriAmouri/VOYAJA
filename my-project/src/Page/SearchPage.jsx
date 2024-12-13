@@ -100,7 +100,7 @@ export default function SearchPage() {
   return (
     <div className="search-page">
       {/* Navbar at the top */}
-      <NavigationBar />
+      <NavigationBar isLoggedIn={true}/>
 
       {/* Search Bar */}
       <div className="search-bar">

@@ -16,8 +16,8 @@ import NavigationBar from '../Components/NavigationBar/navigationBar';
 
 export default function AgencyProfile() {
   const { agencyId } = useParams();
-  
-  const [filters, setFilters] = useState({ price: 1200, duration: 60, rating: 1 });
+
+  const [filters, setFilters] = useState({ price: 200000, duration: 60, rating: 1 });
   const [sortOption, setSortOption] = useState("");
   const [offers, setOffers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,13 +36,13 @@ export default function AgencyProfile() {
       console.error("Invalid offers data:", offers);
       return 0;
     }
-    
+
     return offers.reduce((sum, offer) => {
       const reviews = parseInt(offer.review_count, 10); // Ensure it's a number
       return sum + (isNaN(reviews) ? 0 : reviews); // Add only valid numbers
     }, 0);
   };
-  
+
 
   useEffect(() => {
     const fetchAgencyData = async () => {
@@ -53,13 +53,13 @@ export default function AgencyProfile() {
         }
         const data = await response.json();
 
- 
-  
+
+
         // Populate state with fetched data
         setAgencyInfo(data);
         setOffers(data.offers || []);
-                  // Calculate total reviews from all offers
-                  const totalReviews = calculateTotalReviews(data.offers)
+        // Calculate total reviews from all offers
+        const totalReviews = calculateTotalReviews(data.offers)
         setTotalPages(Math.ceil((data.offers?.length || 0) / itemsPerPage)); // Calculate total pages
         setStatsValues({
           tripsOrganized: data.offers?.length || 0,
@@ -72,7 +72,7 @@ export default function AgencyProfile() {
         setLoading(false);
       }
     };
-  
+
     fetchAgencyData();
   }, [agencyId]);
 
@@ -88,7 +88,7 @@ export default function AgencyProfile() {
 
   const getSortedOffers = useMemo(() => {
     let filteredOffers = getFilteredOffers; // First apply filters 
-    
+
     if (sortOption === "Cheapest") {
       filteredOffers.sort((a, b) => a.min_price - b.min_price); // Sort by price (ascending)
     } else if (sortOption === "Best") {
@@ -125,7 +125,7 @@ export default function AgencyProfile() {
 
   return (
     <div className="agencyProfile-page">
-      <NavigationBar />
+      <NavigationBar isLoggedIn={true} />
 
       {agencyInfo && (
         <div className="agencycard-box mx-auto mt-4 ml-10">
@@ -181,7 +181,7 @@ export default function AgencyProfile() {
           />
         </div>
       </div>
-      
+
       <div className="agencysearch-page mt-6">
         <Footer />
       </div>

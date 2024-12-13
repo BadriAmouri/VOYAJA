@@ -5,11 +5,13 @@ import FileUploadForm from './FileUploadForm.jsx';
 
 import Footer from '../Footer';
 import '../../Style/upload.css'
+import NavigationBar from '../NavigationBar/navigationBar.jsx';
 
 const ConfirmationPage = () => {
   return (
     <div className="confirmation-page">
-        <Header/>
+       <NavigationBar isLoggedIn={true}></NavigationBar>
+
     
       <main>
       

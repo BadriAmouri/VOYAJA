@@ -1,6 +1,6 @@
 /* Base styles */
 
-.search-page{
+.search-page {
   margin-top: 10%;
 }
 
@@ -13,43 +13,52 @@
   display: block;
   margin-left: 4.5%;
 }
+
 .offer-list {
-  background-color:  #ffffff;
+  background-color: #ffffff;
 }
 
 .offers {
   flex: 1;
 }
-.filter-button{
+
+.filter-button {
   display: none;
 }
+
 .close-button {
   display: none;
 }
+
 .bview-details:hover {
   color: #4eb7ac;
   background-color: white;
   border: 2px solid #4eb7ac;
   text-decoration: none;
 }
-  
+
 
 
 /* Media query for phone-like screens */
 @media screen and (max-width: 768px) {
   .search-content {
-    flex-direction: column; /* Stack elements */
+    flex-direction: column;
+    /* Stack elements */
   }
-  .search-bar{
-      margin-left: 7px;
-      width: 96%;
+
+  .search-bar {
+    margin-left: 7px;
+    width: 96%;
 
   }
+
   .filters {
-    display: none; /* Hide filters by default */
+    display: none;
+    /* Hide filters by default */
     position: fixed;
     margin-left: 0;
-    bottom: -100%; /* Start hidden */
+    bottom: -100%;
+    /* Start hidden */
     left: 0;
     width: 100%;
     height: 85%;
@@ -59,55 +68,69 @@
     padding: 20px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    transition: bottom 0.3s ease-in-out; /* Smooth animation */
+    transition: bottom 0.3s ease-in-out;
+    /* Smooth animation */
   }
 
   .filters.visible {
-    bottom: 0; /* Show filters */
+    bottom: 0;
+    /* Show filters */
     display: block;
   }
-  .filter-button {
-      display: flex; /* Show button */
-      position: absolute; /* Place between navbar and search bar */
-      top: 167px; /* Adjust as per Navbar height */
-      left: 10px; /* Slight margin from the left */
-      background: white;
-      color: #4EB7AC; /* Green color for the icon */
-      border: 1px solid #4EB7AC; /* Green border */
-      border-radius: 10%; /* Circular button */
-      width: 40px;
-      height: 30px;
-      font-size: 18px;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      z-index: 1001;
-    }
 
-  .boffers{
-      position: relative;
-      margin-left: 100;
-      width: 95%;
-     
+  .filter-button {
+    display: flex;
+    /* Show button */
+    position: absolute;
+    /* Place between navbar and search bar */
+    top: 167px;
+    /* Adjust as per Navbar height */
+    left: 10px;
+    /* Slight margin from the left */
+    background: white;
+    color: #4EB7AC;
+    /* Green color for the icon */
+    border: 1px solid #4EB7AC;
+    /* Green border */
+    border-radius: 10%;
+    /* Circular button */
+    width: 40px;
+    height: 30px;
+    font-size: 18px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    z-index: 1001;
   }
+
+  .boffers {
+    position: relative;
+    margin-left: 100;
+    width: 95%;
+
+  }
+
   .filters .close-button {
-      display: block;
-      position: absolute;
-      top: 30px;
-      right: 60px;
-      font-size: 20px;
-      color: #9ea1a1;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-    }
-    .comsortbtn{
-      display: flex;
-      justify-content: center;      /* Equivalent to justify-center in Tailwind */
-      gap: 0.01rem;  
-    }
-    .comsortbtn button {
-      padding: 0.01rem;
-    }
+    display: block;
+    position: absolute;
+    top: 30px;
+    right: 60px;
+    font-size: 20px;
+    color: #9ea1a1;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+  }
+
+  .comsortbtn {
+    display: flex;
+    justify-content: center;
+    /* Equivalent to justify-center in Tailwind */
+    gap: 0.01rem;
+  }
+
+  .comsortbtn button {
+    padding: 0.01rem;
+  }
 }
