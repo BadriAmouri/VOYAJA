@@ -138,7 +138,7 @@ const BookingPage = () => {
       total_price: totalPrice,
       status: false,
       customer_id: 1,
-      offer_id: 12,
+      offer_id: 15,
       reciept_url: "receipt_url",
       passports_urls: [simulatedPassportURL], // Simulating cloud upload
       
@@ -149,7 +149,7 @@ const BookingPage = () => {
     try {
      
   
-      const response = await fetch('http://localhost:5000/api/booking/add', {
+      const response = await fetch('/api/booking/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

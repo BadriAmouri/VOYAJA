@@ -190,14 +190,15 @@ const PriceBreakdown = ({ setTotalPrice, setSelectedOptionIds }) => {
   useEffect(() => {
     const fetchOfferOptions = async () => {
       try {
-        const response = await fetch('/api/option/9');
+        const response = await fetch('/api/option/15');
         if (!response.ok) {
           throw new Error('Failed to fetch offer options');
         }
         const data = await response.json();
+        console.log("the data is :",data)
         setOptions(data); // Set the options in state
       } catch (err) {
-        setError(err.message);
+        setError("AMINA AW KAYEN ERROR ", err.message);
       } finally {
         setLoading(false);
       }
