@@ -25,14 +25,17 @@ import VerifyPasswordCode from "./Page/VerifyPasswordCode.jsx";
 import Notifications from "./Components/Notifications.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ProductsProvider } from "./contexts/ProductsContext";
+import { AppProvider } from "./contexts/AppContext";
 
 function App() {
   return (
     <ProductsProvider>
+    <AppProvider>
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Dashboard/*" element={<Dashboard_Agency />} />
+          <Route path="/Home" element={<Home />} />
           <Route path="/offerDetails/:id" element={<OfferDetailsPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/booking/:offerid" element={<BookingPage />} />
@@ -53,7 +56,9 @@ function App() {
 
         </Routes>
       </div>
+      </AppProvider>
     </ProductsProvider>
+    
   );
 }
 
