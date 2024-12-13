@@ -12,8 +12,8 @@ const OfferOverview = ({
 }) => {
   return (
     <div className="w-full flex flex-col gap-3">
-      <h1 className="text-xl font-bold">Overview</h1>
-      <div className="p-4 w-full shadow-sm rounded-lg border border-customBorder flex flex-col items-center">
+      <h1 className="text-xl font-bold flex">Overview</h1>
+      <div className="p-4 w-full shadow-sm rounded-lg border border-customBorder flex flex-col items-center bg-white">
         <div className="flex items-center gap-10 mb-10">
           <div className="flex gap-10">
             <h2 className="text-lg font-medium">{departureCity}</h2>

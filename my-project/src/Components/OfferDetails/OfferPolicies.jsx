@@ -6,20 +6,20 @@ const OfferPolicies = ({
 }) => {
   return (
     <div className="flex flex-col gap-4 w-full bg-primary rounded-md p-4">
-      <h2 className="text-lg font-medium">Offer Policies</h2>
-      <div className=" flex items-end">
+      <h2 className="text-lg font-semibold flex">Offer Policies</h2>
+      <div className=" flex items-center">
         <p className="flex items-center w-1/2 gap-4">
           <span class="material-icons text-lg">person_outline</span>
-          <p className="text-sm">
+          <span className="text-sm">
             {min_num_persons} - {max_num_persons} persons
-          </p>
+          </span>
         </p>
-        <p className="flex items-center w-1/2 gap-4">
-          <span class="material-icons text-lg">calendar_today</span>
-          <p className="text-sm">
+        <div className="flex items-center w-1/2 gap-4">
+          <span className="material-icons text-lg">calendar_today</span>
+          <span className="text-sm">
             Minimum {min_age} years old, Maximum {max_age} years old
-          </p>
-        </p>
+          </span>
+        </div>
       </div>
     </div>
   );

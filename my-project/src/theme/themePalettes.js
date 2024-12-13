@@ -24,7 +24,7 @@ export const getDesignTokens = (mode) => ({
       green: "#4EB7AC", // Reusing the primary color for consistency
     },
 
-    ...(mode !== "light"
+    ...(mode == "light"
       ? {
           // Palette values for light mode
           background: {
@@ -51,5 +51,10 @@ export const getDesignTokens = (mode) => ({
           divider: "rgba(78, 183, 172, 0.2)", // Slightly stronger divider
           chatBox: "#184644", // Darker chat box for dark mode
         }),
+  },
+  typography: {
+    allVariants: {
+      textAlign: "left", // Global centering
+    },
   },
 });
