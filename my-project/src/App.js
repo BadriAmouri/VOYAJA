@@ -8,7 +8,6 @@ import './App.css';
 import Destination from "./Components/Destinations/Destinations.jsx";
 import BookingPage from "./Components/Booking/BookingPage.jsx";
 
-import Profile from "./Components/Profile/Profile.jsx";
 import ConfirmationPage from "./Components/Confirmation/confirmationPage.jsx"
 
 import Profile from "./Page/Profile.jsx";
@@ -30,7 +29,7 @@ function App() {
   
 
 
-//   return (
+   return (
 // <<<<<<< Booking_confirmation
 //   <div className="App">
 //     <BookingPage/>

@@ -15,7 +15,7 @@ const HistoryView = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/booking/getHistory/${userId}`);
+        const response = await fetch(`/api/booking/getHistory/${userId}`);
 
         if (!response.ok) {
           throw new Error(`Error fetching history: ${response.statusText}`);

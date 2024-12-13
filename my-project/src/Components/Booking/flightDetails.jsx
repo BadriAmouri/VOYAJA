@@ -52,7 +52,7 @@ const FlightDetails = () => {
   useEffect(() => {
     const getOffer = async () => {
       try {
-        const response = await fetch(`/api/offers/9`); // Use the dynamic 'id' in the API call
+        const response = await fetch(`/api/offers/15`); // Use the dynamic 'id' in the API call
         if (!response.ok) {
           throw new Error('Failed to fetch flight details');
         }
