@@ -44,6 +44,7 @@ import flightImage2 from '../../assets/bookingPics/airline2.png';
 import plane_icon from '../../assets/bookingPics/plane_icon.png';
 
 const FlightDetails = ({setOfferName}) => {
+  const { offerid } = useParams();
   const { id } = 2 //useParams(); Dynamically fetch the 'id' from the URL
   const [flightDetails, setFlightDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -52,7 +53,7 @@ const FlightDetails = ({setOfferName}) => {
   useEffect(() => {
     const getOffer = async () => {
       try {
-        const response = await fetch(`/api/offers/15`); // Use the dynamic 'id' in the API call
+        const response = await fetch(`/api/offers/${offerid}`); // Use the dynamic 'id' in the API call
         if (!response.ok) {
           throw new Error('Failed to fetch flight details');
         }

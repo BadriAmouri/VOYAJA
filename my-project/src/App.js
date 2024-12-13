@@ -35,7 +35,7 @@ function App() {
           <Route path="/Dashboard/*" element={<Dashboard_Agency />} />
           <Route path="/offerDetails/:id" element={<OfferDetailsPage />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/booking" element={<BookingPage />} />
+          <Route path="/booking/:offerid" element={<BookingPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/destinations" element={<Destination />} /> */
           <Route path="/SignUp" element={<SignUp />} /> */
@@ -49,6 +49,8 @@ function App() {
           />{" "}
           */
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/agencyprofile/:agencyId" element={<AgencyProfile />} />
+
         </Routes>
       </div>
     </ProductsProvider>

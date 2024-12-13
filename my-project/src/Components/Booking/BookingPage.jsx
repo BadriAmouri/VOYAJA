@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import FlightDetails from './flightDetails';
 import PriceBreakdown from './PriceBreakdown';
 import BookingForm from './bookingForm';
@@ -6,10 +7,12 @@ import Footer from '../Footer';
 import '../../Style/booking.css';
 import NavigationBar from '../NavigationBar/navigationBar';
 
+
 // 
 // 
 // 
 const BookingPage = () => {
+  const { offerid } = useParams();
   const [passportFile, setPassportFile] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -139,7 +142,7 @@ const BookingPage = () => {
       total_price: totalPrice,
       status: false,
       customer_id: 1,
-      offer_id: 15,
+      offer_id: offerid,
       reciept_url: "receipt_url",
       passports_urls: [simulatedPassportURL], // Simulating cloud upload
       
