@@ -23,6 +23,7 @@ import SetPassword from "./Page/SetPassword.jsx";
 import ForgotPassword from "./Page/ForgotPassword.jsx";
 import VerifyPasswordCode from "./Page/VerifyPasswordCode.jsx";
 import Notifications from "./Components/Notifications.jsx";
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ProductsProvider } from "./contexts/ProductsContext";
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Dashboard/*" element={<Dashboard_Agency />} />
           <Route path="/offerDetails/:id" element={<OfferDetailsPage />} />
+          <Route path="/Confirmation" element={<ConfirmationPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/booking/:offerid" element={<BookingPage />} />
           <Route path="/search" element={<SearchPage />} />
@@ -43,10 +45,12 @@ function App() {
           <Route path="/Login" element={<Login />} /> */
           <Route path="/SetPassword" element={<SetPassword />} /> */
           <Route path="/ForgotPassword" element={<ForgotPassword />} /> */
+          
           <Route
             path="/VerifyPasswordCode"
             element={<VerifyPasswordCode />}
-          />{" "}
+          />
+          {" "}
           */
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/agencyprofile/:agencyId" element={<AgencyProfile />} />

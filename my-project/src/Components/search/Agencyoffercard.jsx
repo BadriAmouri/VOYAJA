@@ -1,16 +1,19 @@
-import React , { useState } from 'react';
+import React, { useState } from 'react';
 import { FaRegHeart } from 'react-icons/fa'; // Correct import for outlined heart icon
 import { Link } from 'react-router-dom';
+import seoulTower from "../../assets/offerPics/seoul-tower.jpg";
+import seoulPalace from "../../assets/offerPics/palace.jpg";
+import springSeoul from "../../assets/offerPics/spring-seoul-korea.jpg";
+import travelLogo from "../../assets/offerPics/travel-agency-logo.jpg";
 
-
-export default function Agencyoffercard({ agency_name , agency_logo , offer }) {
+export default function Agencyoffercard({ agency_name, agency_logo, offer }) {
   const formattedDepartureDate = new Date(offer.starting_date).toLocaleDateString('en-GB').replace(/\//g, '-');
   const formattedRating = offer.average_rating.toFixed(1);
   return (
     <div className="text-left agencyoffer-card bg-white border p-4 rounded-lg shadow-md  max-w-[52rem]  flex">
       {/* Offer Image */}
       <div className="agencyoffer-image w-1/4">
-        {offer.image && offer.image[0] ? (
+        {/*         {offer.image && offer.image[0] ? (
           // Convert the BLOB to an object URL
           <img
             src={URL.createObjectURL(new Blob([offer.image[0]], { type: 'image/jpeg' }))}
@@ -21,7 +24,8 @@ export default function Agencyoffercard({ agency_name , agency_logo , offer }) {
           <div className="placeholder-image w-full h-auto rounded-lg bg-gray-200 flex items-center justify-center">
             <p className="text-gray-500">No Image Available</p>
           </div>
-        )}
+        )} */}
+        <img src={seoulPalace} alt={seoulPalace} />
       </div>
 
       {/* Offer Details */}
@@ -35,7 +39,7 @@ export default function Agencyoffercard({ agency_name , agency_logo , offer }) {
             <span className="text-sm text-gray-600">({offer.review_count} reviews)</span>
           </div>
           <div className="agencyprice text-secondary text-xl font-semibold text-right">
-          ${offer.min_price}
+            dzd{offer.min_price}
           </div>
         </div>
 
@@ -46,9 +50,9 @@ export default function Agencyoffercard({ agency_name , agency_logo , offer }) {
         <p className="agencydeparture-date text-sm text-gray-600 mt-1">{formattedDepartureDate}</p>
 
         {/* Agency Logo and Name */}
-       <div className="agency-info flex items-center mt-2 space-x-2">
-       <Link to={`/agencyprofile/${offer.agency_id}`}>
-            {agency_logo && agency_logo[0] ? (
+        <div className="agency-info flex items-center mt-2 space-x-2">
+          <Link to={`/agencyprofile/${offer.agency_id}`}>
+            {/*             {agency_logo && agency_logo[0] ? (
               // Convert the BLOB to an object URL
               <img
                 src={URL.createObjectURL(new Blob([agency_logo[0]], { type: 'image/png' }))}
@@ -57,17 +61,18 @@ export default function Agencyoffercard({ agency_name , agency_logo , offer }) {
               />
             ) : (
               <div className="placeholder-image w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-                
+
               </div>
-            )}
+            )} */}
+            <img src={travelLogo} alt={travelLogo} className="w-8 h-8 rounded-full" />
           </Link>
           <Link to={`/agencyprofile/${offer.agency_id}`}>
-          <span className="text-sm text-gray-800 font-medium">{agency_name}</span>
+            <span className="text-sm text-gray-800 font-medium">{agency_name}</span>
           </Link>
         </div>
 
-        
- 
+
+
         {/* Grey Line */}
         <hr className="my-2 border-gray-300" />
 
@@ -79,9 +84,9 @@ export default function Agencyoffercard({ agency_name , agency_logo , offer }) {
           </button>
 
           {/* View Details Button */}
-          
+
           <button className="agencyview-details flex-1 bg-[#4EB7AC] text-white p-2 rounded-lg">
-          <Link to='/offerDetails'>View Details</Link>
+            <Link to={`/offerDetails/${offer.offer_id}`}>View Details</Link>
           </button>
         </div>
       </div>
