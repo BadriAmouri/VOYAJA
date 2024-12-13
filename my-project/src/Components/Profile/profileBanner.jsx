@@ -3,18 +3,19 @@ import '../../Style/ProfileBanner.css';
 import image1 from '../../assets/Profile/bg.jpg';
 import image2 from '../../assets/Profile/user.jpg';
 import { IoIosCloudUpload } from "react-icons/io";
+import { useAppContext } from '../../contexts/AppContext';
 
 const ProfileBanner = () => {
   const [user, setUser] = useState(null);  // To store user data
   const [error, setError] = useState(null);  // To handle errors
+  const {isLoggedIn, setIsLoggedIn ,clientID ,setClientID} = useAppContext();
 
   useEffect(() => {
-    const clientId = 1; // Replace with dynamic clientId (e.g., from auth context or URL)
-    
+   
     // Fetch user info
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch(`/client/1`);
+        const response = await fetch(`/client/${clientID}`);
         
         if (!response.ok) {
           throw new Error('User not found or error occurred');
