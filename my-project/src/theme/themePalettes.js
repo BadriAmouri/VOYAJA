@@ -52,4 +52,9 @@ export const getDesignTokens = (mode) => ({
           chatBox: "#184644", // Darker chat box for dark mode
         }),
   },
+  typography: {
+    allVariants: {
+      textAlign: "left", // Global centering
+    },
+  },
 });

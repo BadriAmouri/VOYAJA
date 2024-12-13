@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 const OfferHeader = ({ title, destination, price, rating, numReviews }) => {
   const [isFavourite, setisFavourite] = useState(false);
 
@@ -10,7 +12,7 @@ const OfferHeader = ({ title, destination, price, rating, numReviews }) => {
     <div className="flex flex-col w-full justify-center py-4">
       <div className="flex justify-between items-center ">
         <div>
-          <h1 className="text-2xl font-bold pb-4">{title}</h1>
+          <h1 className="text-2xl font-bold pb-4 flex">{title}</h1>
           <p className="text-sm flex items-center text-blackishGreen font-medium">
             <span className="material-icons text-blackishGreen text-lg pr-1">
               location_on
@@ -48,9 +50,11 @@ const OfferHeader = ({ title, destination, price, rating, numReviews }) => {
               share
             </i>
           </button>
-          <button className="bg-primary py-2 px-8 rounded-md font-semibold text-xs">
-            BOOK NOW
-          </button>
+          <Link to="/booking">
+            <button className="bg-primary py-2 px-8 rounded-md font-semibold text-xs">
+              BOOK NOW
+            </button>
+          </Link>
         </div>
       </div>
     </div>
