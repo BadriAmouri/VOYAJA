@@ -55,7 +55,7 @@ function App() {
           <Route path="/SetPassword" element={<SetPassword />} /> */
           <Route path="/ForgotPassword" element={<ForgotPassword />} /> */
           <Route path="/VerifyPasswordCode" element={<VerifyPasswordCode />} /> */
-          
+          <Route path="/agencyprofile/:agencyId" element={<AgencyProfile />} />
          
         </Routes>
             </div>

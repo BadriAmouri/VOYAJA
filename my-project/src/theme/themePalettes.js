@@ -24,7 +24,7 @@ export const getDesignTokens = (mode) => ({
       green: "#4EB7AC", // Reusing the primary color for consistency
     },
 
-    ...(mode === "light"
+    ...(mode !== "light"
       ? {
           // Palette values for light mode
           background: {
