@@ -3,17 +3,23 @@ import React, { useState } from "react";
 import PasswordInput from "./PasswordInput";
 import RowInput from "./RowInput";
 import TermsCheckbox from "./TermsCheckbox";
-import SocialButtons from './SocialButton';
-import Logo from "./Logo";
+import axios from "axios";
+import {useNavigate} from 'react-router-dom';
 
-const SignUpForm = ({ onSubmit }) => {
+const SignUpForm = () => {
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [checkboxChecked, setCheckboxChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate=useNavigate();
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate passwords match
@@ -37,16 +43,44 @@ const SignUpForm = ({ onSubmit }) => {
       return;
     }
 
-    setErrorMessage(""); 
-    onSubmit(); 
+    try {
+      // Call the backend API
+      const response = await axios.post("http://localhost:5000/client/signup", {
+        fname,
+        lname,
+        email,
+        phonenumber: phoneNumber,
+        password,
+      });
+
+      setSuccessMessage(response.data.message);
+      setErrorMessage(""); // Clear any errors
+      navigate("/Home"); 
+
+    } catch (error) {
+      setErrorMessage(error.response?.data?.message || "An error occurred");
+
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>  
+    <form onSubmit={handleSubmit}>
       <RowInput
         inputs={[
-          { type: "text", placeholder: "Enter your First Name", required: true },
-          { type: "text", placeholder: "Enter your Last Name", required: true },
+          {
+            type: "text",
+            placeholder: "Enter your First Name",
+            value: fname,
+            onChange: (e) => setFname(e.target.value),
+            required: true,
+          },
+          {
+            type: "text",
+            placeholder: "Enter your Last Name",
+            value: lname,
+            onChange: (e) => setLname(e.target.value),
+            required: true,
+          },
         ]}
       />
       <RowInput
@@ -54,6 +88,8 @@ const SignUpForm = ({ onSubmit }) => {
           {
             type: "email",
             placeholder: "Enter your Email",
+            value: email,
+            onChange: (e) => setEmail(e.target.value),
             required: true,
           },
           {
@@ -77,7 +113,8 @@ const SignUpForm = ({ onSubmit }) => {
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
-      {errorMessage && <p className="error-message">{errorMessage}</p>} 
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {successMessage && <p className="success-message">{successMessage}</p>}
       <TermsCheckbox
         checked={checkboxChecked}
         onChange={(e) => setCheckboxChecked(e.target.checked)}
@@ -93,4 +130,3 @@ const SignUpForm = ({ onSubmit }) => {
 };
 
 export default SignUpForm;
-

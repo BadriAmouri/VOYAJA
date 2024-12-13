@@ -78,8 +78,8 @@
 //       <TermsCheckbox
 //         checked={checkboxChecked}
 //         onChange={(e) => setCheckboxChecked(e.target.checked)}
-//         errorMessage={errorMessage}
 //       />
+//       {/* Display error message here if any */}
 //       {errorMessage && <p className="error-message">{errorMessage}</p>}
 //       <button type="submit" className="login-button">
 //         Continue
@@ -89,28 +89,35 @@
 // };
 
 // export default SignUpAgencyForm;
+
 import React, { useState } from "react";
 import PasswordInput from "./PasswordInput";
 import RowInput from "./RowInput";
 import TermsCheckbox from "./TermsCheckbox";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const SignUpAgencyForm = ({ onSubmit }) => {
+const SignUpForm = () => {
+  const [name, setname] = useState("");
+  const [location, setlocation] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [checkboxChecked, setCheckboxChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  const handleSubmit = (e) => {
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate=useNavigate();
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate passwords
+    // Validate passwords match
     if (password !== confirmPassword) {
       setErrorMessage("Passwords do not match");
       return;
     }
 
-    // Validate phone number
+    // Validate phone number format
     const phoneRegex = /^0[567]\d{8}$/;
     if (!phoneRegex.test(phoneNumber)) {
       setErrorMessage(
@@ -119,23 +126,50 @@ const SignUpAgencyForm = ({ onSubmit }) => {
       return;
     }
 
-    // Validate checkbox
+    // Validate checkbox agreement
     if (!checkboxChecked) {
       setErrorMessage("You must agree to the Terms and Privacy Policies");
       return;
     }
 
-    // If all validations pass
-    setErrorMessage("");
-    onSubmit();
+    try {
+      // Call the backend API
+      const response = await axios.post("http://localhost:5000/agency/signup", {
+        name,
+        location,
+        email,
+        phonenumber: phoneNumber,
+        password,
+      });
+
+      setSuccessMessage(response.data.message);
+      setErrorMessage(""); // Clear any errors
+      navigate("/SignUp_Agence2"); 
+
+    } catch (error) {
+      setErrorMessage(error.response?.data?.message || "An error occurred");
+
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <RowInput
         inputs={[
-          { type: "text", placeholder: "Enter Agency Name", required: true },
-          { type: "text", placeholder: "Enter Location", required: true },
+          {
+            type: "text",
+            placeholder: "enter Agency name",
+            value: name,
+            onChange: (e) => setname(e.target.value),
+            required: true,
+          },
+          {
+            type: "text",
+            placeholder: "enter the location ",
+            value: location,
+            onChange: (e) => setlocation(e.target.value),
+            required: true,
+          },
         ]}
       />
       <RowInput
@@ -143,6 +177,8 @@ const SignUpAgencyForm = ({ onSubmit }) => {
           {
             type: "email",
             placeholder: "Enter your Email",
+            value: email,
+            onChange: (e) => setEmail(e.target.value),
             required: true,
           },
           {
@@ -166,17 +202,18 @@ const SignUpAgencyForm = ({ onSubmit }) => {
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {successMessage && <p className="success-message">{successMessage}</p>}
       <TermsCheckbox
         checked={checkboxChecked}
         onChange={(e) => setCheckboxChecked(e.target.checked)}
       />
-      {/* Display error message here if any */}
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
       <button type="submit" className="login-button">
-        Continue
+        Create Account
       </button>
+      
     </form>
   );
 };
 
-export default SignUpAgencyForm;
+export default SignUpForm;

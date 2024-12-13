@@ -27,7 +27,7 @@ const SignUp_Agence2 = () => {
   };
 
   const handleSubmit = () => {
-    navigate("/HomeScreen");
+    navigate("/Dashboard");
   };
 
   return (

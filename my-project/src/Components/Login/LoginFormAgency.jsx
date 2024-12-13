@@ -123,7 +123,7 @@ import React, { useState } from "react";
 import PasswordInput from "./PasswordInput";
 import "../../Style/Login_user.css";
 
-const LoginForm = () => {
+const LoginFormAgency = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -195,7 +195,7 @@ const LoginForm = () => {
     try {
       // Log request details before sending
       console.log('Sending data to backend...');
-      const response = await fetch("http://localhost:5000/client", {
+      const response = await fetch("http://localhost:5000/agency", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -209,7 +209,7 @@ const LoginForm = () => {
       // Handle response
       if (response.ok) {
         alert(result.message || "Login successful!");
-        navigate("/Home"); // Navigate to signup page after login
+        navigate("/Dashboard"); // Navigate to signup page after login
       } else {
         alert(result.message || "Login failed. Please try again.");
       }
@@ -257,11 +257,11 @@ const LoginForm = () => {
 
         {/* Sign Up Link */}
         <p className="signup-text">
-          Don’t have an account? <a href="/signup">Sign up</a>
+          Don’t have an account? <a href="/SignUp_Agence">Sign up</a>
         </p>
       </form>
     </div>
   );
 };
 
-export default LoginForm;
+export default LoginFormAgency;
