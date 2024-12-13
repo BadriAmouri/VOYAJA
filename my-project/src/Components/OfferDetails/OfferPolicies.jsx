@@ -7,7 +7,7 @@ const OfferPolicies = ({
   return (
     <div className="flex flex-col gap-4 w-full bg-primary rounded-md p-4">
       <h2 className="text-lg font-semibold flex">Offer Policies</h2>
-      <div className=" flex items-center bg-red-500">
+      <div className=" flex items-center">
         <p className="flex items-center w-1/2 gap-4">
           <span class="material-icons text-lg">person_outline</span>
           <span className="text-sm">
