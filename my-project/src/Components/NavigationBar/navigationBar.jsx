@@ -7,7 +7,7 @@ import user from "../../assets/Profile/user.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppContext } from "../../contexts/AppContext";
 
-const NavigationBar = ({ isHome }) => {
+const NavigationBar = ({isHome }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(null); // Manage pop-up modal visibility
   const [isSidebarVisible, setIsSidebarVisible] = useState(false); // Manage sidebar visibility

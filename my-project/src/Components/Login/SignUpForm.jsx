@@ -63,7 +63,7 @@ const SignUpForm = () => {
       setIsLoggedIn(true);
       console.log("are you logged in RANIA ", isLoggedIn)
       setErrorMessage(""); // Clear any errors
-      navigate("/Home"); 
+      navigate("/"); 
 
     } catch (error) {
       setErrorMessage(error.response?.data?.message || "An error occurred");

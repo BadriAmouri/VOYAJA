@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../Style/ProfileBanner.css';
-import { useState,useEffect } from 'react';
 import image1 from '../../assets/Profile/bg.jpg';
 import image2 from '../../assets/Profile/user.jpg';
 import { IoIosCloudUpload } from "react-icons/io";
-
 
 const ProfileBanner = () => {
   const [user, setUser] = useState(null);  // To store user data
@@ -16,7 +14,7 @@ const ProfileBanner = () => {
     // Fetch user info
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch(`/client/${clientId}`);
+        const response = await fetch(`/client/1`);
         
         if (!response.ok) {
           throw new Error('User not found or error occurred');
@@ -24,8 +22,7 @@ const ProfileBanner = () => {
         
         const data = await response.json();
         setUser(data.user); // Update state with user data
-        console.log("the data is ",data);
-        console.log("the user DATA are :",user);
+        console.log("the data is ", data); // Logs the fetched data
       } catch (error) {
         setError(error.message); // Set error if any
       }
@@ -34,23 +31,38 @@ const ProfileBanner = () => {
     fetchUserInfo();
   }, []);  // Empty dependency array to run once on component mount
 
+  // Logging user data when it's updated
+  useEffect(() => {
+    if (user) {
+      console.log("the user DATA are:", user);
+    }
+  }, [user]); // This effect runs whenever `user` state changes
+
+  // Render loading state until data is available
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
+  // If error occurs, display error message
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <div className="profile-banner">
       <div className="banner">
-        <img src={image1} className='bg'/>
-       
+        <img src={image1} className="bg" alt="Background" />
         
         <div className="profile-photo">
-        <img src={image2} alt="Profile" />
-      </div>
+          <img src={image2} alt="Profile" />
+        </div>
       </div>
       <div className="profile-info">
-        <h2>John Doe</h2>
-        <p>john.doe@gmail.com</p>
+        <h2>{user.client_first_name} {user.client_last_name}</h2>
+        <p>{user.client_email}</p>
       </div>
     </div>
   );
 };
 
 export default ProfileBanner;
-// 

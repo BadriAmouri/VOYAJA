@@ -10,7 +10,7 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const handleFormSubmit = () => {
-    navigate("/Homescreen");
+    navigate("/");
   };
 
   return (
