@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Header from '../NavBar';
 import FlightDetails from './flightDetails';
 import PriceBreakdown from './PriceBreakdown';
 import BookingForm from './bookingForm';
 import Footer from '../Footer';
 import '../../Style/booking.css';
+import NavigationBar from '../NavigationBar/navigationBar';
 
 // 
 // 
@@ -22,6 +22,7 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [modalType, setModalType] = useState('');
+  const [offerName, setOfferName] = useState('');
 
   const handlePassportChange = (event) => {
     setPassportFile(event.target.files[0]);
@@ -182,12 +183,12 @@ const BookingPage = () => {
   return (
     
     <div className="booking-page">
-      <Header />
+      <NavigationBar isLoggedIn={true} />
       <main>
         <div className="first-row_booking">
           <div className="first-column_booking">
             <div className="flight-details-container">
-              <FlightDetails />
+              <FlightDetails setOfferName={setOfferName}/>
             </div>
             <div className="user-info-container">
               <BookingForm
@@ -201,7 +202,7 @@ const BookingPage = () => {
           <div className="second-column_booking">
             <div className="price-breakdown-container">
             <PriceBreakdown setTotalPrice={setTotalPrice}
-            setSelectedOptionIds={setSelectedOptionIds} />
+            setSelectedOptionIds={setSelectedOptionIds} offerName={offerName} />
             </div>
             <form onSubmit={handleSubmit} className="file-upload-form_booking">
               <label className="upload-box_passport">
