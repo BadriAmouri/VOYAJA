@@ -8,8 +8,11 @@ import Reviews from '../Components/Reviews/Reviews';
 import Footer from '../Components/Footer';
 import HeaderHome from '../Components/Home_Nav_Bar';
 import NavigationBar from '../Components/NavigationBar/navigationBar';
+import { useAppContext } from '../contexts/AppContext';
 
 const Home = () => {
+    const {isLoggedIn, setIsLoggedIn ,clientID ,setClientID} = useAppContext();
+    console.log("are you logged IN badri",isLoggedIn)
     return (
         <>
         <div className='Home'>

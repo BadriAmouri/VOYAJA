@@ -4,7 +4,7 @@ import Tab from '../Components/Profile/Tab';
 import AccountDetails from '../Components/Profile/AccountDetails';
 import HistoryView from '../Components/Profile/HistoryView';
 import Footer from '../Components/Footer';
-import Header from '../Components/NavBar';
+import NavigationBar from '../Components/NavigationBar/navigationBar';
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -21,7 +21,7 @@ const Profile = () => {
 
   return (
     <div>
-      <Header/>
+      <NavigationBar isHome={false}/>
       <ProfileBanner />
       <Tab onTabChange={setActiveTab} />
       <div className="tab-content">

@@ -1,10 +1,11 @@
 
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import PasswordInput from "./PasswordInput";
 import RowInput from "./RowInput";
 import TermsCheckbox from "./TermsCheckbox";
 import axios from "axios";
 import {useNavigate} from 'react-router-dom';
+import { useAppContext } from "../../contexts/AppContext";
 
 const SignUpForm = () => {
   const [fname, setFname] = useState("");
@@ -17,6 +18,9 @@ const SignUpForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const navigate=useNavigate();
+
+  const {isLoggedIn, setIsLoggedIn ,clientID ,setClientID} = useAppContext();
+
 
 
   const handleSubmit = async (e) => {
@@ -45,15 +49,19 @@ const SignUpForm = () => {
 
     try {
       // Call the backend API
-      const response = await axios.post("http://localhost:5000/client/signup", {
+      const response = await axios.post("/client/signup", {
         fname,
         lname,
         email,
         phonenumber: phoneNumber,
         password,
       });
-
+      // Log the full backend response
+      console.log("Backend response:", response.data.client_id);
+      setClientID(response.data.client_id);
       setSuccessMessage(response.data.message);
+      setIsLoggedIn(true);
+      console.log("are you logged in RANIA ", isLoggedIn)
       setErrorMessage(""); // Clear any errors
       navigate("/Home"); 
 
@@ -62,7 +70,10 @@ const SignUpForm = () => {
 
     }
   };
+  useEffect(() => {
+    console.log("The Sign up info are : " + fname , lname,email,phoneNumber,password );
 
+  }, [fname , lname,email,phoneNumber,password]); // Dependency array
   return (
     <form onSubmit={handleSubmit}>
       <RowInput

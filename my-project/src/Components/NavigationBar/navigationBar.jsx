@@ -5,13 +5,14 @@ import { IoAirplane } from "react-icons/io5";
 import { FaBell, FaHeart, FaBars } from "react-icons/fa";
 import user from "../../assets/Profile/user.jpg";
 import { Link, useNavigate } from "react-router-dom";
+import { useAppContext } from "../../contexts/AppContext";
 
-const NavigationBar = ({ isLoggedIn, isHome }) => {
+const NavigationBar = ({ isHome }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(null); // Manage pop-up modal visibility
   const [isSidebarVisible, setIsSidebarVisible] = useState(false); // Manage sidebar visibility
   const navigate = useNavigate();
-
+   const {isLoggedIn, setIsLoggedIn} = useAppContext();
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
