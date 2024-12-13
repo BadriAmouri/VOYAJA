@@ -58,7 +58,7 @@ const SignUp_Agence = () => {
         {/* Pass the onSubmit function directly to the form */}
         <SignUpAgencyForm onSubmit={handleFormSubmit} />
         <p className="signup-text">
-          Already have an account? <a href="/Login">Login</a>
+          Already have an account? <a href="/Login2">Login</a>
         </p>
       </div>
     </div>

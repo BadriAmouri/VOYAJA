@@ -28,14 +28,6 @@ import { ProductsProvider } from "./contexts/ProductsContext";
 
 function App() {
   return (
-    // <<<<<<< Booking_confirmation
-    //   <div className="App">
-    //     <BookingPage/>
-    //     {/* <Profile/> */}
-    //   </div>
-    //   )
-    // }
-    //
     <ProductsProvider>
       <div className="App">
         <Routes>
@@ -56,7 +48,6 @@ function App() {
             element={<VerifyPasswordCode />}
           />{" "}
           */
-          <Route path="/agencyprofile/:agencyId" element={<AgencyProfile />} />
           <Route path="/notifications" element={<Notifications />} />
         </Routes>
       </div>
