@@ -9,6 +9,7 @@ import coverImage from '../assets/coverimage.png';
 
 
 
+
 const Login = () => (
     <div className="login-container">
       <div className="login-left">
