@@ -280,10 +280,17 @@
 }
 .airline-images {
   display: flex;
-  gap: 50px; /* Space between images */
+  gap: 50px; 
+}
+.airline-imageop{
+  width: 300px; /* Adjust size as needed */
+  height: auto;
+  margin-left: 300px;
+
+
 }
 .airline-image {
-  width: 300px; /* Adjust size as needed */
+  width: 100px; /* Adjust size as needed */
   height: auto;
 }
 

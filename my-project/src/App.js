@@ -23,6 +23,7 @@ import SetPassword from "./Page/SetPassword.jsx";
 import ForgotPassword from "./Page/ForgotPassword.jsx";
 import VerifyPasswordCode from "./Page/VerifyPasswordCode.jsx";
 import Notifications from "./Components/Notifications.jsx";
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ProductsProvider } from "./contexts/ProductsContext";
 import { AppProvider } from "./contexts/AppContext";
@@ -37,6 +38,7 @@ function App() {
           <Route path="/Dashboard/*" element={<Dashboard_Agency />} />
       
           <Route path="/offerDetails/:id" element={<OfferDetailsPage />} />
+          <Route path="/Confirmation" element={<ConfirmationPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/booking/:offerid" element={<BookingPage />} />
           <Route path="/search" element={<SearchPage />} />
@@ -46,15 +48,16 @@ function App() {
           <Route path="/Login" element={<Login />} /> */
           <Route path="/SetPassword" element={<SetPassword />} /> */
           <Route path="/ForgotPassword" element={<ForgotPassword />} /> */
-<<<<<<< Updated upstream
-=======
           <Route path="/SignUp_Agency" element={<SignUp_Agence />} /> */
           <Route path="/SignUp_Agence2" element={<SignUp_Agence2 />} /> */
->>>>>>> Stashed changes
+
+          
+
           <Route
             path="/VerifyPasswordCode"
             element={<VerifyPasswordCode />}
-          />{" "}
+          />
+          {" "}
           */
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/agencyprofile/:agencyId" element={<AgencyProfile />} />

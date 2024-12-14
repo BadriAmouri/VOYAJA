@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import planeImage from '../../assets/bookingPics/plane.png';
 
+import seoulPalace from "../../assets/offerPics/palace.jpg";
 const PriceBreakdown = ({ setTotalPrice, setSelectedOptionIds ,offerName }) => {
   const { offerid } = useParams();
   const [selectedItems, setSelectedItems] = useState([]); // Array of selected option objects
@@ -59,7 +59,7 @@ const PriceBreakdown = ({ setTotalPrice, setSelectedOptionIds ,offerName }) => {
   return (
     <div className="price-breakdown">
       <p className="flight_booking">
-        <img src={planeImage} alt="plane Image" className="plane_booking" />
+        <img src={seoulPalace} alt="plane Image" className="plane_booking" />
         
         <br />
         {offerName}

@@ -17,7 +17,7 @@ const BestDestinations = () => {
     { image: dest1, location: 'Greece ,Turkey', description: 'The City of Light' },
     { image: dest2, location: 'Bali , Maldives', description: 'The City of Light' },
     { image: dest3, location: 'London , UK', description: 'The City of Light' },
-    { image: dest4, location: 'Sydney , Australia', description: 'The City of Light' },
+    { image: dest4, location: 'Seoul , South Korea', description: 'The City of Light' },
     { image: dest5, location: 'Paris , France', description: 'The City of Light' },
     { image: dest6, location: 'Tokyo, Japan', description: 'The City of Light' },
     { image: dest7, location: 'Baku , Azerbaijan', description: 'The City of Light' },
@@ -27,20 +27,20 @@ const BestDestinations = () => {
 
   return (
     <>
-    <div className="best ">
-    <div className="Popular m-5 ml-0 "><h1 className='font-montserrat text-2xl font-semibold leading-[39px] text-left underline-offset-[3px] decoration-none'>Plan your perfect trip</h1>
-    <p className='font-montserrat text-base font-normal leading-[19.5px] text-left underline-offset-[3px] decoration-none'>Search for the most suitable offers for you </p></div>
-    <div className="best-destinations grid grid-cols-3 gap-2 p-4">
-      {destinations.map((dest, index) => (
-        <DestinationCard
-          key={index}
-          image={dest.image}
-          location={dest.location}
-          description={dest.description}
-        />
-      ))}
-    </div>
-    </div>
+      <div className="best ">
+        <div className="Popular m-5 ml-0 "><h1 className='font-montserrat text-2xl font-semibold leading-[39px] text-left underline-offset-[3px] decoration-none'>Plan your perfect trip</h1>
+          <p className='font-montserrat text-base font-normal leading-[19.5px] text-left underline-offset-[3px] decoration-none'>Search for the most suitable offers for you </p></div>
+        <div className="best-destinations grid grid-cols-3 gap-2 p-4">
+          {destinations.map((dest, index) => (
+            <DestinationCard
+              key={index}
+              image={dest.image}
+              location={dest.location}
+              description={dest.description}
+            />
+          ))}
+        </div>
+      </div>
     </>
   );
 }

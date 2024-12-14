@@ -141,7 +141,7 @@ const BookingPage = () => {
       options_selected: selectedOptionIds,
       total_price: totalPrice,
       status: false,
-      customer_id: 1,
+      customer_id: 2,
       offer_id: offerid,
       reciept_url: "receipt_url",
       passports_urls: [simulatedPassportURL], // Simulating cloud upload

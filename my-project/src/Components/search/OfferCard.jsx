@@ -1,4 +1,8 @@
 import React from "react";
+import seoulTower from "../../assets/offerPics/seoul-tower.jpg";
+import seoulPalace from "../../assets/offerPics/palace.jpg";
+import springSeoul from "../../assets/offerPics/spring-seoul-korea.jpg";
+import travelLogo from "../../assets/offerPics/travel-agency-logo.jpg";
 import { FaRegHeart } from "react-icons/fa"; // Correct import for outlined heart icon
 import { Link } from "react-router-dom";
 
@@ -14,7 +18,7 @@ export default function OfferCard({ offer }) {
     <div className="text-left boffer-card bg-white border p-4 rounded-lg shadow-md  max-w-[52rem]  flex">
       {/* Offer Image */}
       <div className="boffer-image w-1/4">
-        {offer.image && offer.image[0] ? (
+        {/*  {offer.image && offer.image[0] ? (
           // Convert the BLOB to an object URL
           <img
             src={URL.createObjectURL(
@@ -27,7 +31,8 @@ export default function OfferCard({ offer }) {
           <div className="placeholder-image w-full h-auto rounded-lg bg-gray-200 flex items-center justify-center">
             <p className="text-gray-500">No Image Available</p>
           </div>
-        )}
+        )} */}
+        <img src={seoulPalace} alt={seoulPalace} />
       </div>
 
       {/* Offer Details */}
@@ -43,7 +48,7 @@ export default function OfferCard({ offer }) {
             </span>
           </div>
           <div className="bofferprice text-secondary text-xl font-semibold text-right">
-            ${offer.min_price}
+            dzd{offer.min_price}
           </div>
         </div>
 
@@ -60,7 +65,7 @@ export default function OfferCard({ offer }) {
         {/* Agency Logo and Name */}
         <div className="bagency-info flex items-center mt-2 space-x-2">
           <Link to={`/agencyprofile/${offer.agency_id}`}>
-            {offer.logo && offer.logo[0] ? (
+            {/*             {offer.logo && offer.logo[0] ? (
               // Convert the BLOB to an object URL
               <img
                 src={URL.createObjectURL(
@@ -71,7 +76,8 @@ export default function OfferCard({ offer }) {
               />
             ) : (
               <div className="placeholder-image w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center"></div>
-            )}
+            )} */}
+            <img src={travelLogo} alt={travelLogo} className="w-8 h-8 rounded-full" />
           </Link>
           <Link to={`/agencyprofile/${offer.agency_id}`}>
             <span className="text-sm text-gray-800 font-medium">
