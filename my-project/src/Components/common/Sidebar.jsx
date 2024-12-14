@@ -8,7 +8,7 @@ const Sidebar = ({ window, sideBarWidth, mobileOpen, handleDrawerToggle }) => {
   const drawer = (
     <div>
       <Toolbar>
-        <img src="/voyaja.png" alt="Logo" width="100" />
+        <img src="/Artboard.png" alt="Logo" width="100" />
         
       </Toolbar>
       <Divider />
