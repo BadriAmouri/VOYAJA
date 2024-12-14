@@ -134,7 +134,7 @@ const SignUpForm = () => {
 
     try {
       // Call the backend API
-      const response = await axios.post("http://localhost:5000/agency/signup", {
+      const response = await axios.post("/api/signup", {
         name,
         location,
         email,

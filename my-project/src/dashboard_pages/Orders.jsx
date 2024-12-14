@@ -80,7 +80,7 @@ const Orders = () => {
           enableEditing
           enableColumnDragging
           showPreview
-          routeLink="orders"
+          
         />
       )}
     </Box>

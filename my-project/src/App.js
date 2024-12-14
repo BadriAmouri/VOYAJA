@@ -46,6 +46,11 @@ function App() {
           <Route path="/Login" element={<Login />} /> */
           <Route path="/SetPassword" element={<SetPassword />} /> */
           <Route path="/ForgotPassword" element={<ForgotPassword />} /> */
+<<<<<<< Updated upstream
+=======
+          <Route path="/SignUp_Agency" element={<SignUp_Agence />} /> */
+          <Route path="/SignUp_Agence2" element={<SignUp_Agence2 />} /> */
+>>>>>>> Stashed changes
           <Route
             path="/VerifyPasswordCode"
             element={<VerifyPasswordCode />}
