@@ -11,6 +11,9 @@ import BookingPage from "./Components/Booking/BookingPage.jsx";
 import ConfirmationPage from "./Components/Confirmation/confirmationPage.jsx";
 
 import Profile from "./Page/Profile.jsx";
+import Aboutus from "./Page/Aboutus.jsx";
+import Contactus from "./Page/Contactus.jsx";
+import Adminreplypage from "./Page/Adminreplypage.jsx";
 import SearchBar from "./Components/SearchBarHome.jsx";
 import SearchPage from "./Page/SearchPage.jsx";
 import Login from "./Page/Login_user.jsx";
@@ -23,7 +26,7 @@ import SetPassword from "./Page/SetPassword.jsx";
 import ForgotPassword from "./Page/ForgotPassword.jsx";
 import VerifyPasswordCode from "./Page/VerifyPasswordCode.jsx";
 import Notifications from "./Components/Notifications.jsx";
-
+import Adminnotifications from "./Components/Contactus/Adminnotifications.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ProductsProvider } from "./contexts/ProductsContext";
 import { AppProvider } from "./contexts/AppContext";
@@ -36,8 +39,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Dashboard/*" element={<Dashboard_Agency />} />
-      
+          <Route path="/Aboutus" element={<Aboutus />} />  
+          <Route path="/Contactus" element={<Contactus />} /> 
+          <Route path="/Adminreplypage/:userid" element={<Adminreplypage />} /> 
           <Route path="/offerDetails/:id" element={<OfferDetailsPage />} />
+          <Route path="/admin/notifications" element={<Adminnotifications />} />
           <Route path="/Confirmation" element={<ConfirmationPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/booking/:offerid" element={<BookingPage />} />

@@ -1,0 +1,50 @@
+{
+    "heroSection": {
+      "title": "About us",
+      "headline": "Voyaja: Your Gateway to Discover Algeria, Seamlessly.",
+      "subtitle": "Special offers to suit your plan"
+    },
+    "coreBeliefs": {
+      "title": "Our Core Beliefs",
+      "beliefs": [
+        {
+          "icon": "FaEye",
+          "title": "Vision",
+          "description": "To make travel planning in Algeria easy, seamless, and accessible to everyone."
+        },
+        {
+          "icon": "FaBullhorn",
+          "title": "Mission",
+          "description": "To connect travelers with the best local agencies and help them explore Algeria and the world effortlessly."
+        },
+        {
+          "icon": "FaTag",
+          "title": "Tagline",
+          "description": "Your gateway to discovering Algeria, seamlessly."
+        }
+      ]
+    },
+    "values": {
+      "title": "Our Values",
+      "items": ["Trust", "Transparency", "Simplicity", "User-First"]
+    },
+    "userFeatures": {
+      "title": "Key Features for General Users",
+      "description": "Experience seamless travel planning with Voyaja's user-focused features.",
+      "features": [
+        "Search and compare offers effortlessly",
+        "Secure booking options",
+        "Manage accounts and track bookings"
+      ]
+    },
+    "agencyFeatures": {
+      "title": "Key Features for Travel Agencies",
+      "description": "Discover how Voyaja helps agencies boost their presence and streamline operations.",
+      "features": [
+        "Dashboard for offer management",
+        "Advertising and premium placement opportunities",
+        "Analytics to track engagement and performance"
+      ]
+    }
+  }
+  
