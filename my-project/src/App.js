@@ -26,6 +26,8 @@ import SetPassword from "./Page/SetPassword.jsx";
 import ForgotPassword from "./Page/ForgotPassword.jsx";
 import VerifyPasswordCode from "./Page/VerifyPasswordCode.jsx";
 import Notifications from "./Components/Notifications.jsx";
+
+import Favorites from "./Components/Favorite/favorite.jsx"
 import Adminnotifications from "./Components/Contactus/Adminnotifications.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ProductsProvider } from "./contexts/ProductsContext";
@@ -66,6 +68,7 @@ function App() {
           {" "}
           */
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/Favorites" element={<Favorites />} />
           <Route path="/agencyprofile/:agencyId" element={<AgencyProfile />} />
 
         </Routes>

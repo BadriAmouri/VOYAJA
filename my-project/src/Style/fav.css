@@ -1,0 +1,15 @@
+
+
+.favorite-page-container {
+padding-top: 80px;
+}
+.boffer-list.center {
+    display: flex;
+    flex-direction: column; /* Stacks items vertically */
+    align-items: center; /* Centers items horizontally */
+    justify-content: center; /* Centers items vertically */
+    gap: 20px; /* Space between items */
+    width: 100%; /* Full width */
+    max-width: 1200px; /* Optional: limit max width for a cleaner look */
+    margin: auto; /* Automatically centers the block within the page */
+  }
