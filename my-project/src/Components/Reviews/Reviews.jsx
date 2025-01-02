@@ -1,13 +1,15 @@
-import React from 'react';
-import ReviewCard from './ReviewCard.jsx';
-import '../../Style/Reviews.css'; // Import the CSS file
+import React, { useState } from "react";
+import ReviewCard from "./ReviewCard.jsx";
+import ReviewComment from "./ReviewComment.jsx";
+import "../../Style/Reviews.css"; // Import the CSS file
 
-const Reviews = () => {
-  const reviews = [
-    { title: "Paris", description: "An amazing experience! Beautiful city with great culture.", rating: 5, userName: "Alice" },
-    { title: "London", description: "Had a wonderful time. Great food and people.", rating: 4, userName: "Bob" },
-    { title: "New York", description: "A vibrant city with so much to explore!", rating: 4, userName: "Charlie" },
-  ];
+const Reviews = ({ previousReviews, isHome }) => {
+  const [reviews, setReviews] = useState(previousReviews);
+
+  const handleAddReview = (newReview) => {
+    console.log("HANDLING THE NEW REVIEW ADDED IN HOME: ", newReview.review);
+    setReviews((prevReviews) => [...prevReviews, newReview.review]); // Update the state immediately
+  };
 
   return (
     <div className="best">
@@ -16,23 +18,26 @@ const Reviews = () => {
           <h1>Reviews</h1>
           <p>See what people think about us</p>
         </div>
-        {/* Include "See More" text within a span */}
         <button className="seebtn">
           <span>See More</span>
         </button>
       </div>
-
-      <div className="reviews">
-        {reviews.map((review, index) => (
-          <ReviewCard
-            key={index}
-            title={review.title}
-            description={review.description}
-            rating={review.rating}
-            userName={review.userName}
-          />
-        ))}
-      </div>
+      {/* Add Review Comment */}
+      <ReviewComment onAddReview={handleAddReview} isHome={isHome} />
+      {Array.isArray(reviews) && reviews.length === 0 ? (
+        <p className="">No reviews for now</p>
+      ) : (
+        <div className="reviews">
+          {reviews.map((review, index) => (
+            <ReviewCard
+              key={index}
+              description={review.comment}
+              rating={review.rating}
+              userName={review.client_email || "You"}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

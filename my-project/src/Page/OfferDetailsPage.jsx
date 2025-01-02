@@ -5,11 +5,12 @@ import OfferPolicies from "../Components/OfferDetails/OfferPolicies";
 import OfferOverview from "../Components/OfferDetails/OfferOverview";
 import NavigationBar from "../Components/NavigationBar/navigationBar";
 import Footer from "../Components/Footer";
-//pictures used
 import seoulTower from "../assets/offerPics/seoul-tower.jpg";
 import seoulPalace from "../assets/offerPics/palace.jpg";
 import springSeoul from "../assets/offerPics/spring-seoul-korea.jpg";
 import travelLogo from "../assets/offerPics/travel-agency-logo.jpg";
+import Reviews from "../Components/Reviews/Reviews";
+import ReviewComment from "../Components/Reviews/ReviewComment"; // Import ReviewComment
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -17,6 +18,7 @@ const OfferDetailsPage = () => {
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [reviews, setReviews] = useState([]); // Add reviews state
 
   const { id } = useParams();
 
@@ -26,6 +28,7 @@ const OfferDetailsPage = () => {
       .then(
         (data) => {
           setResponse(data);
+          setReviews(data.details.reviews || []); // Initialize reviews state with existing reviews
           setLoading(false);
         },
         (error) => {
@@ -35,18 +38,16 @@ const OfferDetailsPage = () => {
       );
   }, [id]);
 
-  // Add null check before accessing response
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
   if (!response) return <div>No data found</div>;
 
-  // Extracted and formatted data
   const offerHeaderData = {
     title: response.details.offer_name,
     destination: response.details.offer_dest,
     price: response.details.min_price,
     rating: 4.2,
-    numReviews: 54,
+    numReviews: reviews.length, // Use reviews length for numReviews
     offerID: id,
   };
 
@@ -76,7 +77,7 @@ const OfferDetailsPage = () => {
 
   const agencyData = {
     agencyName: response.details.agency.agency_name,
-    agencyLogo: null,
+    agencyLogo: response.details.agency.agency_logo || travelLogo,
     agencyLocation: response.details.agency.agency_location,
     agencyPhone: [response.details.agency.agency_phone_number],
     agencySocials: {
@@ -84,6 +85,11 @@ const OfferDetailsPage = () => {
       instagram: response.details.agency.insta_link,
       whatsapp: response.details.agency.whatsapp_link,
     },
+  };
+
+  // Function to add a new review
+  const handleAddReview = (newReview) => {
+    setReviews((prevReviews) => [...prevReviews, newReview]);
   };
 
   return (
@@ -111,6 +117,11 @@ const OfferDetailsPage = () => {
         <OfferPolicies {...offerPoliciesData} />
         <OfferOverview {...offerOverviewData} />
       </div>
+      <Reviews
+        previousReviews={reviews}
+        onAddReview={handleAddReview}
+        isHome={false}
+      />
       <Footer />
     </div>
   );

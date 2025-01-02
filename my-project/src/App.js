@@ -34,45 +34,48 @@ import { AppProvider } from "./contexts/AppContext";
 function App() {
   return (
     <ProductsProvider>
-    <AppProvider>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Dashboard/*" element={<Dashboard_Agency />} />
-          <Route path="/Aboutus" element={<Aboutus />} />  
-          <Route path="/Contactus" element={<Contactus />} /> 
-          <Route path="/Adminreplypage/:userid" element={<Adminreplypage />} /> 
-          <Route path="/offerDetails/:id" element={<OfferDetailsPage />} />
-          <Route path="/admin/notifications" element={<Adminnotifications />} />
-          <Route path="/Confirmation" element={<ConfirmationPage />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/booking/:offerid" element={<BookingPage />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/destinations" element={<Destination />} /> */
-          <Route path="/SignUp" element={<SignUp />} /> */
-          <Route path="/Login2" element={<Login2 />} /> */
-          <Route path="/Login" element={<Login />} /> */
-          <Route path="/SetPassword" element={<SetPassword />} /> */
-          <Route path="/ForgotPassword" element={<ForgotPassword />} /> */
-          <Route path="/SignUp_Agency" element={<SignUp_Agence />} /> */
-          <Route path="/SignUp_Agence2" element={<SignUp_Agence2 />} /> */
-
-          
-
-          <Route
-            path="/VerifyPasswordCode"
-            element={<VerifyPasswordCode />}
-          />
-          {" "}
-          */
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/agencyprofile/:agencyId" element={<AgencyProfile />} />
-
-        </Routes>
-      </div>
+      <AppProvider>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Dashboard/*" element={<Dashboard_Agency />} />
+            <Route path="/Aboutus" element={<Aboutus />} />
+            <Route path="/Contactus" element={<Contactus />} />
+            <Route
+              path="/Adminreplypage/:userid"
+              element={<Adminreplypage />}
+            />
+            <Route path="/offerDetails/:id" element={<OfferDetailsPage />} />
+            <Route
+              path="/admin/notifications"
+              element={<Adminnotifications />}
+            />
+            <Route path="/Confirmation" element={<ConfirmationPage />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/booking/:offerid" element={<BookingPage />} />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/destinations" element={<Destination />} /> */
+            <Route path="/SignUp" element={<SignUp />} /> */
+            <Route path="/Login2" element={<Login2 />} /> */
+            <Route path="/Login" element={<Login />} /> */
+            <Route path="/SetPassword" element={<SetPassword />} /> */
+            <Route path="/ForgotPassword" element={<ForgotPassword />} /> */
+            <Route path="/SignUp_Agency" element={<SignUp_Agence />} /> */
+            <Route path="/SignUp_Agence2" element={<SignUp_Agence2 />} /> */
+            <Route
+              path="/VerifyPasswordCode"
+              element={<VerifyPasswordCode />}
+            />{" "}
+            */
+            <Route path="/notifications" element={<Notifications />} />
+            <Route
+              path="/agencyprofile/:agencyId"
+              element={<AgencyProfile />}
+            />
+          </Routes>
+        </div>
       </AppProvider>
     </ProductsProvider>
-    
   );
 }
 
