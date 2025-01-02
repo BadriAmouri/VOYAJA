@@ -7,7 +7,6 @@ const Reviews = ({ previousReviews, isHome }) => {
   const [reviews, setReviews] = useState(previousReviews);
 
   const handleAddReview = (newReview) => {
-    console.log("HANDLING THE NEW REVIEW ADDED IN HOME: ", newReview.review);
     setReviews((prevReviews) => [...prevReviews, newReview.review]); // Update the state immediately
   };
 
