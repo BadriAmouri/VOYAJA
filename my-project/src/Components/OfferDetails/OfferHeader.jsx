@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import HeartButton from "../Favorite/Heartbtn";
 
 const OfferHeader = ({
   title,
@@ -8,16 +8,11 @@ const OfferHeader = ({
   rating,
   numReviews,
   offerID,
+  userID = 35,
 }) => {
-  const [isFavourite, setisFavourite] = useState(false);
-
-  const OnClickFavourite = () => {
-    setisFavourite(!isFavourite);
-  };
-
   return (
     <div className="flex flex-col w-full justify-center py-4">
-      <div className="flex justify-between items-center ">
+      <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold pb-4 flex">{title}</h1>
           <p className="text-sm flex items-center text-blackishGreen font-medium">
@@ -38,20 +33,8 @@ const OfferHeader = ({
           <p className="text-xs">{numReviews} reviews</p>
         </div>
         <div className="flex align-center gap-3">
-          <button
-            className="flex items-center justify-center"
-            onClick={OnClickFavourite}
-          >
-            {isFavourite ? (
-              <i className="material-icons text-red-600 text-base border-2 border-solid rounded-md border-primary py-2 px-4">
-                favorite
-              </i>
-            ) : (
-              <i className="material-icons text-blackishGreen text-base border-2 border-solid rounded-md border-primary py-2 px-4">
-                favorite_border
-              </i>
-            )}
-          </button>
+          {/* HeartButton Component */}
+          <HeartButton offerID={offerID} userID={userID} />
           <button className="flex items-center justify-center">
             <i className="material-icons text-blackishGreen text-base border-2 border-solid rounded-md border-primary py-2 px-4">
               share

@@ -209,7 +209,7 @@ const LoginForm = () => {
       // Handle response
       if (response.ok) {
         alert(result.message || "Login successful!");
-        navigate("/Home"); // Navigate to signup page after login
+        navigate("/"); // Navigate to signup page after login
       } else {
         alert(result.message || "Login failed. Please try again.");
       }

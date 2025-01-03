@@ -1,104 +1,208 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import '../../Style/AccountDetails.css';
-import { MdEditDocument } from "react-icons/md";
+import React, { useState, useEffect } from 'react';
+import { MdEditDocument } from 'react-icons/md';
 import { useAppContext } from '../../contexts/AppContext';
+import '../../Style/AccountDetails.css';
 
 const AccountDetails = () => {
-  const details = [
-    { label: 'Name', value: 'John Doe' },
-    { label: 'Email', value: 'john.doe@gmail.com', action: 'Add another email' },
-    { label: 'Phone Number', value: '+1 000-000-0000' },
-    { label: 'Address', value: '52 St. Main Downtown, Los Angeles, California, USA' },
-    { label: 'Date of Birth', value: '01-01-1990' },
-  ];
-  const [user, setUser] = useState(null);  // To store user data
-  const [error, setError] = useState(null);  // To handle errors
-  const {isLoggedIn, setIsLoggedIn ,clientID ,setClientID} = useAppContext()
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
+  const [formErrors, setFormErrors] = useState({});  
+  const [isEditing, setIsEditing] = useState({
+    firstName: false,
+    lastName: false,
+    email: false,
+    phoneNumber: false,
+  });
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+  });
+  const { clientID } = useAppContext();
+
   useEffect(() => {
-   
-    // Fetch user info
     const fetchUserInfo = async () => {
       try {
         const response = await fetch(`/client/${clientID}`);
-        
         if (!response.ok) {
-          throw new Error('User not found or error occurred');
+          throw new Error('Failed to fetch user data.');
         }
-        
         const data = await response.json();
-        setUser(data.user); // Update state with user data
-        console.log("the data is ", data); // Logs the fetched data
-      } catch (error) {
-        setError(error.message); // Set error if any
+        setUser(data.user);
+        setFormData({
+          firstName: data.user.client_first_name,
+          lastName: data.user.client_last_name,
+          email: data.user.client_email,
+          phoneNumber: data.user.client_phone_number,
+        });
+      } catch (err) {
+        setError(err.message);
       }
     };
-    
+
     fetchUserInfo();
-  }, []);  // Empty dependency array to run once on component mount
+  }, [clientID]);
 
-  // Logging user data when it's updated
-  useEffect(() => {
-    if (user) {
-      console.log("the user DATA are:", user);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const toggleEdit = (field) => {
+    setIsEditing((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+    setError(null);
+  };
+
+ 
+  const validateForm = () => {
+    const errors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^(06|05|07)\d{8}$/;
+    const nameRegex = /^[A-Za-z\s]+$/;  // Regex for alphabetic characters and spaces only
+
+    
+    if (!formData.firstName || !nameRegex.test(formData.firstName.trim())) {
+      errors.firstName = 'First name should contain only letters and spaces';
     }
-  }, [user]); // This effect runs whenever `user` state changes
 
-  
-  // Render loading state until data is available
+    // Validate last name
+    if (!formData.lastName || !nameRegex.test(formData.lastName.trim())) {
+      errors.lastName = 'Last name should contain only letters and spaces';
+    }
+
+    // Validate email
+    if (!formData.email) {
+      errors.email = 'Email is required';
+    } else if (!emailRegex.test(formData.email)) {
+      errors.email = 'You should provide a valid email';
+    }
+
+    // Validate phone number
+    if (!formData.phoneNumber) {
+      errors.phoneNumber = 'Phone number is required';
+    } else if (!phoneRegex.test(formData.phoneNumber)) {
+      errors.phoneNumber = 'The phone number must be valid';
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0; 
+  };
+
+  const handleSubmit = async (field) => {
+    if (!validateForm()) {
+      return;  
+    }
+
+    const fieldMapping = {
+      firstName: 'client_first_name',
+      lastName: 'client_last_name',
+      email: 'client_email',
+      phoneNumber: 'client_phone_number',
+    };
+    const mappedField = fieldMapping[field];
+    const value = formData[field];
+
+    try {
+      const response = await fetch(`/client/${clientID}/update`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ field: mappedField, value }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to update ${field}`);
+      }
+
+      const updatedUser = await response.json();
+      setUser(updatedUser.user);
+      toggleEdit(field);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleCancel = (field) => {
+    // Reset the form data to the original values when discarding
+    setFormData({
+      firstName: user.client_first_name,
+      lastName: user.client_last_name,
+      email: user.client_email,
+      phoneNumber: user.client_phone_number,
+    });
+    setFormErrors({}); // Clear any existing validation errors
+    toggleEdit(field);  // Toggle editing state
+  };
+
   if (!user) {
     return <div>Loading...</div>;
   }
 
-  // If error occurs, display error message
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="error-message">Error: {error}</div>;
   }
-  
 
   return (
     <div className="AccountContainer">
-      <div className="AccountTitle">Account</div>
+      <h1 className="AccountTitle">Account Details</h1>
       <div className="account-details">
-      <div  className="detail-item">
+        {['firstName', 'lastName', 'email', 'phoneNumber'].map((field) => (
+          <div key={field} className="detail-item">
             <div className="recored">
-              <span className='detailLabel'>Name</span>
-              <span className='detailValue'>{user.client_first_name} {user.client_last_name}</span>
+              <span className="detailLabel">
+                {field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1')}
+              </span>
+              {isEditing[field] ? (
+                <input
+                  type={field === 'email' ? 'email' : 'text'}
+                  name={field}
+                  value={formData[field]}
+                  onChange={handleChange}
+                />
+              ) : (
+                <span className="detailValue">{formData[field]}</span>
+              )}
             </div>
-              <button className="change-btn">
-                <MdEditDocument />
-                <span className="change-text">Change</span>
-              </button>
-            
-          </div>
-
-          <div  className="detail-item">
-            <div className="recored">
-              <span className='detailLabel'>Email</span>
-              <span className='detailValue'>{user.client_email}</span>
+            {formErrors[field] && <div className="error-message">{formErrors[field]}</div>}
+            <div className="button-container">
+              {isEditing[field] ? (
+                <>
+                  <button
+                    className="action-btn save-btn"
+                    onClick={() => handleSubmit(field)}
+                  >
+                    Save
+                  </button>
+                  <button
+                    className="action-btn cancel-btn"
+                    onClick={() => handleCancel(field)} 
+                  >
+                    Discard
+                  </button>
+                </>
+              ) : (
+                <button
+                  className="change-btn"
+                  onClick={() => toggleEdit(field)}
+                >
+                  <MdEditDocument />
+                  <span className="change-text">Change</span>
+                </button>
+              )}
             </div>
-              <button className="change-btn">
-                <MdEditDocument />
-                <span className="change-text">Change</span>
-              </button>
-            
           </div>
-
-          <div  className="detail-item">
-            <div className="recored">
-              <span className='detailLabel'>Phone Number</span>
-              <span className='detailValue'>{user.client_phone_number}</span>
-            </div>
-              <button className="change-btn">
-                <MdEditDocument />
-                <span className="change-text">Change</span>
-              </button>
-            
-          </div>
+        ))}
       </div>
     </div>
   );
 };
 
 export default AccountDetails;
-// 

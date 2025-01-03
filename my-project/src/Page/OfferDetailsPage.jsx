@@ -13,12 +13,13 @@ import travelLogo from "../assets/offerPics/travel-agency-logo.jpg";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+
 const OfferDetailsPage = () => {
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const { id } = useParams();
+   const { id } = useParams();
 
   useEffect(() => {
     fetch(`/api/offers/offerDetails/${id}`)
