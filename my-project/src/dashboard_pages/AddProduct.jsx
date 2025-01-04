@@ -17,13 +17,15 @@ import { BiImageAdd } from "react-icons/bi";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers";
+import { useAppContext } from "../contexts/AppContext";
 
 const AddProduct = () => {
   const imageInput = useRef(null);
   const [images, setImages] = useState([]);
   const [options, setOptions] = useState([]);
   const [newOption, setNewOption] = useState({ option_title: "", option_price: "" });
-  
+  const { agencyID, setAgencyID} = useAppContext();
+
 
   // State to store form data
   const [formData, setFormData] = useState({
@@ -38,7 +40,7 @@ const AddProduct = () => {
     min_price: 0,
     included: ["Guided Hikes", "Equipment Rental"],
     history_offer: false,
-    agency_id: 5,
+    agency_id: agencyID,
   });
 
 

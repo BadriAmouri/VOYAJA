@@ -7,7 +7,7 @@ import Footer from "./Components/Footer.jsx";
 import "./App.css";
 import Destination from "./Components/Destinations/Destinations.jsx";
 import BookingPage from "./Components/Booking/BookingPage.jsx";
-
+import ImageUploader from "./Components/ImageUploader";
 import ConfirmationPage from "./Components/Confirmation/confirmationPage.jsx";
 
 import Profile from "./Page/Profile.jsx";
@@ -23,7 +23,6 @@ import SetPassword from "./Page/SetPassword.jsx";
 import ForgotPassword from "./Page/ForgotPassword.jsx";
 import VerifyPasswordCode from "./Page/VerifyPasswordCode.jsx";
 import Notifications from "./Components/Notifications.jsx";
-
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ProductsProvider } from "./contexts/ProductsContext";
 import { AppProvider } from "./contexts/AppContext";
@@ -34,11 +33,10 @@ function App() {
     <AppProvider>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<ImageUploader />} />
           <Route path="/Dashboard/*" element={<Dashboard_Agency />} />
-      
+          <Route path="/Confirmation" element={<ConfirmationPage/>}/>
           <Route path="/offerDetails/:id" element={<OfferDetailsPage />} />
-          <Route path="/Confirmation" element={<ConfirmationPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/booking/:offerid" element={<BookingPage />} />
           <Route path="/search" element={<SearchPage />} />
@@ -49,16 +47,12 @@ function App() {
           <Route path="/SetPassword" element={<SetPassword />} /> */
           <Route path="/ForgotPassword" element={<ForgotPassword />} /> */
           <Route path="/SignUp_Agency" element={<SignUp_Agence />} /> */
-          <Route path="/SignUp_Agence2" element={<SignUp_Agence2 />} /> */
-
-          
-
+          <Route path="/SignUp_Agence2" element={<SignUp_Agence2/>}/>
           <Route
             path="/VerifyPasswordCode"
             element={<VerifyPasswordCode />}
-          />
-          {" "}
-          */
+          />{" "}
+          
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/agencyprofile/:agencyId" element={<AgencyProfile />} />
 
