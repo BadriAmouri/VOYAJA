@@ -1,74 +1,79 @@
 import FileUploadForm from "./Notifications/FileUploadForm";
 import NotificationCard from "./Notifications/NotificationCard";
 import NavigationBar from "./NavigationBar/navigationBar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import "../Style/scrollbarnot.css";
+// Function to fetch notifications data
+const userid =5; //must be dynamic based on badri's implementation
+const fetchNotifications = async () => {
+  try {
+    const response = await fetch(`/api/getFromadminNotifications/${userid}`); // Adjust URL as needed
+    const data = await response.json();
+    return data; // Assuming the response contains the notifications array
+  } catch (error) {
+    console.error("Error fetching notifications:", error);
+  }
+};
 
-const notificationsData = [
-  {
-    id: 1,
-    type: "acceptation",
-    userProfilePic:
-      "https://upload.wikimedia.org/wikipedia/commons/4/48/Globe_icon.svg",
-    offerName: "Winter Wonderland Package",
-    message:
-      "Your request has been approved. Please proceed with the payment to confirm your booking.",
-    bookingDetails: {
-      destination: "Paris, France",
-      goDate: "2024-12-20",
-      returnDate: "2024-12-27",
-      priceBreakdown: {
-        basePrice: 1200,
-        optionsAdded: [
-          { name: "Additional Baggage", price: 50 },
-          { name: "Meal Upgrade", price: 20 },
-        ],
-        totalPrice: 1270,
-      },
-    },
-    date: "2024-12-11",
-    time: "10:00 AM",
-    isRead: false,
-  },
-  {
-    id: 2,
-    type: "rejection",
-    userProfilePic:
-      "https://upload.wikimedia.org/wikipedia/commons/8/8c/Airplane_takeoff_icon.svg",
-    offerName: "Summer Escape Special",
-    message:
-      "Unfortunately, your request could not be approved. Please contact us for further details.",
-    bookingDetails: {},
-    date: "2024-12-09",
-    time: "3:45 PM",
-    isRead: true,
-  },
-  {
-    id: 3,
-    type: "confirmation",
-    userProfilePic:
-      "https://upload.wikimedia.org/wikipedia/commons/a/a0/Cruise_icon.svg",
-    offerName: "New Year Gala Package",
-    message:
-      "Your booking has been successfully confirmed. Thank you for choosing us!",
-    bookingDetails: {},
-    date: "2024-12-08",
-    time: "8:30 AM",
-    isRead: false,
-  },
-];
+// Function to fetch details of a specific notification
+/* const fetchNotificationById = async (id) => {
+  try {
+    const response = await fetch(`/api/getFromadminNotificationById/${id}`); // Adjust URL as needed
+    const data = await response.json();
+    return data; // Assuming the response contains the specific notification details
+  } catch (error) {
+    console.error("Error fetching notification details:", error);
+  }
+}; */
 
 const Notifications = () => {
-  const [notifications] = useState(notificationsData);
+  const [notifications, setNotifications] = useState([]);
   const [selectedNotification, setSelectedNotification] = useState(null);
+  const location = useLocation();
 
-  const handleNotificationClick = (id) => {
-    const notification = notifications.find((notif) => notif.id === id);
-    setSelectedNotification(notification);
+  // Fetch notifications on mount
+  useEffect(() => {
+    const getNotifications = async () => {
+      const notificationsData = await fetchNotifications();
+      setNotifications(notificationsData);
+    };
+    getNotifications();
+  }, [location]);
+
+  const handleNotificationClick = async (id) => {
+    try {
+      const response = await fetch(`/api/getFromadminNotificationById/${id}`);
+      const notification = await response.json();
+  
+      // Update the notifications state
+      setNotifications((prevNotifications) =>
+        prevNotifications.map((n) =>
+          n.notification_id === id ? { ...n, seen: true } : n
+        )
+      );
+  
+      setSelectedNotification(notification);
+    } catch (error) {
+      console.error("Error fetching notification details:", error);
+    }
   };
 
   const handleBackToNotifications = () => {
     setSelectedNotification(null);
   };
+
+  const formatDateTime = (dateTime) => {
+    // Split the ISO date-time string into date and time parts
+    const [date, timeWithMilliseconds] = dateTime.split('T');
+    const time = timeWithMilliseconds.split('.')[0]; // Get time without milliseconds
+    
+    return { formattedDate: date, formattedTime: time };
+  };
+  
+  
+  
+  
 
   return (
     <div>
@@ -84,21 +89,27 @@ const Notifications = () => {
               Back to Notifications
             </button>
             <div className="p-4 border rounded shadow">
-              <div className=" flex items-center gap-4">
+              <div className="flex items-center gap-4">
                 <img
-                  src={selectedNotification.userProfilePic}
+                  src={selectedNotification.client_pic}
                   alt="User Profile"
                   className="w-16 h-16 rounded-full mb-4"
                 />
-                <h2 className="font-bold text-xl mb-2">
-                  {selectedNotification.offerName}
-                </h2>
+                {selectedNotification.type === "adminreply" ? (
+                  <h2 className="font-bold text-xl mb-2">Admin</h2>
+                ) : (
+                  <h2 className="font-bold text-xl mb-2">
+                    {selectedNotification.offerName}
+                  </h2>
+                )}
               </div>
 
               <FileUploadForm
                 type={selectedNotification.type}
-                message={selectedNotification.message}
+                message={selectedNotification.content}
                 bookingDetails={selectedNotification.bookingDetails}
+                subject={selectedNotification.subject} //added this for the contact us message
+
               />
             </div>
           </div>
@@ -107,19 +118,25 @@ const Notifications = () => {
           <div>
             <h1 className="font-bold text-2xl my-2">Notifications</h1>
             <div className="h-[4px] bg-primary rounded-lg mb-4"></div>
-            <div className="flex flex-col gap-0 overflow-y-auto h-screen">
-              {notifications.map((notification) => (
-                <NotificationCard
-                  key={notification.id}
-                  userProfilePic={notification.userProfilePic}
-                  offerName={notification.offerName}
-                  message={notification.message}
-                  date={notification.date}
-                  time={notification.time}
-                  isRead={notification.isRead}
-                  onClick={() => handleNotificationClick(notification.id)}
-                />
-              ))}
+            <div className="flex flex-col gap-0 overflow-y-auto h-screen no-scrollbar">
+              {notifications.map((notification) => {
+                const { formattedDate, formattedTime } = formatDateTime(notification.date);
+
+                return (
+                  <NotificationCard
+                    key={notification.notification_id}
+                    userProfilePic={notification.client_pic}
+                    offerName={notification.offerName}
+                    subject={notification.subject} // Use subject here
+                    message={notification.content}
+                    date={formattedDate} // Use formatted date
+                    time={formattedTime} // Use formatted time
+                    isRead={notification.seen}
+                    type={notification.type}
+                    onClick={() => handleNotificationClick(notification.notification_id)}
+                  />
+                );
+              })}
             </div>
           </div>
         )}

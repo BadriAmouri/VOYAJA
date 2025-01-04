@@ -214,6 +214,7 @@ const LoginForm = () => {
         console.log("The client ID is: " + result.client_id); // Use result.client_id
         setClientID(result.client_id); // Set client ID from result
         setIsLoggedIn(true);
+
         navigate("/"); // Navigate to signup page after login
       } else {
         alert(result.message || "Login failed. Please try again.");

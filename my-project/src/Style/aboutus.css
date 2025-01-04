@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+
+.Aboutus {
+    background-color : white ;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+
+.imgBg {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.imageaboutus {
+    width: 100%;
+    height: 90vh; /* Image height */
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+/* Text container for the headline */
+.sectionTextaboutus {
+    position: absolute;
+    top: 5%; 
+    left: 20%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    z-index: 10;
+    width: 100%;
+    padding: 0 20px; /* Add padding for better readability */
+}
+
+.sectionTextaboutus h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 35px;
+    font-weight: 200;
+    left: 50%; 
+    line-height: 50px;
+    text-align: left; 
+    font-weight: bold;
+    margin-left: 42%;
+    color: white;
+} 
+
+.sectionTextaboutus h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 35px;
+    font-weight: 200;
+    left: 50%; 
+    line-height: 50px;
+    text-align: left; 
+    font-weight: bold;
+    margin-left: 42%;
+    color: white;
+}
+
+.sectionTextaboutus p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    left: 50%; 
+    line-height: 50px;
+    text-align: left; 
+    margin-left: 42%;
+    color: white;
+}
+/* Responsive Styles */
+@media (max-width: 1080px) {
+    .bvalues {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .bBelief{
+        flex-direction: column;
+        gap: 20px;
+
+    }
+    .bmission{
+    transform: translateY(0);
+    }
+    .bvision{
+    margin-left: 12%;
+    }
+    .Trust {
+    margin-left: 13%; 
+    }
+}
+
+@media (max-width: 991px) {
+    .sectionText h1 {
+        font-size: 60px;
+    }
+
+    .sectionText h2 {
+        font-size: 28px;
+    }
+
+    .sectionText p {
+        font-size: 16px;
+    }
+
+    .PopularPlaces .images img {
+        width: 25%;
+    }
+}
+
+@media (max-width: 767px) {
+    .Home {
+        width: 100%;
+        height: auto;
+        overflow-x: hidden;
+    }
+
+    .imgBg {
+        height: auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .image {
+        width: 100%;
+        height: 60vh; 
+        margin-left: 0px;
+        margin-right: 0px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .sectionText {
+        top: 2%; 
+        left: 5%;
+        right: 5%;
+        transform: translateX(0); 
+        padding: 0 10px;
+    }
+
+    .sectionText h1 {
+        font-size: 45px;
+        z-index: 1000;
+        margin-bottom: 0px;
+        margin-top: -50px;
+    }
+
+    .sectionText h2 {
+        font-size: 24px;
+        z-index: 1000;
+        margin-top: -70px;
+    }
+
+    .sectionText p {
+        font-size: 14px;
+        z-index: 1000;
+        margin-top: -50px;
+    }
+    .Popular.m-5 {
+      margin-top: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+  .Home {
+    width: 100%;
+    height: auto; 
+}
+
+.imgBg {
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.image {
+    width: 100%;
+    height: 60vh; 
+    margin-left: 0px;
+    margin-right: 0px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.sectionText {
+    top: 2%; 
+    left: 5%;
+    right: 5%;
+    transform: translateX(0); 
+    padding: 0 10px;
+}
+
+.sectionText h1 {
+    font-size: 45px;
+    z-index: 1000;
+    margin-bottom: 0px;
+    margin-top: -50px;
+}
+
+.sectionText h2 {
+    font-size: 24px;
+    z-index: 1000;
+    margin-top: -70px;
+}
+
+.sectionText p {
+    font-size: 14px;
+    z-index: 1000;
+    margin-top: -50px;
+}
+}
