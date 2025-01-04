@@ -2,7 +2,8 @@ import React from "react";
 import "../Style/Footer.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter, faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons';
-
+import Aboutus from "../Page/Aboutus.jsx";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -31,7 +32,7 @@ const Footer = () => {
           </ul>
         </div>
         <div className="footer-section">
-          <h4>Our Activities</h4>
+          <h4><Link to={`/admin/notifications`}>notification</Link></h4>
           <ul>
             <li><a href="#">Beach Visits</a></li>
             <li><a href="#">Mountain Hikes</a></li>
@@ -41,17 +42,17 @@ const Footer = () => {
         </div>
        
         <div className="footer-section">
-          <h4 className="">About Us</h4>
+          <h4 className=""><Link to={`/Aboutus`}>About Us</Link></h4>
           <ul>
-            <li><a href="#">Our Story</a></li>
-            <li><a href="#">Work with Us</a></li>
+            <li><a href="/Aboutus">Our Beleifs</a></li>
+            <li><a href="/Aboutus">Key features</a></li>
           </ul>
         </div>
         <div className="footer-section">
-          <h4>Contact  Us</h4>
+          <h4><Link to={`/Contactus`}>Contact  Us</Link></h4>
           <ul>
-            <li><a href="#">Our Story</a></li>
-            <li><a href="#">Work with Us</a></li>
+            <li><a href="/Contactus">Your feedbacks</a></li>
+            <li><a href="/Contactus">Your questions</a></li>
           </ul>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../Style/upload.css";
-
-const FileUploadForm = ({ type, message, bookingDetails }) => {
+import { useLocation } from "react-router-dom";
+const FileUploadForm = ({ type, message, bookingDetails,subject }) => {
   const [paymentReceiptFile, setPaymentReceiptFile] = useState(null);
 
   const handlePaymentReceiptChange = (event) => {
@@ -25,6 +25,8 @@ const FileUploadForm = ({ type, message, bookingDetails }) => {
           <h2 className="font-semibold">Request Approved</h2>
         ) : type == "confirmation" ? (
           <h2 className="font-semibold">Booking Confirmed</h2>
+        ) : type == "adminreply" ? (
+          <h2 className="font-semibold">{subject}</h2> //here i'll be using offer name as the subject of the message
         ) : (
           <h2 className="font-semibold">Request Rejected</h2>
         )}
