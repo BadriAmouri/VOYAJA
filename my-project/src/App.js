@@ -2,16 +2,11 @@ import * as React from "react";
 import Dashboard_Agency from "./Page/Dashboard_Agency";
 import Home from "./Page/Home";
 import AgencyProfile from "./Page/AgencyProfile";
-import Header from "./Components/Home_Nav_Bar.jsx";
-import Footer from "./Components/Footer.jsx";
 import "./App.css";
 import Destination from "./Components/Destinations/Destinations.jsx";
 import BookingPage from "./Components/Booking/BookingPage.jsx";
-
 import ConfirmationPage from "./Components/Confirmation/confirmationPage.jsx";
-
 import Profile from "./Page/Profile.jsx";
-import SearchBar from "./Components/SearchBarHome.jsx";
 import SearchPage from "./Page/SearchPage.jsx";
 import Login from "./Page/Login_user.jsx";
 import Login2 from "./Page/Login_agency.jsx";
@@ -23,10 +18,18 @@ import SetPassword from "./Page/SetPassword.jsx";
 import ForgotPassword from "./Page/ForgotPassword.jsx";
 import VerifyPasswordCode from "./Page/VerifyPasswordCode.jsx";
 import Notifications from "./Components/Notifications.jsx";
+import AgenciesAccounts from "./Components/Admin/AgenciesAccounts.jsx";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ProductsProvider } from "./contexts/ProductsContext";
 import { AppProvider } from "./contexts/AppContext";
+import Admin from "./Page/Admin.jsx";
+import OffersTable from "./Components/Admin/offersTable.jsx";
+import OffersDetailsAdmin from "./Components/Admin/offerDetailsAdmin.jsx";
+import UsersTable from "./Components/Admin/usersTable.jsx";
+import BookingTable from "./Components/Admin/bookingsTable.jsx";
+import AdminReviewsPage from "./Components/Admin/siteReviews.jsx";
+
 
 function App() {
   return (
@@ -36,8 +39,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Dashboard/*" element={<Dashboard_Agency />} />
-      
+          <Route path="/Admin" element={<Admin/>} />
           <Route path="/offerDetails/:id" element={<OfferDetailsPage />} />
+          <Route path="/offerDetailsAdmin/:id" element={<OffersDetailsAdmin />} />
           <Route path="/Confirmation" element={<ConfirmationPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/booking/:offerid" element={<BookingPage />} />
@@ -59,8 +63,14 @@ function App() {
           />
           {" "}
           */
-          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/admin/notifications" element={<Notifications />} />
           <Route path="/agencyprofile/:agencyId" element={<AgencyProfile />} />
+          <Route path="/admin/all-agencies" element={<AgenciesAccounts />} />
+          <Route path='/admin/offers' element={<OffersTable />} />
+          <Route path="/admin/user-accounts" element={<UsersTable/> } />
+          <Route path="/admin/dashboard" element={<Admin/>} />
+          <Route path="/admin/bookings" element = {<BookingTable/>} />
+          <Route path="/admin/reviews" element={<AdminReviewsPage/>} />
 
         </Routes>
       </div>
