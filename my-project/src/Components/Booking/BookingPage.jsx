@@ -6,6 +6,9 @@ import BookingForm from './bookingForm';
 import Footer from '../Footer';
 import '../../Style/booking.css';
 import NavigationBar from '../NavigationBar/navigationBar';
+import { useAppContext } from "../../contexts/AppContext";
+
+
 
 
 // 
@@ -26,6 +29,8 @@ const BookingPage = () => {
   const [formErrors, setFormErrors] = useState({});
   const [modalType, setModalType] = useState('');
   const [offerName, setOfferName] = useState('');
+  const {clientID ,setClientID} = useAppContext();
+
 
   const handlePassportChange = (event) => {
     setPassportFile(event.target.files[0]);
@@ -141,7 +146,7 @@ const BookingPage = () => {
       options_selected: selectedOptionIds,
       total_price: totalPrice,
       status: false,
-      customer_id: 2,
+      customer_id: clientID,
       offer_id: offerid,
       reciept_url: "receipt_url",
       passports_urls: [simulatedPassportURL], // Simulating cloud upload

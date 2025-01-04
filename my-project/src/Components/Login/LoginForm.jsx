@@ -121,12 +121,15 @@ import { useNavigate } from "react-router-dom";
 
 import React, { useState } from "react";
 import PasswordInput from "./PasswordInput";
+import { useAppContext } from '../../contexts/AppContext';
 import "../../Style/Login_user.css";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const {isLoggedIn, setIsLoggedIn ,clientID ,setClientID} = useAppContext();
+
 
   // const handleLogin = async (event) => {
   //   event.preventDefault(); // Prevent form reload on submission
@@ -187,7 +190,6 @@ const LoginForm = () => {
   //   }
   // };
   
-
   const handleLogin = async (event) => {
     event.preventDefault(); // Prevent form reload on submission
     console.log('Form submitted with email:', email, 'and password:', password);
@@ -195,7 +197,7 @@ const LoginForm = () => {
     try {
       // Log request details before sending
       console.log('Sending data to backend...');
-      const response = await fetch("http://localhost:5000/client", {
+      const response = await fetch("/client", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -208,7 +210,11 @@ const LoginForm = () => {
   
       // Handle response
       if (response.ok) {
-        alert(result.message || "Login successful!");
+        alert(result.message || "Login successful ");
+        console.log("The client ID is: " + result.client_id); // Use result.client_id
+        setClientID(result.client_id); // Set client ID from result
+        setIsLoggedIn(true);
+
         navigate("/"); // Navigate to signup page after login
       } else {
         alert(result.message || "Login failed. Please try again.");
