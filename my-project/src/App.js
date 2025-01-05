@@ -5,6 +5,9 @@ import AgencyProfile from "./Page/AgencyProfile";
 import "./App.css";
 import Destination from "./Components/Destinations/Destinations.jsx";
 import BookingPage from "./Components/Booking/BookingPage.jsx";
+
+import ImageUploader from "./Components/ImageUploader";
+
 import ConfirmationPage from "./Components/Confirmation/confirmationPage.jsx";
 import Profile from "./Page/Profile.jsx";
 
@@ -44,7 +47,7 @@ function App() {
     <AppProvider>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<ImageUploader />} />
           <Route path="/Dashboard/*" element={<Dashboard_Agency />} />
 
           <Route path="/Admin" element={<Admin/>} />
@@ -66,17 +69,13 @@ function App() {
           <Route path="/SetPassword" element={<SetPassword />} /> */
           <Route path="/ForgotPassword" element={<ForgotPassword />} /> */
           <Route path="/SignUp_Agency" element={<SignUp_Agence />} /> */
-          <Route path="/SignUp_Agence2" element={<SignUp_Agence2 />} /> */
-
-          
-
+          <Route path="/SignUp_Agence2" element={<SignUp_Agence2/>}/>
           <Route
             path="/VerifyPasswordCode"
             element={<VerifyPasswordCode />}
-          />
-          {" "}
-          */
+
           <Route path="/admin/notifications" element={<Notifications />} />
+
 
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/Favorites" element={<Favorites />} />

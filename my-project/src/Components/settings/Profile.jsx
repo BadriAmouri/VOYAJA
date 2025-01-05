@@ -2,7 +2,7 @@ import { Avatar, Divider, TextField, Typography, IconButton } from "@mui/materia
 import { Box } from "@mui/system";
 import React, { useState, useEffect } from "react";
 import { Instagram, Facebook, WhatsApp } from "@mui/icons-material"; // Importing icons
-
+import { useAppContext } from "../../contexts/AppContext";
 const Profile = () => {
   const [profileData, setProfileData] = useState({
     agency_id: "",
@@ -17,11 +17,11 @@ const Profile = () => {
     whatsapp_link: "",
     facebook_link: "",
   });
-
+  const { agencyID, setAgencyID} = useAppContext();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/agency/1", { method: "GET" });
+        const response = await fetch(`/api/agency/${agencyID}`, { method: "GET" });
 
         if (!response.ok) {
           const errorBody = await response.text();
