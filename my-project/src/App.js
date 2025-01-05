@@ -47,7 +47,7 @@ function App() {
     <AppProvider>
       <div className="App">
         <Routes>
-          <Route path="/" element={<ImageUploader />} />
+          <Route path="/" element={<Home />} />
           <Route path="/Dashboard/*" element={<Dashboard_Agency />} />
 
           <Route path="/Admin" element={<Admin/>} />

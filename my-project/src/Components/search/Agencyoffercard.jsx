@@ -13,10 +13,9 @@ export default function Agencyoffercard({ agency_name, agency_logo, offer }) {
     <div className="text-left agencyoffer-card bg-white border p-4 rounded-lg shadow-md  max-w-[52rem]  flex">
       {/* Offer Image */}
       <div className="agencyoffer-image w-1/4">
-        {/*         {offer.image && offer.image[0] ? (
-          // Convert the BLOB to an object URL
+      {offer.pictures && offer.pictures.length > 0 ? (
           <img
-            src={URL.createObjectURL(new Blob([offer.image[0]], { type: 'image/jpeg' }))}
+            src={offer.pictures[1]} // Get the first image from the array
             alt="Trip"
             className="w-full h-auto rounded-lg"
           />
@@ -24,8 +23,8 @@ export default function Agencyoffercard({ agency_name, agency_logo, offer }) {
           <div className="placeholder-image w-full h-auto rounded-lg bg-gray-200 flex items-center justify-center">
             <p className="text-gray-500">No Image Available</p>
           </div>
-        )} */}
-        <img src={seoulPalace} alt={seoulPalace} />
+        )}
+      
       </div>
 
       {/* Offer Details */}
