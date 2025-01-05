@@ -16,7 +16,7 @@ export default function OfferCard({ offer }) {
 
   // Format rating (only one decimal place)
   const formattedRating = offer.averageRating.toFixed(1);
-  console.log(offer.pictures);
+  {console.log(offer)}
   return (
     <div className="text-left boffer-card bg-white border p-4 rounded-lg shadow-md  max-w-[52rem]  flex">
       {/* Offer Image */}
