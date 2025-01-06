@@ -1,35 +1,43 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import seoulPalace from "../../assets/offerPics/palace.jpg"; // Fallback image in case the API doesn't return a picture.
 
-import seoulPalace from "../../assets/offerPics/palace.jpg";
 const PriceBreakdown = ({ setTotalPrice, setSelectedOptionIds ,offerName }) => {
   const { offerid } = useParams();
   const [selectedItems, setSelectedItems] = useState([]); // Array of selected option objects
   const [options, setOptions] = useState([]); // All available options
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [offerPicture, setOfferPicture] = useState(null); // New state to store the offer picture URL
 
+  // Fetch offer options and offer details including picture
   useEffect(() => {
-    const fetchOfferOptions = async () => {
+    const fetchOfferDetails = async () => {
       try {
-        const response = await fetch(`/api/option/${offerid}`);
+        // Fetching the offer details (including the picture)
+        const response = await fetch(`/api/offers/${offerid}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch offer options');
+          throw new Error('Failed to fetch offer details');
         }
         const data = await response.json();
-        console.log("the data is :",data)
-        setOptions(data); // Set the options in state
+        setOfferPicture(data.offer.pictures || seoulPalace); // Store the picture URL (or fallback to seoulPalace)
+
+        // Now fetch the options
+        const optionsResponse = await fetch(`/api/option/${offerid}`);
+        if (!optionsResponse.ok) {
+          throw new Error('Failed to fetch offer options');
+        }
+        const optionsData = await optionsResponse.json();
+        setOptions(optionsData); // Set the options in state
       } catch (err) {
-        setError("AMINA AW KAYEN ERROR ", err.message);
+        setError("Error: " + err.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchOfferOptions();
-  }, []);
+    fetchOfferDetails(); // Call the function to fetch the offer details and options
+  }, [offerid]);
 
   const handleCheckboxChange = (event, option) => {
     const updatedItems = selectedItems.some((item) => item.option_id === option.option_id)
@@ -53,18 +61,20 @@ const PriceBreakdown = ({ setTotalPrice, setSelectedOptionIds ,offerName }) => {
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p>{error}</p>;
   }
 
   return (
     <div className="price-breakdown">
       <p className="flight_booking">
-        <img src={seoulPalace} alt="plane Image" className="plane_booking" />
-        
+        <img
+          src={offerPicture || seoulPalace} // If no picture, use seoulPalace as fallback
+          alt="Offer Image"
+          className="plane_booking"
+        />
         <br />
         {offerName}
         <br />
-        
       </p>
       <hr />
 
@@ -97,7 +107,5 @@ const PriceBreakdown = ({ setTotalPrice, setSelectedOptionIds ,offerName }) => {
     </div>
   );
 };
-// 
+
 export default PriceBreakdown;
-// 
-// 
