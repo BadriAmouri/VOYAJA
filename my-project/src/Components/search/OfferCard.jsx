@@ -16,16 +16,14 @@ export default function OfferCard({ offer }) {
 
   // Format rating (only one decimal place)
   const formattedRating = offer.averageRating.toFixed(1);
+  {console.log(offer)}
   return (
     <div className="text-left boffer-card bg-white border p-4 rounded-lg shadow-md  max-w-[52rem]  flex">
       {/* Offer Image */}
       <div className="boffer-image w-1/4">
-        {/*  {offer.image && offer.image[0] ? (
-          // Convert the BLOB to an object URL
+        {offer.pictures && offer.pictures.length > 0 ? (
           <img
-            src={URL.createObjectURL(
-              new Blob([offer.image[0]], { type: "image/jpeg" })
-            )}
+            src={offer.pictures[1]} // Get the first image from the array
             alt="Trip"
             className="w-full h-auto rounded-lg"
           />
@@ -33,8 +31,9 @@ export default function OfferCard({ offer }) {
           <div className="placeholder-image w-full h-auto rounded-lg bg-gray-200 flex items-center justify-center">
             <p className="text-gray-500">No Image Available</p>
           </div>
-        )} */}
-        <img src={seoulPalace} alt={seoulPalace} />
+        )}
+
+       {/*  <img src={seoulPalace} alt={seoulPalace} /> */}
       </div>
 
       {/* Offer Details */}
@@ -67,19 +66,17 @@ export default function OfferCard({ offer }) {
         {/* Agency Logo and Name */}
         <div className="bagency-info flex items-center mt-2 space-x-2">
           <Link to={`/agencyprofile/${offer.agency_id}`}>
-            {/*             {offer.logo && offer.logo[0] ? (
+            {offer.logo && offer.logo[0] ? (
               // Convert the BLOB to an object URL
               <img
-                src={URL.createObjectURL(
-                  new Blob([offer.logo[0]], { type: "image/png" })
-                )}
+                src={offer.logo}
                 alt={offer.agency_name}
                 className="w-8 h-8 rounded-full"
               />
             ) : (
               <div className="placeholder-image w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center"></div>
-            )} */}
-            <img src={travelLogo} alt={travelLogo} className="w-8 h-8 rounded-full" />
+            )} 
+      
           </Link>
           <Link to={`/agencyprofile/${offer.agency_id}`}>
             <span className="text-sm text-gray-800 font-medium">
