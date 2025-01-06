@@ -120,11 +120,12 @@ const BookingPage = () => {
     const formValidationErrors = validateForm();
     setFormErrors(formValidationErrors);
   
-    if (Object.keys(formValidationErrors).length > 3) {
+    if (Object.keys(formValidationErrors).length > 0) {
       setModalType('error');
-       setShowModal(true);
+      setShowModal(true);
       return;
     }
+  
     if (!passportFile) {
       console.error('Passport file is missing.');
       setFormErrors((prevErrors) => ({
@@ -135,35 +136,23 @@ const BookingPage = () => {
       setShowModal(true);
       return;
     }
-    //passport uploaded in the cloud
-    const simulatedPassportURL = "https://some-cloud-url.com/" + passportFile.name;
-  
-    // Prepare JSON payload
-    const payload = {
-      customer_name: formData.name,
-      customer_surname: formData.surname,
-      customer_phone: formData.phoneNumber,
-      options_selected: selectedOptionIds,
-      total_price: totalPrice,
-      status: false,
-      customer_id: clientID,
-      offer_id: offerid,
-      reciept_url: "receipt_url",
-      passports_urls: [simulatedPassportURL], // Simulating cloud upload
-      
-    };
-  
-    console.log("Payload:", payload); // Log the payload for debugging
-  
+  console.log('number',formData.numberOfPersons);
+    const formDataToSend = new FormData(); // Renamed to avoid shadowing state
+  formDataToSend.append('customer_name', formData.name);
+  formDataToSend.append('customer_surname', formData.surname);
+  formDataToSend.append('customer_phone', formData.phoneNumber);
+  formDataToSend.append('options_selected', JSON.stringify(selectedOptionIds)); // No double brackets
+  formDataToSend.append('total_price', totalPrice);
+  formDataToSend.append('status', false);
+  formDataToSend.append('customer_id', clientID);
+  formDataToSend.append('offer_id', offerid);
+  formDataToSend.append('reciept_url', 'receipt_url');
+  formDataToSend.append('passportFile', passportFile);
+  formDataToSend.append('number_of_persons', formData.numberOfPersons);
     try {
-     
-  
       const response = await fetch('/api/booking/add', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
+        body: formDataToSend, // Send as multipart form data
       });
   
       if (!response.ok) {
@@ -213,22 +202,23 @@ const BookingPage = () => {
             setSelectedOptionIds={setSelectedOptionIds} offerName={offerName} />
             </div>
             <form onSubmit={handleSubmit} className="file-upload-form_booking">
-              <label className="upload-box_passport">
-                <input
-                  type="file"
-                  onChange={handlePassportChange}
-                  accept=".pdf, .jpg, .png"
-                  className="hidden-file-input"
-                />
-                <div className="upload-content_passport">
-                  <span className="upload-plus-icon">+</span>
-                  <p className="upload-text">Upload Passport</p>
-                </div>
-              </label>
-              {passportFile && <p className="file-name">Uploaded: {passportFile.name}</p>}
-              {formErrors.passportFile && <p className="error">{formErrors.passportFile}</p>}
-              <button type="submit" className="submit-btn_booking">Submit</button>
-            </form>
+  <label className="upload-box_passport">
+    <input
+      type="file"
+      onChange={handlePassportChange}
+      accept=".pdf, .jpg, .png"
+      className="hidden-file-input"
+    />
+    <div className="upload-content_passport">
+      <span className="upload-plus-icon">+</span>
+      <p className="upload-text">Upload Passport</p>
+    </div>
+  </label>
+  {passportFile && <p className="file-name">Uploaded: {passportFile.name}</p>}
+  {formErrors.passportFile && <p className="error">{formErrors.passportFile}</p>}
+  <button type="submit" className="submit-btn_booking">Submit</button>
+</form>
+
           </div>
         </div>
       </main>

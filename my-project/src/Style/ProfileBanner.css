@@ -34,7 +34,9 @@
     height: 100px;
     border-radius: 50%;
   }
-  
+  .profile-photo img:hover {
+    transform: scale(1.1);
+  }
   .upload-btn {
     position: absolute;
     margin-top: -70px;
