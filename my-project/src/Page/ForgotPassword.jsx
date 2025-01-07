@@ -4,16 +4,35 @@ import '../Style/Login_user.css';
 import SocialButtons from "../Components/Login/SocialButton";
 import coverImage from "../assets/coverimage.png";
 import Logo from "../Components/Login/Logo";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const userType = location.state?.userType; // Get userType from the previous page
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate the password recovery process
-    navigate("/VerifyPasswordCode");
+    // Simulate the password recovery process^
+
+    try {
+      // Call the backend API
+      const response = await axios.post("/password/forgotpassword", {
+        email,
+      });
+      localStorage.setItem("email", email);
+
+      navigate("/VerifyPasswordCode", { state: { userType } }); // Pass userType to VerifyPasswordCode
+
+    } catch (error) {
+      // setErrorMessage(error.response?.data?.message || "An error occurred");
+
+    }
+
+
   };
 
   return (

@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import '../Style/Login_user.css';
 import Logo from "../Components/Login/Logo";
 import coverImage from "../assets/coverimage.png";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
+
 
 
 
@@ -10,11 +13,23 @@ import coverImage from "../assets/coverimage.png";
 const VerifyPasswordCode = () => {
   const [code, setCode] = useState(""); // Track the entered code
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleSubmit = (e) => {
+  const email = location.state?.email || localStorage.getItem("email");
+  const userType = location.state?.userType;
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate verification of the code
-    navigate("/SetPassword"); 
+   try {
+     const response = await axios.post("/password/verifycode", {
+       code,email
+     });   
+     navigate("/SetPassword", { state: { userType } }); // Pass userType to SetPassword
+    } catch (error) {
+    // setErrorMessage(error.response?.data?.message || "Invalid code. Please try again.");
+
+   }
   };
 
   return (
@@ -38,7 +53,7 @@ const VerifyPasswordCode = () => {
           </button>
         </form>
         <div>
-          Didn’t receive a code? <a href="#" className="resend-link">Resend</a>
+          Didn’t receive a code? <a href="/ForgotPassword" className="resend-link">Resend</a>
         </div>
       </div>
       <div className="login-image">
