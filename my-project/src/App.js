@@ -26,6 +26,7 @@ import Notifications from "./Components/Notifications.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ProductsProvider } from "./contexts/ProductsContext";
 import { AppProvider } from "./contexts/AppContext";
+import LoginFormAgency from "./Components/Login/LoginFormAgency";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
     <AppProvider>
       <div className="App">
         <Routes>
-          <Route path="/" element={<ImageUploader />} />
+          <Route path="/" element={<Home />} />
           <Route path="/Dashboard/*" element={<Dashboard_Agency />} />
           <Route path="/Confirmation" element={<ConfirmationPage/>}/>
           <Route path="/offerDetails/:id" element={<OfferDetailsPage />} />
@@ -48,6 +49,8 @@ function App() {
           <Route path="/ForgotPassword" element={<ForgotPassword />} /> */
           <Route path="/SignUp_Agency" element={<SignUp_Agence />} /> */
           <Route path="/SignUp_Agence2" element={<SignUp_Agence2/>}/>
+          <Route path="/Login_Agency" element={<Login2/>}/>
+          
           <Route
             path="/VerifyPasswordCode"
             element={<VerifyPasswordCode />}
