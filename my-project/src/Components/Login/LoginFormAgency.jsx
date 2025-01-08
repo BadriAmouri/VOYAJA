@@ -219,7 +219,9 @@ const LoginFormAgency = () => {
     }
   };
   
-
+  const handleForgotPassword = () => {
+    navigate("/ForgotPassword", { state: { userType: "agency" } }); 
+  };
   return (
     <div className="login-form">
       <h2 className="formh2">Login</h2>
@@ -245,9 +247,13 @@ const LoginFormAgency = () => {
 
         {/* Forgot Password */}
         <div className="options">
-          <a href="/ForgotPassword" className="forgot-password">
+        <button
+            type="button"
+            className="forgot-password"
+            onClick={handleForgotPassword}
+          >
             Forgot Password?
-          </a>
+          </button>
         </div>
 
         {/* Submit Button */}

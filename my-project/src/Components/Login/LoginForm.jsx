@@ -224,7 +224,9 @@ const LoginForm = () => {
       alert("An error occurred. Please try again later.");
     }
   };
-  
+  const handleForgotPassword = () => {
+    navigate("/ForgotPassword", { state: { userType: "client" } });
+  };
 
   return (
     <div className="login-form">
@@ -251,9 +253,13 @@ const LoginForm = () => {
 
         {/* Forgot Password */}
         <div className="options">
-          <a href="/ForgotPassword" className="forgot-password">
+        <button
+            type="button"
+            className="forgot-password"
+            onClick={handleForgotPassword}
+          >
             Forgot Password?
-          </a>
+          </button>
         </div>
 
         {/* Submit Button */}

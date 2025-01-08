@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import PasswordInput from "../Components/Login/PasswordInput";
 import coverImage from "../assets/coverimage.png";
 import Logo from "../Components/Login/Logo";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
+
 
 
 
@@ -10,18 +13,42 @@ const SetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const userType = location.state?.userType;
+  const email = location.state?.email || localStorage.getItem("email");
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Validate passwords
     if (password !== confirmPassword) {
       setErrorMessage("Passwords do not match");
       return;
     }
-    setErrorMessage("");
-    // Navigate to home screen after successful password reset
-    navigate("/homescreen");
+    try {
+      // await axios.post("/client/resetpassword", { password });
+    
+       const response = await axios.post("/password/setpassword", {
+     email,
+             password,
+             userType,
+
+       });
+     
+      // setSuccessMessage(response.data.message);
+      setErrorMessage(""); // Clear any errors
+
+      // Redirect based on userType
+      if (userType === "client") {
+        navigate("/");
+      } else if (userType === "agency") {
+        navigate("/Dashboard");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -47,9 +74,11 @@ const SetPassword = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
           {errorMessage && <p className="error-message">{errorMessage}</p>}
-          <button type="submit" className="login-button">
+          <button type="submit" className="login-button"  >
             Set Password
           </button>
+
+         
         </form>
       </div>
     </div>
@@ -57,3 +86,4 @@ const SetPassword = () => {
 };
 
 export default SetPassword;
+
