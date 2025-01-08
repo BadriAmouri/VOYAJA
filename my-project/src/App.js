@@ -33,6 +33,9 @@ import Adminnotifications from "./Components/Contactus/Adminnotifications.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ProductsProvider } from "./contexts/ProductsContext";
 import { AppProvider } from "./contexts/AppContext";
+
+import LoginFormAgency from "./Components/Login/LoginFormAgency";
+
 import Admin from "./Page/Admin.jsx";
 import OffersTable from "./Components/Admin/offersTable.jsx";
 import OffersDetailsAdmin from "./Components/Admin/offerDetailsAdmin.jsx";
@@ -47,7 +50,6 @@ function App() {
     <AppProvider>
       <div className="App">
         <Routes>
-
         <Route path="/" element={<Home />} />
           {/* <Route path="/" element={<ImageUploader />} /> */}
 
@@ -73,6 +75,8 @@ function App() {
           <Route path="/ForgotPassword" element={<ForgotPassword />} /> */
           <Route path="/SignUp_Agency" element={<SignUp_Agence />} /> */
           <Route path="/SignUp_Agence2" element={<SignUp_Agence2/>}/>
+          <Route path="/Login_Agency" element={<Login2/>}/>
+          
           <Route
             path="/VerifyPasswordCode"
             element={<VerifyPasswordCode />}
