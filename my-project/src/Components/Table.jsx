@@ -7,6 +7,7 @@ import { FiEye, FiTrash } from "react-icons/fi";
 import { GiMedallist } from "react-icons/gi";
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
+import { useAppContext } from "../contexts/AppContext";
 
 export const Table = ({
   data,
@@ -26,10 +27,13 @@ export const Table = ({
   const columns = useMemo(() => fields, []);
 
   const [tableData, setTableData] = useState(() => data);
+  const {offerID, setOfferID} = useAppContext();
+
 
   useEffect(() => {
     // Sync table data with the prop data whenever it changes
     setTableData(data);
+    console.log("the TABLE DATA IS :" ,tableData);
   }, [data]);
 
   const handleDeleteRow = useCallback(
@@ -42,6 +46,7 @@ export const Table = ({
     },
     [tableData]
   );
+  
 
   return (
     <MaterialReactTable
@@ -74,7 +79,14 @@ export const Table = ({
           )}
           { seeOrders && ( 
            <Tooltip arrow placement="right" title="See Orders">
-           <Link to={`/Dashboard/orders`}>
+           <Link to={`/Dashboard/orders`}
+           onClick={() => {
+            // Log the data of the clicked row
+            setOfferID(row.original.offer_id)
+            console.log("Row Data for Orders:", row.original.offer_id); // row.original contains the full row data
+          }}
+           >
+           
             <IconButton color="yellow" >
             <GiMedallist />
             </IconButton>

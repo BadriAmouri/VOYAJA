@@ -25,13 +25,27 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ProductsProvider } from "./contexts/ProductsContext";
 import { AppProvider } from "./contexts/AppContext";
 
+
+import LoginFormAgency from "./Components/Login/LoginFormAgency";
+
+import Admin from "./Page/Admin.jsx";
+import OffersTable from "./Components/Admin/offersTable.jsx";
+import OffersDetailsAdmin from "./Components/Admin/offerDetailsAdmin.jsx";
+import UsersTable from "./Components/Admin/usersTable.jsx";
+import BookingTable from "./Components/Admin/bookingsTable.jsx";
+import AdminReviewsPage from "./Components/Admin/siteReviews.jsx";
+
+
 function App() {
   return (
     <ProductsProvider>
     <AppProvider>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Home />} />
+
+        <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<ImageUploader />} /> */}
+
           <Route path="/Dashboard/*" element={<Dashboard_Agency />} />
       
           <Route path="/offerDetails/:id" element={<OfferDetailsPage />} />
@@ -50,7 +64,8 @@ function App() {
           <Route path="/SignUp_Agence" element={<SignUp_Agence />} /> */
           <Route path="/SignUp_Agence2" element={<SignUp_Agence2 />} /> */
 
-          
+          <Route path="/SignUp_Agence2" element={<SignUp_Agence2/>}/>
+          <Route path="/Login_Agency" element={<Login2/>}/>
 
           <Route
             path="/VerifyPasswordCode"

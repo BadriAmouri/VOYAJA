@@ -87,17 +87,19 @@ const Products = () => {
 
         const updatedProducts = offers.map((offer, index) => ({
           id: index + 1,
+          offer_id : offer?.offer_id || 0,
           offer_name: offer?.offer_name || "No Offer",
           starting_date: offer?.starting_date || "No Date",
           offer_depart: offer?.offer_depart || "Not Available",
           offer_dest: offer?.offer_dest || "Not Available",
           duration: offer?.duration || "Unknown",
           min_price: offer?.min_price || "N/A",
-          image: offer?.pictures_urls?.[0] || "default_image_url",
+          image: offer?.pictures[0] || "default_image_url",
           instock: !offer?.history_offer || false,
         }));
 
         setUpdatedProducts(updatedProducts);
+        console.log("the updated data is :",updatedProducts)
       } catch (error) {
         console.error("Error fetching offers:", error);
       } finally {
