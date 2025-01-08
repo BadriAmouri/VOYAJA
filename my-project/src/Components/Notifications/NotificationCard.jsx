@@ -1,10 +1,12 @@
 const NotificationCard = ({
   userProfilePic,
   offerName,
+  subject,
   message,
   date,
   time,
   isRead,
+  type,
   onClick,
 }) => {
   return (
@@ -24,13 +26,20 @@ const NotificationCard = ({
         </div>
         <div className="flex flex-col gap-4">
           <div>
-            <h3
+            {type == "adminreply"?(<h3
+              className={`font-semibold text-lg ${
+                isRead ? "text-gray-800" : "text-primary"
+              }`}
+            >
+              {subject}
+            </h3>):(<h3
               className={`font-semibold text-lg ${
                 isRead ? "text-gray-800" : "text-primary"
               }`}
             >
               {offerName}
-            </h3>
+            </h3>)}
+
             <p
               className={`text-sm ${
                 isRead

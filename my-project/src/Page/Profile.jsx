@@ -5,7 +5,7 @@ import AccountDetails from '../Components/Profile/AccountDetails';
 import HistoryView from '../Components/Profile/HistoryView';
 import Footer from '../Components/Footer';
 import NavigationBar from '../Components/NavigationBar/navigationBar';
-
+import PasswordEdit from'../Components/Profile/EditPassword';
 const Profile = () => {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -13,7 +13,10 @@ const Profile = () => {
     if (activeTab === 0) {
       return <AccountDetails />;
     }
-    if (activeTab === 1) {
+    if(activeTab === 1){
+      return<PasswordEdit/>
+    }
+    if (activeTab === 2) {
       return <HistoryView />;
     }
     return null;

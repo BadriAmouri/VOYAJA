@@ -5,8 +5,10 @@ import springSeoul from "../../assets/offerPics/spring-seoul-korea.jpg";
 import travelLogo from "../../assets/offerPics/travel-agency-logo.jpg";
 import { FaRegHeart } from "react-icons/fa"; // Correct import for outlined heart icon
 import { Link } from "react-router-dom";
+import HeartButton from "../Favorite/Heartbtn";
 
 export default function OfferCard({ offer }) {
+  const userID=35;
   // Format departure date (only show date part)
   const formattedDepartureDate = new Date(offer.starting_date)
     .toLocaleDateString("en-GB")
@@ -93,7 +95,9 @@ export default function OfferCard({ offer }) {
         <div className="bofferbuttons flex">
           {/* Heart Button with Icon */}
           <button className="heart-button flex items-center justify-center w-10 h-10 mr-2 border-2 border-[#4EB7AC] bg-white text-[#4EB7AC] rounded-lg">
-            <FaRegHeart /> {/* Heart icon */}
+            {/* <FaRegHeart />  */}
+            <HeartButton offerID={offer.offer_id} userID={userID} />
+         
           </button>
 
           {/* View Details Button */}

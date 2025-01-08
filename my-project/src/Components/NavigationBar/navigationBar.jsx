@@ -4,7 +4,7 @@ import OtherPagesLogo from "../../assets/Artboard 2@2x (2).png";
 import { IoAirplane } from "react-icons/io5";
 import { FaBell, FaHeart, FaBars } from "react-icons/fa";
 import user from "../../assets/Profile/user.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAppContext } from "../../contexts/AppContext";
 
 const NavigationBar = ({isHome }) => {
@@ -13,6 +13,7 @@ const NavigationBar = ({isHome }) => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false); // Manage sidebar visibility
   const navigate = useNavigate();
    const {isLoggedIn, setIsLoggedIn} = useAppContext();
+   const location = useLocation();
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
@@ -51,7 +52,7 @@ const NavigationBar = ({isHome }) => {
   const toggleSidebar = () => {
     setIsSidebarVisible((prev) => !prev);
   };
-
+  const isFavoritePage = location.pathname === '/Favorites';
   return (
     <div
       className={`fixed top-0 w-full flex items-center justify-between h-20 px-8 transition-all duration-300
@@ -104,10 +105,14 @@ const NavigationBar = ({isHome }) => {
       >
         {isLoggedIn ? (
           <>
-            <Link to="/favourites">
+           <Link to="/Favorites">
               <FaHeart
                 className={`text-xl ${
-                  isNavbarScrolled || !isHome ? "text-[#000000]" : "text-white"
+                  isFavoritePage
+                    ? "text-[#EF4217FF]" // Red if on Favorites page
+                    : isNavbarScrolled || !isHome
+                    ? "text-[#000000]"
+                    : "text-white"
                 } hover:text-[#EF4217FF] transition-colors duration-200`}
                 style={{ marginRight: "20px" }}
               />
