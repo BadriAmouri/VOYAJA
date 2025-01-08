@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "../../Style/EditPassword.css";
+import { useAppContext } from "../../contexts/AppContext";
 
 const EditPassword = () => {
   const id = 21;  // Set the user ID statically for testing purposes
+  const {clientID, setClientID} = useAppContext();
+
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -24,7 +27,7 @@ const EditPassword = () => {
     setErrorMessage(""); // Reset previous error messages
 
     try {
-      const response = await fetch(`/client/check-password/${id}`, {
+      const response = await fetch(`/client/check-password/${clientID}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -58,7 +61,7 @@ const EditPassword = () => {
     }
 
     try {
-      const response = await fetch(`client/${id}/update-password`, {
+      const response = await fetch(`client/${clientID}/update-password`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
