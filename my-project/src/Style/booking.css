@@ -278,6 +278,11 @@
 .h3_booking {
   margin-top: 0;
 }
+.agency-logo {
+  width: 80px;  /* Adjust the width */
+  height:  80px; /* Maintain aspect ratio */
+}
+
 .airline-images {
   display: flex;
   gap: 50px; 
