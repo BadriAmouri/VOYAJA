@@ -18,7 +18,7 @@ const MetricsSection = () => {
             });
 
             useEffect(() => {
-                axios.get('http://localhost:5001/admin/metrics')
+                axios.get('http://localhost:5000/admin/metrics')
                     .then(response => {
                         setMetrics(response.data);
                         console.log(axios.defaults.headers);

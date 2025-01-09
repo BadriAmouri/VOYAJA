@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "../../Style/EditPassword.css";
 import { useAppContext } from "../../contexts/AppContext";
+import { useNavigate } from 'react-router-dom';
 
 const EditPassword = () => {
-  const id = 21;  // Set the user ID statically for testing purposes
+ // const id = 21;  // Set the user ID statically for testing purposes
   const {clientID, setClientID} = useAppContext();
-
-
+  const navigate = useNavigate();
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -95,8 +95,8 @@ const EditPassword = () => {
   };
 
   const handleForgotPassword = () => {
-    alert("Redirecting to Forgot Password...");
-    
+  
+    navigate("/ForgotPassword", { state: { userType: "client" } });
   };
 
   return (

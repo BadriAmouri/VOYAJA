@@ -4,17 +4,11 @@ import NavigationBar from "./NavigationBar/navigationBar";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../Style/scrollbarnot.css";
+import { useAppContext } from "../contexts/AppContext";
+
 // Function to fetch notifications data
-const userid =5; //must be dynamic based on badri's implementation
-const fetchNotifications = async () => {
-  try {
-    const response = await fetch(`/api/getFromadminNotifications/${userid}`); // Adjust URL as needed
-    const data = await response.json();
-    return data; // Assuming the response contains the notifications array
-  } catch (error) {
-    console.error("Error fetching notifications:", error);
-  }
-};
+//const userid =5; //must be dynamic based on badri's implementation
+
 
 // Function to fetch details of a specific notification
 /* const fetchNotificationById = async (id) => {
@@ -28,10 +22,21 @@ const fetchNotifications = async () => {
 }; */
 
 const Notifications = () => {
+  const {isLoggedIn, setIsLoggedIn ,clientID ,setClientID} = useAppContext();
+
   const [notifications, setNotifications] = useState([]);
   const [selectedNotification, setSelectedNotification] = useState(null);
   const location = useLocation();
-
+  const fetchNotifications = async () => {
+    try {
+      const response = await fetch(`/api/getFromadminNotifications/${clientID}`); // Adjust URL as needed
+      const data = await response.json();
+      return data; // Assuming the response contains the notifications array
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    }
+  };
+  
   // Fetch notifications on mount
   useEffect(() => {
     const getNotifications = async () => {

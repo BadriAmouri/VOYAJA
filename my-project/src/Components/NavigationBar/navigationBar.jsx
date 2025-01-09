@@ -3,11 +3,39 @@ import HomeLogo from "../../assets/Artboard 2@2x (1).png";
 import OtherPagesLogo from "../../assets/Artboard 2@2x (2).png";
 import { IoAirplane } from "react-icons/io5";
 import { FaBell, FaHeart, FaBars } from "react-icons/fa";
-import user from "../../assets/Profile/user.jpg";
+import image2 from "../../assets/Profile/user.jpg";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAppContext } from "../../contexts/AppContext";
 
+
 const NavigationBar = ({isHome }) => {
+  const [user, setUser] = useState(null); // To store user data
+  const [profilePhoto, setProfilePhoto] = useState(image2); // Default profile image
+  const [error, setError] = useState(null); // To handle errors
+  const { clientID } = useAppContext(); // Assuming clientID comes from AppContext
+    useEffect(() => {
+      const fetchUserInfo = async () => {
+        try {
+          const response = await fetch(`/client/${clientID}`);
+          if (!response.ok) {
+            throw new Error("User not found or error occurred");
+          }
+          const data = await response.json();
+          setUser(data.user); // Update state with user data
+          console.log("The data is ", data); // Logs the fetched data
+  
+          // If the user has a profile image, update the profile photo state
+          if (data.user.client_pic) {
+            // Make sure to use the public URL from Supabase if available
+            setProfilePhoto(data.user.client_pic);
+          }
+        } catch (error) {
+          setError(error.message); // Set error if any
+        }
+      };
+  
+      fetchUserInfo();
+    }, [clientID]);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(null); // Manage pop-up modal visibility
   const [isSidebarVisible, setIsSidebarVisible] = useState(false); // Manage sidebar visibility
@@ -127,7 +155,7 @@ const NavigationBar = ({isHome }) => {
             </Link>
             <Link to="/profile">
               <img
-                src={user}
+                src={profilePhoto}
                 alt="Profile"
                 className="h-12 w-12 rounded-full object-cover cursor-pointer"
               />

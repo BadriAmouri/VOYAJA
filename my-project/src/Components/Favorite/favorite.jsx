@@ -14,7 +14,7 @@ export default function FavoritePage() {
   useEffect(() => {
     const fetchFavoriteOffers = async () => {
       try {
-        const userID = 35; 
+       // const clientID = 18; 
         const response = await fetch(`api/favorite-offers/${clientID}`);
         const data = await response.json();
         setFavorites(data);
@@ -36,7 +36,7 @@ export default function FavoritePage() {
     );
 
     // Simulate the removal API request
-    const userID = 35; // Replace with the actual userID if needed
+    //const clientID = 18; // Replace with the actual userID if needed
     fetch(`/api/remove-favorite/${clientID}/${offerId}`, {
       method: 'DELETE',
     })

@@ -12,8 +12,8 @@ const AdminReviewsPage = () => {
     const fetchData = async () => {
       try {
         const [reviewsResponse, clientsResponse] = await Promise.all([
-          axios.get("http://localhost:5001/admin/reviews"),
-          axios.get("http://localhost:5001/admin/users"),
+          axios.get("http://localhost:5000/admin/reviews"),
+          axios.get("http://localhost:5000/admin/users"),
         ]);
         
         setReviews(reviewsResponse.data); // Set reviews data

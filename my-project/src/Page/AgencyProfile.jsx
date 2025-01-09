@@ -17,7 +17,7 @@ import NavigationBar from '../Components/NavigationBar/navigationBar';
 export default function AgencyProfile() {
   const { agencyId } = useParams();
 
-  const [filters, setFilters] = useState({ price: 200000, duration: 60, rating: 1 });
+  const [filters, setFilters] = useState({ price: 20000000, duration: 60, rating: 0 });
   const [sortOption, setSortOption] = useState("");
   const [offers, setOffers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -80,7 +80,7 @@ export default function AgencyProfile() {
     return offers.filter((offer) => {
       return (
         offer.min_price <= filters.price && // Price filter
-        offer.duration <= filters.duration && // Duration filter
+        offer.duration <= filters.duration &&  // Duration filter
         offer.average_rating >= filters.rating // Rating filter
       );
     });

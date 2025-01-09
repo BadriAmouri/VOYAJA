@@ -17,7 +17,6 @@ const ContactUsForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const navigate=useNavigate();
-
   const {isLoggedIn, setIsLoggedIn ,clientID ,setClientID} = useAppContext();
 
 
@@ -36,7 +35,7 @@ const ContactUsForm = () => {
       }
 
       const response = await axios.post('http://localhost:5000/api/contactusrequest', {
-        sender_user_id: 5, // Replace with logged-in user ID
+        sender_user_id: clientID, // Replace with logged-in user ID
         receiver_admin_id: 1, // Set to the intended admin ID
         content: message,
         subject: subject,

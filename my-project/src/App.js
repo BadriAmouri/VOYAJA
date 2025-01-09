@@ -5,7 +5,9 @@ import AgencyProfile from "./Page/AgencyProfile";
 import "./App.css";
 import Destination from "./Components/Destinations/Destinations.jsx";
 import BookingPage from "./Components/Booking/BookingPage.jsx";
-
+import Contactus from "./Page/Contactus.jsx";
+import Aboutus from "./Page/Aboutus.jsx";
+import Adminreplypage from "./Page/Adminreplypage.jsx";
 import ConfirmationPage from "./Components/Confirmation/confirmationPage.jsx";
 import Profile from "./Page/Profile.jsx";
 import SearchBar from "./Components/SearchBarHome.jsx";
@@ -20,14 +22,15 @@ import SetPassword from "./Page/SetPassword.jsx";
 import ForgotPassword from "./Page/ForgotPassword.jsx";
 import VerifyPasswordCode from "./Page/VerifyPasswordCode.jsx";
 import Notifications from "./Components/Notifications.jsx";
-
+import Favorites from "./Components/Favorite/favorite.jsx"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ProductsProvider } from "./contexts/ProductsContext";
 import { AppProvider } from "./contexts/AppContext";
 
 
 import LoginFormAgency from "./Components/Login/LoginFormAgency";
-
+import Adminnotifications from "./Components/Contactus/Adminnotifications.jsx";
+import AgenciesAccounts from "./Components/Admin/AgenciesAccounts.jsx";
 import Admin from "./Page/Admin.jsx";
 import OffersTable from "./Components/Admin/offersTable.jsx";
 import OffersDetailsAdmin from "./Components/Admin/offerDetailsAdmin.jsx";
@@ -47,7 +50,10 @@ function App() {
           {/* <Route path="/" element={<ImageUploader />} /> */}
 
           <Route path="/Dashboard/*" element={<Dashboard_Agency />} />
-      
+          <Route path="/Contactus" element={<Contactus />} /> 
+          <Route path="/Aboutus" element={<Aboutus />} />  
+          <Route path="/Adminreplypage/:userid" element={<Adminreplypage />} /> 
+
           <Route path="/offerDetails/:id" element={<OfferDetailsPage />} />
           <Route path="/Confirmation" element={<ConfirmationPage />} />
           <Route path="/profile" element={<Profile />} />
@@ -64,6 +70,7 @@ function App() {
           <Route path="/SignUp_Agence" element={<SignUp_Agence />} /> */
           <Route path="/SignUp_Agence2" element={<SignUp_Agence2 />} /> */
 
+          <Route path="/Favorites" element={<Favorites />} />
           <Route path="/SignUp_Agence2" element={<SignUp_Agence2/>}/>
           <Route path="/Login_Agency" element={<Login2/>}/>
 
@@ -75,6 +82,16 @@ function App() {
           */
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/agencyprofile/:agencyId" element={<AgencyProfile />} />
+          <Route path="/admin/notifications" element={<Adminnotifications />} />
+          <Route path="/Admin" element={<Admin/>} />
+          <Route path="/admin/notifications" element={<Notifications />} />
+          <Route path="/admin/all-agencies" element={<AgenciesAccounts />} />
+          <Route path='/admin/offers' element={<OffersTable />} />
+          <Route path="/admin/user-accounts" element={<UsersTable/> } />
+          <Route path="/admin/dashboard" element={<Admin/>} />
+          <Route path="/admin/bookings" element = {<BookingTable/>} />
+          <Route path="/admin/reviews" element={<AdminReviewsPage/>} />
+     
 
         </Routes>
       </div>

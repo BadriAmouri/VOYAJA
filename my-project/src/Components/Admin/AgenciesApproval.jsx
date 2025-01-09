@@ -15,7 +15,7 @@ const AgenciesTable = () => {
 
   const fetchAgencies = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/admin/Non-verified-agencies");
+      const response = await axios.get("http://localhost:5000/admin/Non-verified-agencies");
       console.log("the data of the agencies is :", response.data);
       setAgencies(response.data);
       setLoading(false);
@@ -38,7 +38,7 @@ const AgenciesTable = () => {
   const handleApprove = async (id) => {
     try {
       console.log("Agency id is *********************** ", id);
-      await axios.put(`http://localhost:5001/admin/approve-agency/${id}`);
+      await axios.put(`http://localhost:5000/admin/approve-agency/${id}`);
       console.log("Agency approved successfully!");
       fetchAgencies(); // Refresh data
     } catch (error) {
@@ -52,7 +52,7 @@ const AgenciesTable = () => {
 
   const handleReject = async (id) => {
     try {
-      await axios.put(`http://localhost:5001/admin/reject-agency/${id}`);
+      await axios.put(`http://localhost:5000/admin/reject-agency/${id}`);
       alert("Agency rejected successfully!");
       fetchAgencies(); // Refresh data
     } catch (error) {

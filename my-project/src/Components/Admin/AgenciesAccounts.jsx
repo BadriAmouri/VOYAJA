@@ -18,7 +18,7 @@ const AgenciesAccounts = () => {
   const fetchAgencies = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5001/admin/verified-agencies"
+        "http://localhost:5000/admin/verified-agencies"
       );
       console.log("the data of the agencies is :", response.data);
       setAgencies(response.data);

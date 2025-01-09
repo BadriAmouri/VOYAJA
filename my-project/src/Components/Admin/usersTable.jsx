@@ -15,7 +15,7 @@ const UsersTable = () => {
   const fetchUsers = async () => {
     try {
       console.log("Fetching users in the frontend *************...");
-      const response = await axios.get("http://localhost:5001/admin/users");
+      const response = await axios.get("http://localhost:5000/admin/users");
       console.log("Users data:", response.data);
       setUsers(response.data);
       setFilteredUsers(response.data);

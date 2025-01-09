@@ -33,9 +33,9 @@ const BookingsGraph = () => {
       let url;
 
       if (view === "lastWeek") {
-        url = "http://localhost:5001/admin/booking-graph-last-week";
+        url = "http://localhost:5000/admin/booking-graph-last-week";
       } else if (view === "specificMonth" && month && year) {
-        url = `http://localhost:5001/admin/booking-graph-specific-month/${month}/${year}`;
+        url = `http://localhost:5000/admin/booking-graph-specific-month/${month}/${year}`;
       } else {
         console.warn("Invalid view or missing month/year for specificMonth");
         return;

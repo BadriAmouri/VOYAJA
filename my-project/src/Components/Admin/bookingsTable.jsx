@@ -11,15 +11,15 @@ const BookingTable = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const bookingResponse = await axios.get("http://localhost:5001/admin/bookings");
+        const bookingResponse = await axios.get("http://localhost:5000/admin/bookings");
         setBookings(bookingResponse.data);
 
-        const offerResponse = await axios.get("http://localhost:5001/api/offers");
+        const offerResponse = await axios.get("http://localhost:5000/api/offers");
         setOffers(offerResponse.data);
 
         // Fetch options for each offer dynamically
         offerResponse.data.forEach(async (offer) => {
-          const optionsResponse = await axios.get(`http://localhost:5001/api/option/${offer.offer_id}`);
+          const optionsResponse = await axios.get(`http://localhost:5000/api/option/${offer.offer_id}`);
           setOptions((prevOptions) => ({
             ...prevOptions,
             [offer.offer_id]: optionsResponse.data,

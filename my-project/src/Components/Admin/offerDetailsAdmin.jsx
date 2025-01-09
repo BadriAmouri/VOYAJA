@@ -17,7 +17,7 @@ const OfferDetailsPage = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:5001/api/offers/offerDetails/${id}`)
+    fetch(`http://localhost:5000/api/offers/offerDetails/${id}`)
       .then((response) => response.json())
       .then(
         (data) => {
