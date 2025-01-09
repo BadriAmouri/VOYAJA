@@ -85,8 +85,7 @@ const AgenciesTable = () => {
           {agencies.map((agency) => (
             <tr
             key={agency.agency_id}
-            className="cursor-pointer hover:bg-gray-100"
-            onClick={() => handleRowClick(agency.agency_id)}
+  
           >
               <td className="px-4 py-2 border-b">{agency.agency_id}</td>
               <td className="px-4 py-2 border-b">{agency.agency_name}</td>
