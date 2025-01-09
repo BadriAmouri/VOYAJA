@@ -172,13 +172,15 @@ export default function AgencyProfile() {
           <div className="agencyoffers">
             <Agencyofferlist offers={paginatedOffers} itemsPerPage={itemsPerPage} agency_name={agencyInfo.agency_name} agency_logo={agencyInfo.logo} />
           </div>
-          <Pagination
+          <div className="agencyPagination">
+          <Pagination 
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={handlePageChange}
             onNext={handleNext}
             onPrevious={handlePrevious}
           />
+          </div>
         </div>
       </div>
 

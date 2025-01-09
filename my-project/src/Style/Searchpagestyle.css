@@ -40,6 +40,41 @@
 
 
 /* Media query for phone-like screens */
+@media screen and (min-width: 1400px) {
+
+
+ 
+  .filters {
+    /* Hide filters by default */
+    margin-left: 12%;
+
+  }
+
+
+
+  .boffers {
+    position: relative;
+    margin-left: 100;
+    width: 95%;
+
+  }
+
+  .comsortbtn {
+    display: flex;
+    justify-content: center;
+    /* Equivalent to justify-center in Tailwind */
+    gap: 0.01rem;
+  }
+  .sortingbtn
+  {
+    margin-left: -15%;
+
+
+  }
+
+  
+}
+
 @media screen and (max-width: 768px) {
   .search-content {
     flex-direction: column;
