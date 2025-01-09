@@ -1,19 +1,65 @@
 import React, { useState } from "react";
 import "../../Style/upload.css";
 import { useLocation } from "react-router-dom";
-const FileUploadForm = ({ type, message, bookingDetails,subject }) => {
+
+const FileUploadForm = ({
+  type,
+  message,
+  bookingDetails,
+  subject,
+  agencyID,
+}) => {
+  //console.log("TYPE --> " + type);
   const [paymentReceiptFile, setPaymentReceiptFile] = useState(null);
 
   const handlePaymentReceiptChange = (event) => {
     setPaymentReceiptFile(event.target.files[0]);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (!paymentReceiptFile) {
       alert("Please upload a file.");
-    } else {
-      alert(`Payment Receipt: ${paymentReceiptFile.name}`);
+      return;
+    }
+
+    // Simulate receipt URL
+    const simulatedReceiptURL =
+      "https://some-cloud-url.com/" + paymentReceiptFile.name;
+
+    // Notification payload
+    const notificationPayload = {
+      userId: bookingDetails.customer_id,
+      agencyId: agencyID,
+      content: "payement_reciept",
+      bookingId: bookingDetails.booking_id,
+      receiptURL: paymentReceiptFile.name,
+    };
+    console.log("*******>", JSON.stringify(notificationPayload));
+
+    try {
+      const notificationResponse = await fetch(
+        "/api/notifications/booking/receiptPayment",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(notificationPayload),
+        }
+      );
+
+      if (!notificationResponse.ok) {
+        throw new Error("Failed to send notification");
+      }
+
+      alert(
+        `Payment Receipt uploaded successfully: ${paymentReceiptFile.name}`
+      );
+    } catch (error) {
+      console.error("Error sending notification:", error);
+      alert("Failed to send notification. Please try again.");
     }
   };
 
@@ -21,19 +67,19 @@ const FileUploadForm = ({ type, message, bookingDetails,subject }) => {
     <div className="app-container flex flex-col gap-4">
       {/* First Row: Message and Instructions */}
       <div className="confirmation-message">
-        {type == "acceptation" ? (
+        {type === "acceptation" ? (
           <h2 className="font-semibold">Request Approved</h2>
-        ) : type == "confirmation" ? (
+        ) : type === "validation" ? (
           <h2 className="font-semibold">Booking Confirmed</h2>
-        ) : type == "adminreply" ? (
-          <h2 className="font-semibold">{subject}</h2> //here i'll be using offer name as the subject of the message
+        ) : type === "adminreply" ? (
+          <h2 className="font-semibold">{subject}</h2> // here using offer name as subject
         ) : (
           <h2 className="font-semibold">Request Rejected</h2>
         )}
         <p>{message}</p>
       </div>
 
-      {type == "acceptation" ? (
+      {type === "acceptation" && bookingDetails && (
         <div>
           {/* Second Row: Flight details and Price breakdown */}
           <div className="details-breakdown flex flex-col gap-4">
@@ -41,16 +87,25 @@ const FileUploadForm = ({ type, message, bookingDetails,subject }) => {
               <h3 className="font-bold my-2">Booking Details</h3>
               <ul>
                 <li>
+                  <span className="font-medium">Customer Name:</span>{" "}
+                  {bookingDetails.customer_name}{" "}
+                  {bookingDetails.customer_surname}
+                </li>
+                <li>
+                  <span className="font-medium">Phone:</span>{" "}
+                  {bookingDetails.customer_phone}
+                </li>
+                <li>
                   <span className="font-medium">Destination:</span>{" "}
-                  bookingDetails.destination
+                  {bookingDetails.destination}
                 </li>
                 <li>
                   <span className="font-medium">Travel Date:</span>{" "}
-                  bookingDetails.goDate
+                  {bookingDetails.goDate}
                 </li>
                 <li>
                   <span className="font-medium">Return Date:</span>{" "}
-                  bookingDetails.returnDate
+                  {bookingDetails.returnDate}
                 </li>
               </ul>
             </div>
@@ -60,7 +115,7 @@ const FileUploadForm = ({ type, message, bookingDetails,subject }) => {
               <ul>
                 <li>
                   <span className="font-medium">Base Price:</span>{" "}
-                  bookingDetails.priceBreakdown.basePrice
+                  {bookingDetails.priceBreakdown.basePrice}
                 </li>
                 <li>
                   <span className="font-medium">Options Added:</span>
@@ -74,10 +129,9 @@ const FileUploadForm = ({ type, message, bookingDetails,subject }) => {
                     )}
                   </ul>
                 </li>
-
                 <li>
                   <span className="font-medium">Total:</span>{" "}
-                  bookingDetails.priceBreakdown
+                  {bookingDetails.total_price}
                 </li>
               </ul>
             </div>
@@ -92,7 +146,7 @@ const FileUploadForm = ({ type, message, bookingDetails,subject }) => {
                 copy of your payment receipt.
               </p>
             </div>
-            <form onSubmit={handleSubmit} className="file-upload-form_reciept ">
+            <form onSubmit={handleSubmit} className="file-upload-form_reciept">
               {/* Upload Box */}
               <label className="upload-box_reciept">
                 <input
@@ -120,7 +174,7 @@ const FileUploadForm = ({ type, message, bookingDetails,subject }) => {
             </form>
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };
