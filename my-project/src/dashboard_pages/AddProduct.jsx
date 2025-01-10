@@ -17,13 +17,18 @@ import { BiImageAdd } from "react-icons/bi";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers";
+import { useAppContext } from "../contexts/AppContext";
+import { uploadLocalImage } from '../Supabase/supabaseStorage';
+
 
 const AddProduct = () => {
   const imageInput = useRef(null);
   const [images, setImages] = useState([]);
   const [options, setOptions] = useState([]);
   const [newOption, setNewOption] = useState({ option_title: "", option_price: "" });
-  
+  const { agencyID, setAgencyID} = useAppContext();
+  const [uploadedUrls, setUploadedUrls] = useState([]); // State to store the uploaded image URLs
+
 
   // State to store form data
   const [formData, setFormData] = useState({
@@ -38,13 +43,40 @@ const AddProduct = () => {
     min_price: 0,
     included: ["Guided Hikes", "Equipment Rental"],
     history_offer: false,
-    agency_id: 5,
+    agency_id: agencyID,
   });
 
 
-  const handleImageChange = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-    setImages(selectedFiles);
+  // Handle the image change when files are selected
+  const handleImageChange = async (e) => {
+    const selectedFiles = Array.from(e.target.files); // Convert FileList to an array
+    setImages(selectedFiles); // Store selected files in state
+    
+    try {
+      const uploadPromises = selectedFiles.map(async (file) => {
+        // Assuming file is a path to a file in the local system or public folder, 
+        // adjust the filePath as needed.
+        const filePath = URL.createObjectURL(file); // Convert the file to a URL
+        const uploadedImageUrl = await uploadLocalImage(filePath, 'offers_pictures'); // Upload each file and get the URL
+        return uploadedImageUrl;
+      });
+      
+      // Wait for all uploads to complete
+      const uploadedImageUrls = await Promise.all(uploadPromises);
+
+      // Update state with uploaded image URLs
+      setUploadedUrls(uploadedImageUrls);
+
+      console.log('Uploaded Image URLs:', uploadedImageUrls);
+       // Update formData with the uploaded image URLs in the pictures field
+       setFormData((prevData) => ({
+        ...prevData,
+        pictures: uploadedImageUrls, // Set the uploaded image URLs to pictures
+      }));
+
+    } catch (error) {
+      console.error('Upload failed:', error.message);
+    }
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -134,7 +166,7 @@ const AddProduct = () => {
   
   
   useEffect(() => {
-    console.log("The Sign up info are : " + JSON.stringify(formData, null, 2) + JSON.stringify(options, null, 2));
+    console.log("the offer data is : " + JSON.stringify(formData, null, 2) + JSON.stringify(options, null, 2));
 
   }, [formData]); // Dependency array
   return (

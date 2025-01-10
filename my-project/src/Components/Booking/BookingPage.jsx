@@ -6,6 +6,7 @@ import BookingForm from "./bookingForm";
 import Footer from "../Footer";
 import "../../Style/booking.css";
 import NavigationBar from "../NavigationBar/navigationBar";
+import { useAppContext } from "../../contexts/AppContext";
 
 const BookingPage = () => {
   const { offerid } = useParams();
@@ -23,6 +24,7 @@ const BookingPage = () => {
   const [modalType, setModalType] = useState("");
   const [offerName, setOfferName] = useState("");
   const [agencyID, setAgencyID] = useState(null);
+  const { clientID, setClientID } = useAppContext();
 
   const handlePassportChange = (event) => {
     setPassportFile(event.target.files[0]);
@@ -107,7 +109,7 @@ const BookingPage = () => {
     const formValidationErrors = validateForm();
     setFormErrors(formValidationErrors);
 
-    if (Object.keys(formValidationErrors).length > 3) {
+    if (Object.keys(formValidationErrors).length > 0) {
       setModalType("error");
       setShowModal(true);
       return;
@@ -123,32 +125,26 @@ const BookingPage = () => {
       setShowModal(true);
       return;
     }
-
-    const simulatedPassportURL =
-      "https://some-cloud-url.com/" + passportFile.name;
-
-    // Booking payload
-    const bookingPayload = {
-      customer_name: formData.name,
-      customer_surname: formData.surname,
-      customer_phone: formData.phoneNumber,
-      options_selected: selectedOptionIds,
-      total_price: totalPrice,
-      status: false,
-      customer_id: 2,
-      offer_id: offerid,
-      reciept_url: "receipt_url",
-      passports_urls: [simulatedPassportURL],
-    };
-
+    console.log("number", formData.numberOfPersons);
+    const formDataToSend = new FormData(); // Renamed to avoid shadowing state
+    formDataToSend.append("customer_name", formData.name);
+    formDataToSend.append("customer_surname", formData.surname);
+    formDataToSend.append("customer_phone", formData.phoneNumber);
+    formDataToSend.append(
+      "options_selected",
+      JSON.stringify(selectedOptionIds)
+    ); // No double brackets
+    formDataToSend.append("total_price", totalPrice);
+    formDataToSend.append("status", false);
+    formDataToSend.append("customer_id", clientID);
+    formDataToSend.append("offer_id", offerid);
+    formDataToSend.append("reciept_url", "receipt_url");
+    formDataToSend.append("passportFile", passportFile);
+    formDataToSend.append("number_of_persons", formData.numberOfPersons);
     try {
-      // First, create the booking
-      const bookingResponse = await fetch("/api/booking/add", {
+      const response = await fetch("/api/booking/add", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(bookingPayload),
+        body: formDataToSend, // Send as multipart form data
       });
 
       if (!bookingResponse.ok) {

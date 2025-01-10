@@ -5,6 +5,8 @@ import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import Table from "../Components/Table";
 import { useProducts } from "../contexts/ProductsContext";
+import axios from "axios";
+import { useAppContext } from "../contexts/AppContext";
 
 const productsColumns = [
   {
@@ -69,26 +71,35 @@ const productsColumns = [
 const Products = () => {
   const { updatedProducts, setUpdatedProducts } = useProducts();
   const [loading, setLoading] = useState(true);
+  const { agencyID, setAgencyID} = useAppContext();
+
+
+
+
+
 
   useEffect(() => {
     const fetchOffers = async () => {
       try {
-        const response = await fetch("/api/offers");
-        const offers = await response.json();
+        const response = await axios(`/api/agency/${agencyID}`);
+        const offers = response.data.offers;
+        console.log("THE RESPONSE HIYA :",offers)
 
         const updatedProducts = offers.map((offer, index) => ({
           id: index + 1,
+          offer_id : offer?.offer_id || 0,
           offer_name: offer?.offer_name || "No Offer",
           starting_date: offer?.starting_date || "No Date",
           offer_depart: offer?.offer_depart || "Not Available",
           offer_dest: offer?.offer_dest || "Not Available",
           duration: offer?.duration || "Unknown",
           min_price: offer?.min_price || "N/A",
-          image: offer?.pictures_urls?.[0] || "default_image_url",
+          image: offer?.pictures[0] || "default_image_url",
           instock: !offer?.history_offer || false,
         }));
 
         setUpdatedProducts(updatedProducts);
+        console.log("the updated data is :",updatedProducts)
       } catch (error) {
         console.error("Error fetching offers:", error);
       } finally {

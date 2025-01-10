@@ -2,20 +2,21 @@
 
 // export default HistoryView;
 import React, { useEffect, useState } from 'react';
+import { useAppContext } from '../../contexts/AppContext';
 import '../../Style/HistoryView.css';
 
 const HistoryView = () => {
   const [travelHistory, setTravelHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const {isLoggedIn, setIsLoggedIn ,clientID ,setClientID} = useAppContext();
 // 
   // 
-  const userId = "1"; 
 
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch(`/api/booking/getHistory/${userId}`);
+        const response = await fetch(`/api/booking/getHistory/${clientID}`);
 
         if (!response.ok) {
           throw new Error(`Error fetching history: ${response.statusText}`);
@@ -31,7 +32,7 @@ const HistoryView = () => {
     };
 
     fetchHistory();
-  }, [userId]);
+  }, []);
 
   if (loading) {
     return <div className="history-container">Loading travel history...</div>;

@@ -117,12 +117,14 @@ import { useNavigate } from "react-router-dom";
 
 import React, { useState } from "react";
 import PasswordInput from "./PasswordInput";
+import { useAppContext } from "../../contexts/AppContext";
 import "../../Style/Login_user.css";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { isLoggedIn, setIsLoggedIn, clientID, setClientID } = useAppContext();
 
   // const handleLogin = async (event) => {
   //   event.preventDefault(); // Prevent form reload on submission
@@ -190,7 +192,7 @@ const LoginForm = () => {
     try {
       // Log request details before sending
       console.log("Sending data to backend...");
-      const response = await fetch("http://localhost:5000/client", {
+      const response = await fetch("/client", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -203,8 +205,12 @@ const LoginForm = () => {
 
       // Handle response
       if (response.ok) {
-        alert(result.message || "Login successful!");
-        navigate("/Home"); // Navigate to signup page after login
+        alert(result.message || "Login successful ");
+        console.log("The client ID is: " + result.client_id); // Use result.client_id
+        setClientID(result.client_id); // Set client ID from result
+        setIsLoggedIn(true);
+
+        navigate("/"); // Navigate to signup page after login
       } else {
         alert(result.message || "Login failed. Please try again.");
       }
@@ -212,6 +218,9 @@ const LoginForm = () => {
       console.error("Error during login:", error);
       alert("An error occurred. Please try again later.");
     }
+  };
+  const handleForgotPassword = () => {
+    navigate("/ForgotPassword", { state: { userType: "client" } });
   };
 
   return (
@@ -239,9 +248,13 @@ const LoginForm = () => {
 
         {/* Forgot Password */}
         <div className="options">
-          <a href="/ForgotPassword" className="forgot-password">
+          <button
+            type="button"
+            className="forgot-password"
+            onClick={handleForgotPassword}
+          >
             Forgot Password?
-          </a>
+          </button>
         </div>
 
         {/* Submit Button */}

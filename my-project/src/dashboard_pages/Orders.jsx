@@ -1,6 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import Table from "../Components/Table";
+import { useAppContext } from "../contexts/AppContext";
+
 
 const ordersColumns = [
   { accessorKey: "id", header: "Order ID" },
@@ -23,11 +25,15 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const {offerID, setOfferID} = useAppContext();
+
 
   useEffect(() => {
     const fetchOrders = async () => {
-      try {
-        const response = await fetch("/api/booking/get/3");
+      try { 
+        // update the ID to get the dynamic ID of the  offer 
+        console.log("THE PRESSED OFFER HAS AN ID OF :",offerID)
+        const response = await fetch(`/api/booking/get/${offerID}`);
         if (!response.ok) throw new Error("Failed to fetch orders");
         const ordersList = await response.json();
         console.log("the orderList are : ", ordersList)
@@ -48,7 +54,7 @@ const Orders = () => {
         setOrders(updatedOrders);
         console.log("the updatedOrders are : ", orders)
       } catch (error) {
-        setError("Failed to load orders");
+        setError("NO orders for this Offer");
         console.error(error);
       } finally {
         setLoading(false);

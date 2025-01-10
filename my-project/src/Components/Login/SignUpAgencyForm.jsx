@@ -96,6 +96,8 @@ import RowInput from "./RowInput";
 import TermsCheckbox from "./TermsCheckbox";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../../contexts/AppContext";
+
 
 const SignUpForm = () => {
   const [name, setname] = useState("");
@@ -107,6 +109,8 @@ const SignUpForm = () => {
   const [checkboxChecked, setCheckboxChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const { agencyID, setAgencyID} = useAppContext();
+
   const navigate=useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -143,8 +147,11 @@ const SignUpForm = () => {
       });
 
       setSuccessMessage(response.data.message);
+      console.log("the agency response is : ", response.data.agency.agency_id)
+      setAgencyID(response.data.agency.agency_id)
+
       setErrorMessage(""); // Clear any errors
-      navigate("/SignUp_Agence2"); 
+      navigate("/SignUp_Agence2",{ state: { email }}); 
 
     } catch (error) {
       setErrorMessage(error.response?.data?.message || "An error occurred");

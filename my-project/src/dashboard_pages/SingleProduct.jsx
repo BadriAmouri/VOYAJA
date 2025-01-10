@@ -38,7 +38,7 @@ const SingleProduct = () => {
             <Typography variant="h4">{offer_name}</Typography>
             <Typography variant="h5">
               <span style={{ textDecoration: "line-through", fontSize: "13px", opacity: 0.7 }}>
-                $1829
+                $1229
               </span>{" "}
               ${min_price}
             </Typography>
@@ -60,7 +60,7 @@ const SingleProduct = () => {
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 4, my: 2 }}>
               <Typography variant="subtitle2">Availability:</Typography>
-              <Chip label={instock ? "In stock" : "Out Of Stock"} color={instock ? "success" : "error"} />
+              <Chip label={instock ? "Still Available" : "Not Available"} color={instock ? "success" : "error"} />
             </Box>
           </Grid>
         </Grid>

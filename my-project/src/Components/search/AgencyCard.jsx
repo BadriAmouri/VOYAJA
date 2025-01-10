@@ -17,12 +17,16 @@ const AgencyCard = ({ agency }) => {
     <div className="text-left agencycardcompo bg-[#B4E9E2] rounded-lg shadow-md p-6 mx-4 my-4 flex  items-center max-w-[74rem]">
       {/* Logo Section */}
       <div className="agencycardcompo-photo flex-shrink-0">
-        {/*         <img
-          src={agency.logo}
-          alt={`${agency.agency_name} logo`}
-          className="w-30 h-30 rounded-full object-cover"
-        /> */}
-        <img src={travelLogo} alt={travelLogo} className="w-16 h-16 md:w-24 md:h-24 rounded-full object-cover" />
+
+        {agency.logo!==null? (
+              <img
+              src={agency.logo}
+              alt={`${agency.agency_name} logo`}
+              className="w-16 h-16 md:w-24 md:h-24 rounded-full object-cover"
+            /> 
+            ) : (
+              <div className="placeholder-image w-16 h-16 md:w-24 md:h-24 rounded-full object-cover"></div>
+            )} 
 
       </div>
 
