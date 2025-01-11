@@ -11,7 +11,7 @@ const OfferHeader = ({
   offerID,
   //userID = 18,
 }) => {
-  const {isLoggedIn, setIsLoggedIn ,clientID ,setClientID} = useAppContext();
+  const { isLoggedIn, setIsLoggedIn, clientID, setClientID } = useAppContext();
   const navigate = useNavigate();
   const handleBookingClick = () => {
     if (!isLoggedIn) {
@@ -57,7 +57,6 @@ const OfferHeader = ({
           >
             BOOK NOW
           </button>
-
         </div>
       </div>
     </div>

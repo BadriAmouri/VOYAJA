@@ -35,10 +35,11 @@ const OffersTable = () => {
     const searchValue = e.target.value.toLowerCase().trim();
     setSearchTerm(searchValue);
 
-    const filtered = offers.filter((offer) =>
-      offer.offer_dest.toLowerCase().includes(searchValue) ||
-      formatDate(offer.starting_date).includes(searchValue) || // Search formatted date
-      offer.duration.toString().includes(searchValue)
+    const filtered = offers.filter(
+      (offer) =>
+        offer.offer_dest.toLowerCase().includes(searchValue) ||
+        formatDate(offer.starting_date).includes(searchValue) || // Search formatted date
+        offer.duration.toString().includes(searchValue)
     );
     setFilteredOffers(filtered);
   };

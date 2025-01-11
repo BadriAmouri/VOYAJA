@@ -33,7 +33,7 @@ const UsersTable = () => {
       (user) =>
         user.client_first_name.toLowerCase().includes(searchValue) ||
         user.client_last_name.toLowerCase().includes(searchValue) ||
-        user.client_email.toLowerCase().includes(searchValue)    // Search by email
+        user.client_email.toLowerCase().includes(searchValue) // Search by email
     );
     setFilteredUsers(filtered);
   };
@@ -79,14 +79,20 @@ const UsersTable = () => {
           <tbody>
             {filteredUsers.length > 0 ? (
               filteredUsers.map((user) => (
-                <tr
-                  key={user.id}
-                >
-                  <td className="px-4 py-2 border-b">{user.client_first_name}</td>
-                  <td className="px-4 py-2 border-b">{user.client_last_name}</td>
-                  <td className="px-4 py-2 border-b">{user.client_phone_number}</td>
+                <tr key={user.id}>
+                  <td className="px-4 py-2 border-b">
+                    {user.client_first_name}
+                  </td>
+                  <td className="px-4 py-2 border-b">
+                    {user.client_last_name}
+                  </td>
+                  <td className="px-4 py-2 border-b">
+                    {user.client_phone_number}
+                  </td>
                   <td className="px-4 py-2 border-b">{user.client_email}</td>
-                  <td className="px-4 py-2 border-b">{new Date(user.join_date).toLocaleDateString()}</td>
+                  <td className="px-4 py-2 border-b">
+                    {new Date(user.join_date).toLocaleDateString()}
+                  </td>
                 </tr>
               ))
             ) : (

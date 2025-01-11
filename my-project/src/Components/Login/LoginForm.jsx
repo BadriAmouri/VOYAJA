@@ -5,8 +5,6 @@
 // import Logo from "./Logo";
 // import SocialButtons from './SocialButton';
 
-
-
 // const LoginForm = () => (
 
 //   <div className="login-form">
@@ -35,7 +33,6 @@
 // );
 
 // export default LoginForm;
-
 
 // import React, { useState } from "react";
 // import PasswordInput from "./PasswordInput";
@@ -116,20 +113,18 @@
 
 // export default LoginForm;
 
-
 import { useNavigate } from "react-router-dom";
 
 import React, { useState } from "react";
 import PasswordInput from "./PasswordInput";
-import { useAppContext } from '../../contexts/AppContext';
+import { useAppContext } from "../../contexts/AppContext";
 import "../../Style/Login_user.css";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const {isLoggedIn, setIsLoggedIn ,clientID ,setClientID} = useAppContext();
-
+  const { isLoggedIn, setIsLoggedIn, clientID, setClientID } = useAppContext();
 
   // const handleLogin = async (event) => {
   //   event.preventDefault(); // Prevent form reload on submission
@@ -164,7 +159,7 @@ const LoginForm = () => {
   // const handleLogin = async (event) => {
   //   event.preventDefault(); // Prevent form reload on submission
   //   console.log('Form submitted with email:', email, 'and password:', password);
-  
+
   //   try {
   //     // Log request details before sending
   //     console.log('Sending data to backend...');
@@ -175,10 +170,10 @@ const LoginForm = () => {
   //       },
   //       body: JSON.stringify({ email, password }), // Payload to send
   //     });
-  
+
   //     const result = await response.json();
   //     console.log('Backend response:', result);
-  
+
   //     // Handle response
   //     if (response.ok) {
   //       alert(result.message || "Login successful!");
@@ -189,14 +184,14 @@ const LoginForm = () => {
   //   } catch (error) {
   //   }
   // };
-  
+
   const handleLogin = async (event) => {
     event.preventDefault(); // Prevent form reload on submission
-    console.log('Form submitted with email:', email, 'and password:', password);
-  
+    console.log("Form submitted with email:", email, "and password:", password);
+
     try {
       // Log request details before sending
-      console.log('Sending data to backend...');
+      console.log("Sending data to backend...");
       const response = await fetch("/client", {
         method: "POST",
         headers: {
@@ -204,10 +199,10 @@ const LoginForm = () => {
         },
         body: JSON.stringify({ email, password }), // Payload to send
       });
-  
+
       const result = await response.json();
-      console.log('Backend response:', result);
-  
+      console.log("Backend response:", result);
+
       // Handle response
       if (response.ok) {
         alert(result.message || "Login successful ");
@@ -253,7 +248,7 @@ const LoginForm = () => {
 
         {/* Forgot Password */}
         <div className="options">
-        <button
+          <button
             type="button"
             className="forgot-password"
             onClick={handleForgotPassword}
@@ -263,7 +258,7 @@ const LoginForm = () => {
         </div>
 
         {/* Submit Button */}
-        <button type="submit" className="login-button"  >
+        <button type="submit" className="login-button">
           Login
         </button>
 

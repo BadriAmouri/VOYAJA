@@ -88,7 +88,10 @@ const ClientsGraph = () => {
   }
 
   return (
-    <div className="mx-auto p-6 bg-white shadow-lg rounded-lg rounded-lg mb-10" style={{ marginLeft: '200px', width: '580px' }}>
+    <div
+      className="mx-auto p-6 bg-white shadow-lg rounded-lg rounded-lg mb-10"
+      style={{ marginLeft: "200px", width: "580px" }}
+    >
       <h2 className="text-3xl font-bold text-gray-800 text-center mb-8">
         Registered Clients Graph
       </h2>
