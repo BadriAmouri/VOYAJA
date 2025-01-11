@@ -122,11 +122,15 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import PasswordInput from "./PasswordInput";
 import "../../Style/Login_user.css";
+import { useAppContext } from "../../contexts/AppContext";
+
 
 const LoginFormAgency = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { agencyID, setAgencyID} = useAppContext();
+
 
   // const handleLogin = async (event) => {
   //   event.preventDefault(); // Prevent form reload on submission
@@ -205,10 +209,13 @@ const LoginFormAgency = () => {
   
       const result = await response.json();
       console.log('Backend response:', result);
+      setAgencyID(result.agency_id)
+      
   
       // Handle response
       if (response.ok) {
         alert(result.message || "Login successful!");
+        console.log("the agency id is :", agencyID)
         navigate("/Dashboard"); // Navigate to signup page after login
       } else {
         alert(result.message || "Login failed. Please try again.");
