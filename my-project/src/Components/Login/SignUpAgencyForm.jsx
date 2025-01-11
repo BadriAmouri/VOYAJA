@@ -151,7 +151,7 @@ const SignUpForm = () => {
       setAgencyID(response.data.agency.agency_id)
 
       setErrorMessage(""); // Clear any errors
-      navigate("/SignUp_Agence2",{ state: { email }}); 
+      navigate("/SignUp_Agence2",{ state: {email}}); 
 
     } catch (error) {
       setErrorMessage(error.response?.data?.message || "An error occurred");
