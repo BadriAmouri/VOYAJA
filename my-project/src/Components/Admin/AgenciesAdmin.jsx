@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import Footer from '../Components/Footer';
-import Filters from '../Components/search/Filters';
-import SortOptions from '../Components/search/SortOptions';
-import Pagination from '../Components/search/Pagination';
-import AgencyCard from '../Components/search/AgencyCard';
-import AboutUsCard from '../Components/search/AboutUsCard';
-import Stats from '../Components/search/StatsCard';
-import Agencyofferlist from '../Components/search/Agencyofferlist';
-import "../Style/custom-datepicker.css";
-import "../Style/agencyProfileStyle.css";
+import Filters from '../search/Filters';
+import SortOptions from '../search/SortOptions';
+import Pagination from '../search/Pagination';
+import AgencyCard from '../search/AgencyCard';
+import AboutUsCard from '../search/AboutUsCard';
+import Stats from '../search/StatsCard';
+import Agencyofferlist from '../search/Agencyofferlist';
+import "../../Style/custom-datepicker.css";
+import "../../Style/agencyProfileStyle.css";
 import { FaTimes } from 'react-icons/fa';
 import { HiAdjustments } from 'react-icons/hi';
-import NavigationBar from '../Components/NavigationBar/navigationBar';
 
-export default function AgencyProfile() {
-  const { agencyId } = useParams();
+export default function AgencyAdminView() {
+  //const { agencyId } = useParams();
+  const params = useParams();
+  //console.log("========================",agencyId);
+  console.log("Params:222222222222222222", params);
 
   const [filters, setFilters] = useState({ price: 20000000, duration: 60, rating: 0 });
   const [sortOption, setSortOption] = useState("");
@@ -47,15 +48,11 @@ export default function AgencyProfile() {
   useEffect(() => {
     const fetchAgencyData = async () => {
       try {
-        const response = await fetch(`/api/agency/${agencyId}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch agency data');
-        }
+        const response = await fetch(`http://localhost:5000/api/agency/${params.id}`);
         const data = await response.json();
+        console.log('the data of the agency is' ,{data});
 
-
-
-        // Populate state with fetched data
+        // Populate state with fetched datattp://localhost:5000/
         setAgencyInfo(data);
         setOffers(data.offers || []);
         // Calculate total reviews from all offers
@@ -74,7 +71,7 @@ export default function AgencyProfile() {
     };
 
     fetchAgencyData();
-  }, [agencyId]);
+  }, [params.id]);
 
   const getFilteredOffers = useMemo(() => {
     return offers.filter((offer) => {
@@ -125,7 +122,6 @@ export default function AgencyProfile() {
 
   return (
     <div className="agencyProfile-page">
-      <NavigationBar isLoggedIn={true} />
 
       {agencyInfo && (
         <div className="agencycard-box mx-auto mt-4 ml-10">
@@ -172,20 +168,17 @@ export default function AgencyProfile() {
           <div className="agencyoffers">
             <Agencyofferlist offers={paginatedOffers} itemsPerPage={itemsPerPage} agency_name={agencyInfo.agency_name} agency_logo={agencyInfo.logo} />
           </div>
-          <div className="agencyPagination">
-          <Pagination 
+          <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={handlePageChange}
             onNext={handleNext}
             onPrevious={handlePrevious}
           />
-          </div>
         </div>
       </div>
 
       <div className="agencysearch-page mt-6">
-        <Footer />
       </div>
     </div>
   );

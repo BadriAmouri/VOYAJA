@@ -5,8 +5,12 @@ import seoulTower from "../../assets/offerPics/seoul-tower.jpg";
 import seoulPalace from "../../assets/offerPics/palace.jpg";
 import springSeoul from "../../assets/offerPics/spring-seoul-korea.jpg";
 import travelLogo from "../../assets/offerPics/travel-agency-logo.jpg";
+import { useAppContext } from "../../contexts/AppContext";
+import HeartButton from "../Favorite/Heartbtn";
 
 export default function Agencyoffercard({ agency_name, agency_logo, offer }) {
+  const {isLoggedIn, setIsLoggedIn ,clientID ,setClientID} = useAppContext();
+  
   const formattedDepartureDate = new Date(offer.starting_date).toLocaleDateString('en-GB').replace(/\//g, '-');
   const formattedRating = offer.average_rating.toFixed(1);
   return (
@@ -78,9 +82,13 @@ export default function Agencyoffercard({ agency_name, agency_logo, offer }) {
         {/* Buttons Section */}
         <div className="buttons flex">
           {/* Heart Button with Icon */}
+
           <button className="heart-button flex items-center justify-center w-10 h-10 mr-2 border-2 border-[#4EB7AC] bg-white text-[#4EB7AC] rounded-lg">
-            <FaRegHeart /> {/* Heart icon */}
+            {/* <FaRegHeart />  */}
+            <HeartButton offerID={offer.offer_id} userID={clientID} />
+         
           </button>
+
 
           {/* View Details Button */}
 

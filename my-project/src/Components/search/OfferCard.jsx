@@ -6,9 +6,12 @@ import travelLogo from "../../assets/offerPics/travel-agency-logo.jpg";
 import { FaRegHeart } from "react-icons/fa"; // Correct import for outlined heart icon
 import { Link } from "react-router-dom";
 import HeartButton from "../Favorite/Heartbtn";
+import { useAppContext } from "../../contexts/AppContext";
 
 export default function OfferCard({ offer }) {
-  const userID=35;
+  //const userID=18;
+  const { isLoggedIn, setIsLoggedIn, clientID, setClientID } = useAppContext();
+
   // Format departure date (only show date part)
   const formattedDepartureDate = new Date(offer.starting_date)
     .toLocaleDateString("en-GB")
@@ -16,7 +19,9 @@ export default function OfferCard({ offer }) {
 
   // Format rating (only one decimal place)
   const formattedRating = offer.averageRating.toFixed(1);
-  {console.log(offer)}
+  {
+    console.log(offer);
+  }
   return (
     <div className="text-left boffer-card bg-white border p-4 rounded-lg shadow-md  max-w-[52rem]  flex">
       {/* Offer Image */}
@@ -33,7 +38,7 @@ export default function OfferCard({ offer }) {
           </div>
         )}
 
-       {/*  <img src={seoulPalace} alt={seoulPalace} /> */}
+        {/*  <img src={seoulPalace} alt={seoulPalace} /> */}
       </div>
 
       {/* Offer Details */}
@@ -75,8 +80,7 @@ export default function OfferCard({ offer }) {
               />
             ) : (
               <div className="placeholder-image w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center"></div>
-            )} 
-      
+            )}
           </Link>
           <Link to={`/agencyprofile/${offer.agency_id}`}>
             <span className="text-sm text-gray-800 font-medium">
@@ -93,8 +97,7 @@ export default function OfferCard({ offer }) {
           {/* Heart Button with Icon */}
           <button className="heart-button flex items-center justify-center w-10 h-10 mr-2 border-2 border-[#4EB7AC] bg-white text-[#4EB7AC] rounded-lg">
             {/* <FaRegHeart />  */}
-            <HeartButton offerID={offer.offer_id} userID={userID} />
-         
+            <HeartButton offerID={offer.offer_id} userID={clientID} />
           </button>
 
           {/* View Details Button */}

@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import OfferCard from "../search/OfferCard"; // One level up, then into search folder
-import NavigationBar from '../NavigationBar/navigationBar';
-import '../../Style/fav.css';
+import NavigationBar from "../NavigationBar/navigationBar";
+import "../../Style/fav.css";
 import { useAppContext } from "../../contexts/AppContext";
 
 export default function FavoritePage() {
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
-  const {clientID, setClientID} = useAppContext()
+  const { clientID, setClientID } = useAppContext();
 
   // Fetch the user's favorite offers when the component mounts
   useEffect(() => {
     const fetchFavoriteOffers = async () => {
       try {
-        const userID = 35; 
+        // const clientID = 18;
         const response = await fetch(`api/favorite-offers/${clientID}`);
         const data = await response.json();
         setFavorites(data);
@@ -36,9 +36,9 @@ export default function FavoritePage() {
     );
 
     // Simulate the removal API request
-    const userID = 35; // Replace with the actual userID if needed
+    //const clientID = 18; // Replace with the actual userID if needed
     fetch(`/api/remove-favorite/${clientID}/${offerId}`, {
-      method: 'DELETE',
+      method: "DELETE",
     })
       .then((response) => response.json())
       .then(() => {
@@ -65,9 +65,9 @@ export default function FavoritePage() {
         <div className="boffer-list space-y-4 center">
           {favorites.length > 0 ? (
             favorites.map((offer) => (
-              <OfferCard 
-                key={offer.offer_id} 
-                offer={offer} 
+              <OfferCard
+                key={offer.offer_id}
+                offer={offer}
                 onRemove={() => handleRemoveFavorite(offer.offer_id)} // Pass the handler
               />
             ))

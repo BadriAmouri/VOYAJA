@@ -18,6 +18,7 @@ const FlightDetails = ({ setOfferName, setAgencyID }) => {
   const [error, setError] = useState(null);
 
   // Fetch flight details and agency logo
+  // Fetch flight details and agency logo
   useEffect(() => {
     const getOffer = async () => {
       try {

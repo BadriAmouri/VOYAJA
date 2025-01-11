@@ -74,6 +74,29 @@ text-decoration: none;
 }
 
 /* Media query for phone-like screens */
+@media screen and (min-width: 1400px) {
+
+
+  .agencycard-box{
+    margin-left:  5%;
+  }
+.agencysortingbtn{
+  margin-left:  -21%;
+  
+}
+.agencyoffers{
+  width: 80%;
+
+  
+}
+.agencyPagination{
+  margin-left: -20%;
+}
+
+
+  
+}
+
 @media screen and (max-width: 768px) {
   .agencyprofile-content  {
     flex-direction: column; 

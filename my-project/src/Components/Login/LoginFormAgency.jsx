@@ -195,7 +195,7 @@ const LoginFormAgency = () => {
     try {
       // Log request details before sending
       console.log('Sending data to backend...');
-      const response = await fetch("http://localhost:5000/agency", {
+      const response = await fetch("http://localhost:5000/api", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "../../Style/EditPassword.css";
 import { useAppContext } from "../../contexts/AppContext";
+import { useNavigate } from "react-router-dom";
 
 const EditPassword = () => {
-  const id = 21;  // Set the user ID statically for testing purposes
-  const {clientID, setClientID} = useAppContext();
-
-
+  // const id = 21;  // Set the user ID statically for testing purposes
+  const { clientID, setClientID } = useAppContext();
+  const navigate = useNavigate();
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -95,8 +95,7 @@ const EditPassword = () => {
   };
 
   const handleForgotPassword = () => {
-    alert("Redirecting to Forgot Password...");
-    
+    navigate("/ForgotPassword", { state: { userType: "client" } });
   };
 
   return (
@@ -128,18 +127,19 @@ const EditPassword = () => {
           </div>
         </div>
 
-        
         {!isCurrentPasswordValid && (
           <button
             type="button"
             className="them_pass-btn validate-btn"
-            onClick={validateCurrentPassword} 
+            onClick={validateCurrentPassword}
           >
             submit
           </button>
         )}
 
-        {isCheckingPassword && <p className="them_pass-loading">Checking password...</p>}
+        {isCheckingPassword && (
+          <p className="them_pass-loading">Checking password...</p>
+        )}
 
         {isCurrentPasswordValid && (
           <>
@@ -202,7 +202,9 @@ const EditPassword = () => {
         )}
 
         {errorMessage && <p className="them_pass-error">{errorMessage}</p>}
-        {successMessage && <p className="them_pass-success">{successMessage}</p>}
+        {successMessage && (
+          <p className="them_pass-success">{successMessage}</p>
+        )}
 
         {isCurrentPasswordValid && (
           <div className="them_pass-buttons">

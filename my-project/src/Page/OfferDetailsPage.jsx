@@ -5,38 +5,56 @@ import OfferPolicies from "../Components/OfferDetails/OfferPolicies";
 import OfferOverview from "../Components/OfferDetails/OfferOverview";
 import NavigationBar from "../Components/NavigationBar/navigationBar";
 import Footer from "../Components/Footer";
-import seoulTower from "../assets/offerPics/seoul-tower.jpg";
-import seoulPalace from "../assets/offerPics/palace.jpg";
-import springSeoul from "../assets/offerPics/spring-seoul-korea.jpg";
-import travelLogo from "../assets/offerPics/travel-agency-logo.jpg";
 import Reviews from "../Components/Reviews/Reviews";
-import ReviewComment from "../Components/Reviews/ReviewComment"; // Import ReviewComment
+import ReviewComment from "../Components/Reviews/ReviewComment";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import { useAppContext } from "../contexts/AppContext";
+import {
+  getImagesFromBucket,
+  getImageUrl,
+} from "../Supabase/supabaseImageFetch";
 
 const OfferDetailsPage = () => {
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [reviews, setReviews] = useState([]); // Add reviews state
-
-   const { id } = useParams();
+  const [reviews, setReviews] = useState([]);
+  const [offerImages, setOfferImages] = useState([]);
+  const [agencyLogo, setAgencyLogo] = useState(null);
+  //const { offerID } = useAppContext();
+  const { id } = useParams();
 
   useEffect(() => {
-    fetch(`/api/offers/offerDetails/${id}`)
-      .then((response) => response.json())
-      .then(
-        (data) => {
-          setResponse(data);
-          setReviews(data.details.reviews || []); // Initialize reviews state with existing reviews
-          setLoading(false);
-        },
-        (error) => {
-          setError(error);
-          setLoading(false);
+    const fetchData = async () => {
+      try {
+        // Fetch offer details
+        const offerResponse = await fetch(`/api/offers/offerDetails/${id}`);
+        const data = await offerResponse.json();
+
+        // Fetch images from Supabase
+        const images = await getImagesFromBucket("offers", `offer-${id}`);
+        setOfferImages(images);
+
+        // Fetch agency logo if available
+        if (data.details.agency.agency_logo) {
+          const logoUrl = await getImageUrl(
+            "agencies",
+            data.details.agency.agency_logo
+          );
+          setAgencyLogo(logoUrl);
         }
-      );
+
+        setResponse(data);
+        setReviews(data.details.reviews || []);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, [id]);
 
   if (loading) return <div>Loading...</div>;
@@ -48,7 +66,7 @@ const OfferDetailsPage = () => {
     destination: response.details.offer_dest,
     price: response.details.min_price,
     rating: 4.2,
-    numReviews: reviews.length, // Use reviews length for numReviews
+    numReviews: reviews.length,
     offerID: id,
   };
 
@@ -78,7 +96,7 @@ const OfferDetailsPage = () => {
 
   const agencyData = {
     agencyName: response.details.agency.agency_name,
-    agencyLogo: response.details.agency.agency_logo || travelLogo,
+    agencyLogo: agencyLogo || "/default-agency-logo.png", // Fallback to default logo
     agencyLocation: response.details.agency.agency_location,
     agencyPhone: [response.details.agency.agency_phone_number],
     agencySocials: {
@@ -88,7 +106,6 @@ const OfferDetailsPage = () => {
     },
   };
 
-  // Function to add a new review
   const handleAddReview = (newReview) => {
     setReviews((prevReviews) => [...prevReviews, newReview]);
   };
@@ -98,20 +115,17 @@ const OfferDetailsPage = () => {
       <NavigationBar isHome={false} isLoggedIn={true} />
       <div className="flex flex-col gap-4 w-full px-20 py-6 mt-[65px]">
         <OfferHeader {...offerHeaderData} />
-        <div className="flex gap-6 ">
-          <div className="flex-[3_3_70%] ">
+        <div className="flex gap-6">
+          <div className="flex-[3_3_70%]">
             <ImageCarousel
-              images={[
-                seoulTower,
-                seoulPalace,
-                springSeoul,
-                seoulTower,
-                seoulPalace,
-                springSeoul,
-              ]}
+              images={
+                offerImages.length > 0
+                  ? offerImages
+                  : ["/default-offer-image.jpg"]
+              }
             />
           </div>
-          <div className="w-full flex-[3_3_30%] ">
+          <div className="w-full flex-[3_3_30%]">
             <AgencyInfo {...agencyData} />
           </div>
         </div>

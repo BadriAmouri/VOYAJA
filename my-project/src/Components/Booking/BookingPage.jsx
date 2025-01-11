@@ -8,6 +8,9 @@ import "../../Style/booking.css";
 import NavigationBar from "../NavigationBar/navigationBar";
 import { useAppContext } from "../../contexts/AppContext";
 
+//
+//
+//
 const BookingPage = () => {
   const { offerid } = useParams();
   const [passportFile, setPassportFile] = useState(null);
@@ -147,11 +150,14 @@ const BookingPage = () => {
         body: formDataToSend, // Send as multipart form data
       });
 
-      if (!bookingResponse.ok) {
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Response not OK:", errorText);
         throw new Error("Failed to submit booking");
       }
 
-      const bookingResult = await bookingResponse.json();
+      const bookingResult = await response.json();
+      console.log("Booking created successfully:", bookingResult);
 
       // Then, send notification to agency
       const notificationPayload = {
@@ -178,7 +184,6 @@ const BookingPage = () => {
       if (!notificationResponse.ok) {
         throw new Error("Failed to send notification");
       }
-
       setModalType("waiting");
       setShowModal(true);
     } catch (error) {

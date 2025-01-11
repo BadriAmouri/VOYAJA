@@ -15,7 +15,7 @@ const UsersTable = () => {
   const fetchUsers = async () => {
     try {
       console.log("Fetching users in the frontend *************...");
-      const response = await axios.get("http://localhost:5001/admin/users");
+      const response = await axios.get("http://localhost:5000/admin/users");
       console.log("Users data:", response.data);
       setUsers(response.data);
       setFilteredUsers(response.data);
@@ -33,7 +33,7 @@ const UsersTable = () => {
       (user) =>
         user.client_first_name.toLowerCase().includes(searchValue) ||
         user.client_last_name.toLowerCase().includes(searchValue) ||
-        user.client_email.toLowerCase().includes(searchValue)    // Search by email
+        user.client_email.toLowerCase().includes(searchValue) // Search by email
     );
     setFilteredUsers(filtered);
   };
@@ -79,14 +79,20 @@ const UsersTable = () => {
           <tbody>
             {filteredUsers.length > 0 ? (
               filteredUsers.map((user) => (
-                <tr
-                  key={user.id}
-                >
-                  <td className="px-4 py-2 border-b">{user.client_first_name}</td>
-                  <td className="px-4 py-2 border-b">{user.client_last_name}</td>
-                  <td className="px-4 py-2 border-b">{user.client_phone_number}</td>
+                <tr key={user.id}>
+                  <td className="px-4 py-2 border-b">
+                    {user.client_first_name}
+                  </td>
+                  <td className="px-4 py-2 border-b">
+                    {user.client_last_name}
+                  </td>
+                  <td className="px-4 py-2 border-b">
+                    {user.client_phone_number}
+                  </td>
                   <td className="px-4 py-2 border-b">{user.client_email}</td>
-                  <td className="px-4 py-2 border-b">{new Date(user.join_date).toLocaleDateString()}</td>
+                  <td className="px-4 py-2 border-b">
+                    {new Date(user.join_date).toLocaleDateString()}
+                  </td>
                 </tr>
               ))
             ) : (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import SideMenu from "./sideMenu"; 
+import SideMenu from "./sideMenu";
 
 const BookingTable = () => {
   const [bookings, setBookings] = useState([]);
@@ -11,15 +11,21 @@ const BookingTable = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const bookingResponse = await axios.get("http://localhost:5001/admin/bookings");
+        const bookingResponse = await axios.get(
+          "http://localhost:5000/admin/bookings"
+        );
         setBookings(bookingResponse.data);
 
-        const offerResponse = await axios.get("http://localhost:5001/api/offers");
+        const offerResponse = await axios.get(
+          "http://localhost:5000/api/offers"
+        );
         setOffers(offerResponse.data);
 
         // Fetch options for each offer dynamically
         offerResponse.data.forEach(async (offer) => {
-          const optionsResponse = await axios.get(`http://localhost:5001/api/option/${offer.offer_id}`);
+          const optionsResponse = await axios.get(
+            `http://localhost:5000/api/option/${offer.offer_id}`
+          );
           setOptions((prevOptions) => ({
             ...prevOptions,
             [offer.offer_id]: optionsResponse.data,
@@ -63,7 +69,10 @@ const BookingTable = () => {
       <SideMenu />
 
       {/* Main Content */}
-      <div className="flex-1 p-6"  style={{ marginLeft: "300px", width: "1180px" }}>
+      <div
+        className="flex-1 p-6"
+        style={{ marginLeft: "300px", width: "1180px" }}
+      >
         <div className="p-6 bg-white shadow-lg rounded-lg mb-10 text-black mt-10">
           <h1 className="text-2xl font-bold mb-4">Bookings</h1>
           <table className="min-w-full bg-white border border-gray-300 rounded-md shadow-md">
@@ -83,15 +92,26 @@ const BookingTable = () => {
                     <td className="px-4 py-2 border-b">
                       {booking.customer_name} {booking.customer_surname}
                     </td>
-                    <td className="px-4 py-2 border-b">{booking.customer_phone}</td>
-                    <td className="px-4 py-2 border-b">{booking.total_price} DA</td>
-                    <td className="px-4 py-2 border-b">{getOfferName(booking.offer_id)}</td>
-                    <td className="px-4 py-2 border-b">{formatDate(booking.booking_date)}</td>
+                    <td className="px-4 py-2 border-b">
+                      {booking.customer_phone}
+                    </td>
+                    <td className="px-4 py-2 border-b">
+                      {booking.total_price} DA
+                    </td>
+                    <td className="px-4 py-2 border-b">
+                      {getOfferName(booking.offer_id)}
+                    </td>
+                    <td className="px-4 py-2 border-b">
+                      {formatDate(booking.booking_date)}
+                    </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6" className="text-center px-4 py-2 border-b text-gray-500">
+                  <td
+                    colSpan="6"
+                    className="text-center px-4 py-2 border-b text-gray-500"
+                  >
                     No bookings found.
                   </td>
                 </tr>

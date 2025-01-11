@@ -24,32 +24,26 @@ const FileUploadForm = ({
       return;
     }
 
-    // Simulate receipt URL
-    const simulatedReceiptURL =
-      "https://some-cloud-url.com/" + paymentReceiptFile.name;
-
-    // Notification payload
-    const notificationPayload = {
-      userId: bookingDetails.customer_id,
-      agencyId: agencyID,
-      content: "payement_reciept",
-      bookingId: bookingDetails.booking_id,
-      receiptURL: paymentReceiptFile.name,
-    };
-    console.log("*******>", JSON.stringify(notificationPayload));
+    // Create FormData object
+    const formData = new FormData();
+    formData.append("file", paymentReceiptFile);
+    formData.append("userId", bookingDetails.customer_id);
+    formData.append("agencyId", agencyID);
+    formData.append("content", "payement_reciept");
+    formData.append("bookingId", bookingDetails.booking_id);
 
     try {
       const notificationResponse = await fetch(
         "/api/notifications/booking/receiptPayment",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(notificationPayload),
+          body: formData,
         }
       );
-
+      console.log("FORM DATA:");
+      for (const [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
       if (!notificationResponse.ok) {
         throw new Error("Failed to send notification");
       }
@@ -152,7 +146,7 @@ const FileUploadForm = ({
                 <input
                   type="file"
                   onChange={handlePaymentReceiptChange}
-                  accept=".pdf, .jpg, .png"
+                  accept=".pdf"
                   className="hidden-file-input"
                   required
                 />

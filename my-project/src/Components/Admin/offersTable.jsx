@@ -16,7 +16,7 @@ const OffersTable = () => {
 
   const fetchOffers = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/offers");
+      const response = await axios.get("http://localhost:5000/api/offers");
       console.log("Offers data:", response.data);
       setOffers(response.data);
       setFilteredOffers(response.data);
@@ -35,10 +35,11 @@ const OffersTable = () => {
     const searchValue = e.target.value.toLowerCase().trim();
     setSearchTerm(searchValue);
 
-    const filtered = offers.filter((offer) =>
-      offer.offer_dest.toLowerCase().includes(searchValue) ||
-      formatDate(offer.starting_date).includes(searchValue) || // Search formatted date
-      offer.duration.toString().includes(searchValue)
+    const filtered = offers.filter(
+      (offer) =>
+        offer.offer_dest.toLowerCase().includes(searchValue) ||
+        formatDate(offer.starting_date).includes(searchValue) || // Search formatted date
+        offer.duration.toString().includes(searchValue)
     );
     setFilteredOffers(filtered);
   };

@@ -33,9 +33,9 @@ const BookingsGraph = () => {
       let url;
 
       if (view === "lastWeek") {
-        url = "http://localhost:5001/admin/booking-graph-last-week";
+        url = "http://localhost:5000/admin/booking-graph-last-week";
       } else if (view === "specificMonth" && month && year) {
-        url = `http://localhost:5001/admin/booking-graph-specific-month/${month}/${year}`;
+        url = `http://localhost:5000/admin/booking-graph-specific-month/${month}/${year}`;
       } else {
         console.warn("Invalid view or missing month/year for specificMonth");
         return;
@@ -88,7 +88,10 @@ const BookingsGraph = () => {
   }
 
   return (
-    <div className="mx-auto p-6 bg-white shadow-lg rounded-lg rounded-lg mb-10" style={{ marginLeft: '200px', width: '580px'}}>
+    <div
+      className="mx-auto p-6 bg-white shadow-lg rounded-lg rounded-lg mb-10"
+      style={{ marginLeft: "200px", width: "580px" }}
+    >
       <h2 className="text-3xl font-bold text-gray-800 text-center mb-8">
         Booking Trends Graph
       </h2>

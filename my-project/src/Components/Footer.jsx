@@ -32,7 +32,7 @@ const Footer = () => {
           </ul>
         </div>
         <div className="footer-section">
-          <h4><Link to={`/admin/notifications`}>notification</Link></h4>
+          <h4>Activity</h4>
           <ul>
             <li><a href="#">Beach Visits</a></li>
             <li><a href="#">Mountain Hikes</a></li>

@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
 import HeartButton from "../Favorite/Heartbtn";
+import { useAppContext } from "../../contexts/AppContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const OfferHeader = ({
   title,
@@ -8,8 +9,18 @@ const OfferHeader = ({
   rating,
   numReviews,
   offerID,
-  userID = 35,
+  //userID = 18,
 }) => {
+  const { isLoggedIn, setIsLoggedIn, clientID, setClientID } = useAppContext();
+  const navigate = useNavigate();
+  const handleBookingClick = () => {
+    if (!isLoggedIn) {
+      alert("You need to log in to book!");
+      navigate("/login"); // Redirect to login page
+    } else {
+      navigate(`/booking/${offerID}`); // Redirect to booking page
+    }
+  };
   return (
     <div className="flex flex-col w-full justify-center py-4">
       <div className="flex justify-between items-center">
@@ -34,17 +45,18 @@ const OfferHeader = ({
         </div>
         <div className="flex align-center gap-3">
           {/* HeartButton Component */}
-          <HeartButton offerID={offerID} userID={userID} />
+          <HeartButton offerID={offerID} userID={clientID} />
           <button className="flex items-center justify-center">
             <i className="material-icons text-blackishGreen text-base border-2 border-solid rounded-md border-primary py-2 px-4">
               share
             </i>
           </button>
-          <Link to={`/booking/${offerID}`}>
-            <button className="bg-primary py-2 px-8 rounded-md font-semibold text-xs">
-              BOOK NOW
-            </button>
-          </Link>
+          <button
+            className="bg-primary py-2 px-8 rounded-md font-semibold text-xs"
+            onClick={handleBookingClick}
+          >
+            BOOK NOW
+          </button>
         </div>
       </div>
     </div>

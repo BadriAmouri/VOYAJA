@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 import NotificationCard from "./Notifications/NotificationCard";
 import FileUploadForm from "./Notifications/FileUploadForm";
 import "../Style/scrollbarnot.css";
+import { useAppContext } from "../contexts/AppContext";
 
 const messageDict = {
   acceptation: {
@@ -23,27 +24,67 @@ const messageDict = {
 };
 
 const Notifications = () => {
+  const { isLoggedIn, setIsLoggedIn, clientID, setClientID } = useAppContext();
+  //console.log("CLIENT ID -----> " + clientID);
   const [notifications, setNotifications] = useState([]);
   const [selectedNotification, setSelectedNotification] = useState(null);
   const [agencyID, setAgencyID] = useState(null);
-  const userId = 2;
-  const userType = "user";
+  //const clientID = 2;
+
+  // const fetchAdminNotifications = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `/api/getFromadminNotifications/${clientID}`
+  //     ); // Adjust URL as needed
+  //     const data = await response.json();
+  //     return data; // Assuming the response contains the notifications array
+  //   } catch (error) {
+  //     console.error("Error fetching notifications:", error);
+  //   }
+  // };
 
   useEffect(() => {
-    const socket = io("http://localhost:5000");
-    socket.emit("subscribe", userId);
+    const socket = io("http://localhost:5000", {
+      transports: ["websocket"],
+    });
 
-    // Fetch the initial notifications
+    socket.on("connect_error", (err) => {
+      console.error("Connection Error:", err.message);
+    });
+
+    socket.emit("subscribe", clientID);
+
     const fetchNotifications = async () => {
       try {
-        const response = await fetch(`/api/notifications/user/${userId}`);
-        if (!response.ok) throw new Error("Failed to fetch notifications");
-        const data = await response.json();
-        const mappedNotifications = data.map((notif) => ({
+        // Fetch user notifications
+        const userResponse = await fetch(`/api/notifications/user/${clientID}`);
+        if (!userResponse.ok)
+          throw new Error("Failed to fetch user notifications");
+        const userNotifications = await userResponse.json();
+
+        // Fetch admin notifications
+        const adminResponse = await fetch(
+          `/api/getFromadminNotifications/${clientID}`
+        );
+        if (!adminResponse.ok)
+          throw new Error("Failed to fetch admin notifications");
+        const adminNotifications = await adminResponse.json();
+
+        // Combine both notifications
+        const combinedNotifications = [
+          ...userNotifications,
+          ...adminNotifications,
+        ].map((notif) => ({
           ...notif,
           id: notif.notification_id,
         }));
-        setNotifications(mappedNotifications);
+
+        // Sort notifications by date (descending order)
+        combinedNotifications.sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        );
+
+        setNotifications(combinedNotifications);
       } catch (error) {
         console.error("Error fetching notifications:", error);
       }
@@ -51,22 +92,21 @@ const Notifications = () => {
 
     fetchNotifications();
 
-    // Listen for new notifications
     socket.on("new_notification", (newNotification) => {
-      // Ensure the received notification has all the expected details
       setNotifications((prev) => [newNotification, ...prev]);
     });
 
     return () => socket.disconnect();
-  }, [userId]);
+  }, [clientID]);
 
   const handleNotificationClick = async (id) => {
     try {
       const response = await fetch(
-        `/api/notifications/user/${userId}/details/${id}`
+        `/api/notifications/user/${clientID}/details/${id}`
       );
       if (!response.ok) throw new Error("Failed to fetch notification details");
       const notificationDetails = await response.json();
+      console.log(notificationDetails);
 
       await fetch(`/api/notifications/markAsRead/${id}`, {
         method: "PATCH",
