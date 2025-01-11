@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import NotificationCard from "./Notifications/NotificationCard";
 import FileUploadForm from "./Notifications/FileUploadForm";
+import AdminNotificationDisplay from "./Notifications/AdminNotificationDisplay";
 import "../Style/scrollbarnot.css";
 import { useAppContext } from "../contexts/AppContext";
 
@@ -83,6 +84,7 @@ const Notifications = () => {
         combinedNotifications.sort(
           (a, b) => new Date(b.date) - new Date(a.date)
         );
+        console.log(combinedNotifications);
 
         setNotifications(combinedNotifications);
       } catch (error) {
@@ -99,27 +101,40 @@ const Notifications = () => {
     return () => socket.disconnect();
   }, [clientID]);
 
-  const handleNotificationClick = async (id) => {
+  const handleNotificationClick = async (notification) => {
+    console.log(`Notification: `, notification.id);
     try {
-      const response = await fetch(
-        `/api/notifications/user/${clientID}/details/${id}`
-      );
-      if (!response.ok) throw new Error("Failed to fetch notification details");
-      const notificationDetails = await response.json();
-      console.log(notificationDetails);
+      let notificationDetails;
 
-      await fetch(`/api/notifications/markAsRead/${id}`, {
+      if (notification.type === "adminreply") {
+        const response = await fetch(
+          `/api/getFromadminNotificationById/${notification.id}`
+        );
+        if (!response.ok) throw new Error("Failed to fetch admin notification");
+        notificationDetails = await response.json();
+      } else {
+        const response = await fetch(
+          `/api/notifications/user/${clientID}/details/${notification.id}`
+        );
+        if (!response.ok)
+          throw new Error("Failed to fetch agency notification");
+        notificationDetails = await response.json();
+        setAgencyID(notificationDetails.notification.sender_agency_id);
+      }
+
+      await fetch(`/api/notifications/markAsRead/${notification.id}`, {
         method: "PATCH",
       });
 
       setNotifications((prev) =>
         prev.map((notif) =>
-          notif.id === id ? { ...notif, seen: true } : notif
+          notif.id === notification.id ? { ...notif, seen: true } : notif
         )
       );
 
-      setSelectedNotification(notificationDetails);
-      setAgencyID(notificationDetails.notification.sender_agency_id);
+      setSelectedNotification(
+        notification.type === "adminreply" ? notification : notificationDetails
+      );
     } catch (error) {
       console.error("Error fetching notification details:", error);
     }
@@ -161,19 +176,26 @@ const Notifications = () => {
         </div>
 
         {/* Form Section */}
-        <div className="bg-gray-50 rounded-lg p-6 mx-40 my-5">
-          <FileUploadForm
-            type={selectedNotification.notification.content}
-            message={
-              messageDict[selectedNotification.notification.content].description
-            }
-            bookingDetails={selectedNotification.bookingDetails}
-            subject={
-              selectedNotification.subject || selectedNotification.content
-            }
-            agencyID={agencyID}
-          />
-        </div>
+        {selectedNotification && (
+          <div className="bg-gray-50 rounded-lg p-6 mx-40 my-5">
+            {selectedNotification.type === "adminreply" ? (
+              <AdminNotificationDisplay notification={selectedNotification} />
+            ) : (
+              <FileUploadForm
+                type={selectedNotification.notification.content}
+                message={
+                  messageDict[selectedNotification.notification.content]
+                    .description
+                }
+                bookingDetails={selectedNotification.bookingDetails}
+                subject={
+                  selectedNotification.subject || selectedNotification.content
+                }
+                agencyID={agencyID}
+              />
+            )}
+          </div>
+        )}
       </div>
     );
   }
@@ -193,12 +215,20 @@ const Notifications = () => {
             className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
           >
             <NotificationCard
-              title={messageDict[notification.content].title}
-              message={messageDict[notification.content].description}
+              title={
+                notification.type === "adminreply"
+                  ? notification.subject
+                  : messageDict[notification.content].title
+              }
+              message={
+                notification.type === "adminreply"
+                  ? notification.content
+                  : messageDict[notification.content].description
+              }
               date={new Date(notification.date).toLocaleDateString()}
               time={new Date(notification.date).toLocaleTimeString()}
               isRead={notification.seen}
-              onClick={() => handleNotificationClick(notification.id)}
+              onClick={() => handleNotificationClick(notification)}
             />
           </div>
         ))}

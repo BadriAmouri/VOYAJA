@@ -1,5 +1,4 @@
 const NotificationCard = ({
-  userProfilePic,
   offerName,
   subject,
   message,
@@ -17,28 +16,25 @@ const NotificationCard = ({
       onClick={onClick}
     >
       <div className="flex items-center gap-6">
-        <div className="w-12 h-12 bg-gray-200 rounded-full overflow-hidden">
-          <img
-            src={userProfilePic}
-            alt="User Profile"
-            className="w-full h-full object-cover"
-          />
-        </div>
         <div className="flex flex-col gap-4">
           <div>
-            {type == "adminreply"?(<h3
-              className={`font-semibold text-lg ${
-                isRead ? "text-gray-800" : "text-primary"
-              }`}
-            >
-              {subject}
-            </h3>):(<h3
-              className={`font-semibold text-lg ${
-                isRead ? "text-gray-800" : "text-primary"
-              }`}
-            >
-              {offerName}
-            </h3>)}
+            {type == "adminreply" ? (
+              <h3
+                className={`font-semibold text-lg ${
+                  isRead ? "text-gray-800" : "text-primary"
+                }`}
+              >
+                {subject}
+              </h3>
+            ) : (
+              <h3
+                className={`font-semibold text-lg ${
+                  isRead ? "text-gray-800" : "text-primary"
+                }`}
+              >
+                {offerName}
+              </h3>
+            )}
 
             <p
               className={`text-sm ${
